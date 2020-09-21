@@ -1,0 +1,33 @@
+/**
+ * This stylesheet is only for previewing source HTML of articles
+ * in the browser for easier editing. It does not cover all styling
+ * aspects though because some markup, such as code highlihghting,
+ * is inserted at build time.
+ */
+
+@import "../node_modules/normalize.css/normalize.css";
+@import "prism/dracula.css";
+@import "./typebase.css";
+@import "./theme.css";
+@import "docs.css";
+@import "../node_modules/typeface-lato/index.css";
+@import "../node_modules/typeface-raleway/index.css";
+
+body {
+  max-width: 40em;
+  margin: 4em auto;
+}
+
+/* Copied and aggregated from theme.css */
+pre[data-language] {
+  color: var(--text-color-inverted);
+  background: var(--code-background-color);
+  border-radius: 0.5em;
+  margin: var(--leading) calc(-1 * var(--leading));
+  padding: 1em 1em 1em var(--leading);
+  font-size: calc(1em / var(--scale));
+  line-height: calc(var(--base-line-height) / (var(--scale) * var(--scale)));
+}
+
+
+

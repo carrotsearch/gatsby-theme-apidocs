@@ -1,0 +1,311 @@
+article {
+  padding-bottom: calc(3 * var(--leading));
+}
+
+article > p:first-of-type {
+  font-weight: 300;
+  font-size: calc(var(--scale) * var(--scale) * 1rem);
+  line-height: calc(var(--scale) * var(--leading));
+  padding-bottom: var(--hr-margin);
+  border-bottom: 1px solid var(--hr-color);
+  margin-bottom: var(--hr-margin);
+}
+
+figure {
+  width: 100%;
+  margin: calc(var(--leading)) 0;
+}
+
+figcaption {
+  font-style: italic;
+  font-size: var(--small-font-size);
+  line-height: var(--small-line-height);
+  margin: calc(var(--leading)) auto calc(2 * var(--leading));
+}
+
+figcaption p {
+  margin-top: var(--small-leading);
+}
+
+/* Section anchor links */
+.anchor {
+  padding: 0;
+  --size-scale: 0.7;
+  --margin-scale: -0.85;
+  --padding-scale: 0.1;
+  opacity: 0;
+  position: relative;
+  z-index: 1;
+}
+.anchor path {
+  fill: var(--text-color);
+}
+.anchor:hover,
+h2:hover .anchor,
+h3:hover .anchor,
+h4:hover .anchor {
+  opacity: 1;
+}
+
+h1:first-of-type {
+  margin-top: 0;
+  line-height: 1;
+}
+
+h2 .anchor {
+  margin-left: calc(var(--margin-scale) * var(--h2-font-size));
+}
+
+h2 .anchor svg {
+  width: calc(var(--size-scale) * var(--h2-font-size));
+  height: calc(var(--size-scale) * var(--h2-font-size));
+  padding-right: calc(var(--padding-scale) * var(--h2-font-size));
+}
+
+h3 .anchor {
+  margin-left: calc(var(--margin-scale) * var(--h3-font-size));
+}
+
+h3 .anchor svg {
+  width: calc(var(--size-scale) * var(--h3-font-size));
+  height: calc(var(--size-scale) * var(--h3-font-size));
+  padding-right: calc(var(--padding-scale) * var(--h3-font-size));
+}
+
+h4 .anchor {
+  margin-left: calc(var(--margin-scale) * var(--h4-font-size));
+}
+
+h4 .anchor svg {
+  width: calc(var(--size-scale) * var(--h4-font-size));
+  height: calc(var(--size-scale) * var(--h4-font-size));
+  padding-right: calc(var(--padding-scale) * var(--h4-font-size));
+}
+
+
+/** Anchored headers */
+section.target > h2,
+section.target > h3,
+section.target > h4,
+section.target > h5,
+section.target > h6,
+code.target,
+section:target > h2,
+section:target > h3,
+section:target > h4,
+section:target > h5,
+section:target > h6,
+code:target
+{
+  position: relative;
+  background-color: var(--highlight-background-color) !important;
+}
+
+section.target > h2:after,
+section.target > h3:after,
+section.target > h4:after,
+section.target > h5:after,
+section.target > h6:after,
+code.target:after,
+section:target > h2:after,
+section:target > h3:after,
+section:target > h4:after,
+section:target > h5:after,
+section:target > h6:after,
+code:target:after {
+  content: ' ';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -0.125em;
+  height: 0.125em;
+  background-color: var(--highlight-border-color);
+}
+
+article {
+  position: relative;
+}
+
+/** Add a pointing finger to anchor targets */
+:root {
+  --target-marker-margin-left: calc(-1 * var(--leading));
+}
+ul, ol {
+  --target-marker-margin-left: calc(-2 * var(--leading));
+}
+ul ul, ol ol, ul ol, ol ul {
+  --target-marker-margin-left: calc(-3 * var(--leading));
+}
+code {
+  --target-marker-margin-left: calc(-1.2 * var(--leading));
+}
+
+section.target > h2:not(:hover):before,
+section.target > h3:not(:hover):before,
+section.target > h4:not(:hover):before,
+section.target > h5:not(:hover):before,
+section.target > h6:not(:hover):before,
+section:target > h2:not(:hover):before,
+section:target > h3:not(:hover):before,
+section:target > h4:not(:hover):before,
+section:target > h5:not(:hover):before,
+section:target > h6:not(:hover):before,
+code.target:before,
+code:target:before,
+li.target:before,
+li:target:before,
+dt.target:before,
+dt:target:before,
+p:target:before,
+p.target:before {
+  font-size: 0.9rem;
+  content: '\1f449';
+  position: absolute;
+  margin-left: var(--target-marker-margin-left);
+  margin-top: -0.15rem;
+}
+code.target:before,
+code:target:before {
+  margin-top: 0;
+}
+
+.box p:target:before,
+.box p.target:before,
+.info p:target:before,
+.info p.target:before,
+.warning p:target:before,
+.warning p.target:before {
+  left: calc(-0.75 * var(--leading));
+}
+
+/** Code snippets */
+:root {
+  --code-block-border-radius: 0;
+}
+
+li {
+  --code-block-border-radius: 0.5em 0 0 0.5em;
+}
+
+@media (min-width: 768px) {
+  :root {
+    --code-block-border-radius: 0 0.5em 0.5em 0;
+  }
+  li {
+    --code-block-border-radius: 0.5em;
+  }
+}
+
+@media (min-width: 1024px) {
+  :root {
+    --code-block-border-radius: 0.5em;
+  }
+}
+
+h1 code, h2 code, h3 code, h4 code, h5 code, h6 code,
+.gatsby-highlight code {
+  background-color: inherit;
+  border-radius: inherit;
+  box-shadow: none;
+  color: inherit;
+  padding: 0;
+  line-height: inherit;
+}
+
+.gatsby-highlight > pre[class*="language-"] {
+  margin: var(--leading) calc(-1 * var(--leading));
+  padding-left: var(--leading);
+  font-size: calc(1em / var(--scale));
+  background: var(--code-background-color);
+  border-radius: var(--code-block-border-radius);
+  line-height: calc(var(--base-line-height) / (var(--scale) * var(--scale)));
+}
+
+.gatsby-highlight-code-line {
+  background: var(--code-highlight-background-color);
+  display: block;
+
+  margin-left: calc(-1 * var(--leading));
+  margin-right: calc(-0.55 * var(--leading));
+  padding-left: calc(0.75 * var(--leading));
+  border-left: calc(0.25 * var(--leading)) solid #0da6ff;
+}
+
+/** Warning box */
+article .box,
+article .warning {
+  background-color: var(--warning-background-color);
+  border-left-color: var(--warning-border-color);
+  border-left-style: solid;
+
+  margin: var(--leading) calc(-1 * var(--leading));
+  border-left-width: 0.375em;
+  padding: var(--leading);
+  overflow: hidden; /** prevent margin collapsing */
+}
+article .box > p:last-child,
+article .warning > p:last-child {
+  padding-bottom: var(--leading);
+}
+article .container .box,
+article .container .warning {
+  margin: var(--leading) 0;
+}
+
+article .box .gatsby-highlight > code[class*="language-"],
+article .box .gatsby-highlight > pre[class*="language-"],
+article .warning .gatsby-highlight > code[class*="language-"],
+article .warning .gatsby-highlight > pre[class*="language-"] {
+  margin-left: 0;
+  margin-right: 0;
+}
+
+/** API sections */
+article .api {
+  margin-top: var(--hr-margin);
+  border-top: 1px solid var(--hr-color);
+}
+
+article .api > h3 {
+  font-family: var(--monospace-font-family);
+}
+
+/** Definition lists */
+dt {
+  font-weight: bold;
+}
+
+dd {
+  margin-left: var(--leading);
+  margin-bottom: var(--leading);
+  margin-top: calc(0.25 * var(--leading));
+}
+
+dd > p:first-child {
+  margin-top: 0;
+}
+
+@media (min-width: 768px) {
+  dl { --dl-indent: 10em; }
+  dl.narrow { --dl-indent: 5em; }
+
+  dl.compact > dd {
+    margin-bottom: calc(0.25 * var(--leading));
+  }
+
+  dt {
+    float: left;
+    width: var(--dl-indent);
+    word-wrap: break-word;
+    text-align: right;
+  }
+
+  dd {
+    padding-left: calc(var(--dl-indent) + 1em);
+    margin: 0 0 var(--leading) 0;
+  }
+
+  .gatsby-highlight > pre[class*="language-"] {
+    white-space: pre-wrap;
+  }
+}

@@ -1,0 +1,243 @@
+.SearchInput {
+  position: relative;
+  width: 100%;
+}
+
+.SearchInput svg {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  margin: auto;
+  left: 0.5em;
+}
+
+.SearchInput input {
+  padding-left: 2em;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.SearchResultList {
+  border-radius: 0.125rem;
+}
+
+.SearchResultList > * {
+  background-color: var(--background-color);
+}
+
+.SearchInput kbd {
+  display: none;
+}
+
+@media (min-width: 768px) {
+  .SearchInput kbd {
+    display: inline;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    height: 1.2em;
+    margin: auto 0 auto -1.8em;
+  }
+}
+
+.SearchResultList {
+  grid-area: main;
+}
+
+.SearchResultList .container {
+  position: relative;
+  min-height: 35vh;
+  z-index: 2;
+  padding-bottom: var(--leading);
+}
+
+.SearchResultList .divider {
+  display: none;
+}
+
+.SearchResultList section.api {
+  padding-left: var(--leading);
+  --result-padding: calc(0.125 * var(--leading));
+}
+
+.SearchResultList section.content {
+  box-sizing: border-box;
+  margin-top: var(--leading);
+  margin-left: var(--leading);
+  --result-padding: calc(0.125 * var(--leading));
+}
+
+@media (min-width: 768px) {
+  .SearchResultList {
+    grid-row-start: main;
+    grid-column-start: main;
+    grid-row-end: main;
+    grid-column-end: nav;
+  }
+}
+
+@media (min-width: 1024px) {
+  .SearchResultList {
+    grid-row-start: nav;
+    grid-column-start: nav;
+    grid-row-end: toc;
+    grid-column-end: toc;
+  }
+
+  .SearchResultList .container {
+    display: flex;
+    flex-direction: row;
+  }
+
+  .SearchResultList .divider {
+    position: absolute;
+    border-right: 1px solid var(--hr-color);
+    left: 50%;
+    height: calc(100% - var(--leading));
+    z-index: 1;
+    display: unset;
+  }
+
+  .SearchResultList section {
+    width: 50%;
+  }
+
+  .SearchResultList section.content {
+    margin-top: 0;
+  }
+}
+
+.SearchResultList h1 {
+  font-size: var(--h5-font-size);
+  margin-top: 0;
+  line-height: 1;
+}
+
+.SearchResultList table {
+  table-layout: fixed;
+  width: 100%;
+  --gutter-padding: calc(0.5 * var(--leading));
+}
+
+.SearchResultList td {
+  vertical-align: top;
+  padding: 0;
+}
+
+.SearchResultList tr:not(:last-child) td {
+  padding-bottom: calc(var(--leading) - 0.375em);
+}
+
+.SearchResultList td.page {
+  width: 7em;
+  font-weight: 300;
+  font-size: var(--small-font-size);
+  text-align: right;
+  padding-right: var(--gutter-padding);
+  padding-top: var(--result-padding);
+  border-right: 1px solid var(--hr-color);
+}
+
+.SearchResultList td.results {
+}
+
+.SearchResultList section.api td.results ul {
+  font-family: var(--monospace-font-family);
+}
+
+.SearchResultList td.results li {
+  padding: var(--result-padding) 0 var(--result-padding) var(--gutter-padding);
+}
+
+.SearchResultList td.results li:not(:last-child) {
+  margin-bottom: 0.375em;
+}
+
+.SearchResultHeading svg {
+  margin-right: 0.5em;
+  color: var(--text-color-light);
+  padding: 0 0.125em;
+}
+
+.SearchResultList li.active {
+  background-color: var(--inlineCode-background-color);
+}
+
+.SearchResultList ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.SearchResultList a.icon {
+  display: block;
+  padding-left: 1.75em;
+  position: relative;
+}
+.SearchResultList a.icon svg {
+  position: absolute;
+  left: 0;
+  top: 0.25em;
+  color: var(--text-color-muted);
+}
+
+.SearchResultHeading small {
+  font-family: var(--text-font-family);
+  font-weight: 300;
+  padding-left: 0.5em;
+  color: var(--text-color-muted);
+}
+
+.dark .SearchResultHeading small {
+  color: var(--text-color-light);
+}
+
+.SearchResultList .snippet {
+  display: block;
+  font-weight: 300;
+  color: var(--text-color-muted);
+}
+
+.SearchResultList a {
+  color: var(--text-color);
+  text-decoration: none;
+}
+
+.SearchResultList b {
+  font-weight: normal;
+  background-color: var(--highlight-background-color);
+  border-bottom: 2px solid var(--highlight-border-color);
+}
+
+.SearchResultList .snippet b {
+  font-weight: 300;
+}
+
+.dark .SearchResultList b {
+  color: var(--text-color);
+}
+
+.SearchResultList .NoResults {
+  font-family: var(--text-font-family) !important;
+  color: var(--text-color-light);
+  font-style: italic;
+  margin-top: calc(var(--leading) + var(--result-padding));
+}
+
+.SearchResultList ul.hints {
+  z-index: 1;
+  position: relative;
+  font-weight: 300;
+  text-align: center;
+  padding: var(--leading) var(--leading) calc(var(--leading) - 1em);
+  margin: 0 auto;
+  font-size: var(--small-font-size);
+  background-color: var(--background-color-dimmed);
+  box-shadow: 0 0 30px 50px var(--background-color);
+}
+
+.SearchResultList ul.hints li {
+  display: inline-block;
+  margin-right: 1em;
+  margin-bottom: 1em;
+}

@@ -1,0 +1,102 @@
+nav.main {
+  --padding-left: var(--leading);
+  font-size: calc(1rem * var(--scale) * var(--scale));
+  padding-left: var(--padding-left);
+  background-color: var(--background-color);
+}
+
+nav.main a,
+nav.main button.link {
+  font-family: Raleway, sans-serif;
+  text-decoration: none;
+}
+nav.main a:hover {
+  text-decoration: underline;
+}
+
+nav.main ul {
+  margin: 0 0 calc(2 * var(--leading));
+  list-style: none;
+  padding-left: 0;
+}
+nav.main button {
+  text-transform: uppercase;
+  color: var(--text-color-light);
+  font-size: calc(100% / var(--scale));
+  font-weight: 700;
+}
+
+nav.main > ul > li:not(:first-child) {
+  margin-top: calc(0.5 * var(--leading));
+}
+nav.main > ul > li.active > button.link {
+  color: var(--text-color-muted);
+}
+nav.main > ul > li > .fa-chevron-down {
+  display: none;
+}
+nav.main > ul > li > ul {
+  margin-top: calc(0.5 * var(--leading));
+  margin-bottom: calc(1.0 * var(--leading));
+}
+
+nav.main > ul > li > ul > li > a {
+  padding: calc(0.25 * var(--leading)) 0;
+  line-height: 1.15;
+  display: block;
+}
+nav.main a {
+  color: var(--text-color-muted);
+}
+
+nav.main > ul > li > ul > li.active {
+  background-color: var(--background-color-dimmed);
+  border-left: 0.3em solid var(--logo-color);
+  padding-left: calc(var(--padding-left) - 0.3em);
+  margin-left: calc(-1 * var(--padding-left));
+}
+
+@media (min-width: 768px) {
+  nav.main {
+    font-size: 1rem;
+    background-color: transparent;
+  }
+
+  /** Collapsible menu only on larger screens */
+  nav.main > ul > li > .fa-chevron-down {
+    display: unset;
+    height: calc(1px * var(--base-font-size) / var(--scale));
+    margin-left: 0.25em;
+    color: var(--text-color-light);
+    transform: rotate(-90deg);
+    transition: transform 0.2s;
+    opacity: 0.6;
+  }
+  nav.main > ul > li.active > .fa-chevron-down {
+    transform: rotate(0);
+    opacity: 1.0;
+  }
+
+  nav.main > ul > li > ul {
+    display: none;
+  }
+
+  nav.main > ul > li.active > ul {
+    display: block;
+    margin-right: var(--leading);
+  }
+
+  nav.main > ul > li > ul > li.active {
+    border-radius: 0 0.25em 0.25em 0;
+  }
+}
+
+@media (min-width: 1024px) {
+  nav.main {
+    margin-right: calc(0.5 * var(--leading));
+  }
+
+  nav.main > ul > li > ul > li > a {
+    padding: calc(0.125 * var(--leading)) 0;
+  }
+}

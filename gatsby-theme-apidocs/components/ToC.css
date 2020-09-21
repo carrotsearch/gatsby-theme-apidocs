@@ -1,0 +1,38 @@
+
+nav.toc {
+  padding-top: calc(var(--leading) * 3.4);
+  font-size: var(--small-font-size);
+  grid-area: toc;
+  padding-right: var(--leading);
+}
+
+nav.toc a {
+  background-color: inherit;
+  color: var(--text-color-muted);
+  font-weight: 300;
+  text-decoration: none;
+}
+nav.toc a:hover {
+  opacity: 1.0;
+  background-color: inherit;
+  color: var(--text-color);
+  border-bottom: 0.5px solid var(--text-color);
+}
+
+nav.toc ul {
+  list-style: none;
+  margin: 0 0 0 var(--small-leading);
+  padding: 0;
+}
+
+nav.toc > ul {
+  border-left: 1px solid var(--hr-color);
+  padding-left: calc(var(--small-leading));
+  padding-bottom: calc(var(--small-leading));
+}
+
+nav.toc li {
+  line-height: var(--small-line-height);
+  overflow: hidden;
+  text-overflow: ellipsis;
+}

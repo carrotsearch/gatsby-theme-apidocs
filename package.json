@@ -1,14 +1,15 @@
 {
-  "name": "gatsby-starter-theme-workspace",
+  "name": "gatsby-theme-apidocs",
   "private": true,
   "version": "0.0.1",
   "main": "index.js",
   "license": "0BSD",
   "scripts": {
-    "build": "yarn workspace example build"
+    "build": "yarn workspace example build",
+    "develop": "yarn workspace example develop"
   },
   "workspaces": [
-    "gatsby-theme-minimal",
+    "gatsby-theme-apidocs",
     "example"
   ]
 }
