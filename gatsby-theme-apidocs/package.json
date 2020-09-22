@@ -1,5 +1,6 @@
 {
-  "name": "gatsby-theme-apidocs",
+  "name": "@carrotsearch/gatsby-theme-apidocs",
+  "description": "A Gatsby theme for creating functional and responsive API documentation websites.",
   "version": "1.0.0",
   "main": "index.js",
   "license": "MIT",
