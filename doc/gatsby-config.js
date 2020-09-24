@@ -3,7 +3,7 @@ module.exports = {
     title: `APIdocs documentation`,
     description: `APIdocs is an opinionated Gatsby template for writing technical documentation. Clone, customize and start documenting.`,
     lang: `en`,
-    indexAlias: `/getting-started/`
+    indexAlias: `/hello-apidocs/`
   },
   plugins: [
     {

@@ -13,7 +13,7 @@
     <p>
       Substitution variables are defined in the <code>gatsby-config.js</code>
       file of your documentation project. The list of variables is part
-      of the <code>@carrotsearch/gatsby-transformer-html</code> plugin
+      of the <code>@carrotsearch/gatsby-theme-apidocs</code> plugin
       options.
     </p>
 
@@ -23,12 +23,16 @@
     ...
   },
   plugins: [
-    ...
     {
-      resolve: `@carrotsearch/gatsby-transformer-html`,
+      resolve: `@carrotsearch/gatsby-theme-apidocs`,
       options: {
+        navigation: `${__dirname}/src/navigation.json`,
+        logo: `${__dirname}/src/logo.html`,
+        footer: `${__dirname}/src/footer.html`,
+        basePath: "src/content",
+        // highlight-range{1-4}
         variables: {
-          "APIDOCS_STARTER_VERSION": package.version,
+          "APIDOCS_STARTER_VERSION": projectPackage.version,
           "BUILD_TYPE": "public"
         }
       }
