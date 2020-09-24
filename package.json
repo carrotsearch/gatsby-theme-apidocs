@@ -3,7 +3,7 @@
   "private": true,
   "version": "0.0.1",
   "main": "index.js",
-  "license": "0BSD",
+  "license": "MIT",
   "scripts": {
     "build": "yarn workspace doc build",
     "develop": "yarn workspace doc develop"
