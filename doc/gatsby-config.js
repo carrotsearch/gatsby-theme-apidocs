@@ -5,12 +5,14 @@ module.exports = {
     lang: `en`,
     indexAlias: `/getting-started/`
   },
-  plugins: [ {
-    resolve: `@carrotsearch/gatsby-theme-apidocs`, options: {
-      navigation: `${__dirname}/src/navigation.json`,
-      logo: `${__dirname}/src/logo.html`,
-      footer: `${__dirname}/src/footer.html`,
-      basePath: "src/content"
+  plugins: [
+    {
+      resolve: `@carrotsearch/gatsby-theme-apidocs`, options: {
+        navigation: `${__dirname}/src/navigation.json`,
+        logo: `${__dirname}/src/logo.html`,
+        footer: `${__dirname}/src/footer.html`,
+        basePath: "src/content"
+      }
     }
-  } ],
+  ]
 }
