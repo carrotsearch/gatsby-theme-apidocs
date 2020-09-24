@@ -16,7 +16,7 @@
     "registry": "https://registry.npmjs.org/"
   },
   "dependencies": {
-    "@carrotsearch/gatsby-transformer-html": "1.0.23",
+    "@carrotsearch/gatsby-transformer-html": "1.0.24",
     "@carrotsearch/gatsby-plugin-relativize": "1.0.3",
     "@carrotsearch/gatsby-plugin-content-search": "1.0.0",
 
