@@ -9,7 +9,7 @@
   --base-font-size: 16;
 
   /* How large the line height is as a multiple of font size */
-  --base-line-height: 1.41;
+  --base-line-height: 1.5;
 
   --leading: calc(var(--base-line-height) * 1rem);
 
@@ -48,7 +48,7 @@ h1, h2 {
 
 @media (min-width: 1024px) {
   :root {
-    --base-font-size: 18;
+    --base-font-size: 17;
     --scale: 1.125;
   }
 }

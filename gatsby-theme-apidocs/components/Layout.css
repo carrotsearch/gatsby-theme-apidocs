@@ -48,9 +48,8 @@ article {
   min-width: 0; /* prevent content from stretching the article */
   max-width: 100%;
   box-sizing: border-box;
-  margin: 0 auto 0 0;
+  margin: 0 calc(1 * var(--leading)) 0 0;
   padding-left: var(--leading);
-  padding-right: calc(1 * var(--leading));
 }
 
 .Search {
