@@ -1017,37 +1017,10 @@
     is-text-path "^2.0.0"
     p-map "^3.0.0"
 
-"@carrotsearch/gatsby-theme-apidocs@1.0.2":
-  version "1.0.2"
-  resolved "https://registry.yarnpkg.com/@carrotsearch/gatsby-theme-apidocs/-/gatsby-theme-apidocs-1.0.2.tgz#a643b9f01a9a40158759611822acf7e351719532"
-  integrity sha512-9iRtfdLjxwGpKF18e6c7dw1ONJ3rqwT47oTkMen5t0qoxlY02VwZXuon/yNhhy1d4pei8DsuYxdza1CfM5bc7A==
-  dependencies:
-    "@carrotsearch/gatsby-plugin-content-search" "1.0.0"
-    "@carrotsearch/gatsby-plugin-relativize" "1.0.3"
-    "@carrotsearch/gatsby-transformer-html" "1.0.25"
-    "@fortawesome/fontawesome-svg-core" "1.2.30"
-    "@fortawesome/free-regular-svg-icons" "5.14.0"
-    "@fortawesome/free-solid-svg-icons" "5.14.0"
-    "@fortawesome/react-fontawesome" "0.1.11"
-    gatsby-link "2.4.14"
-    gatsby-plugin-catch-links "2.3.12"
-    gatsby-plugin-dark-mode "1.1.2"
-    gatsby-plugin-nprogress "2.3.11"
-    gatsby-plugin-offline "3.2.28"
-    gatsby-plugin-react-helmet "3.3.11"
-    gatsby-source-filesystem "2.3.30"
-    html-react-parser "0.14.0"
-    normalize.css "8.0.1"
-    react "16.13.1"
-    react-dom "16.13.1"
-    react-helmet "6.1.0"
-    typeface-lato "0.0.75"
-    typeface-raleway "0.0.75"
-
-"@carrotsearch/gatsby-transformer-html@1.0.25":
-  version "1.0.25"
-  resolved "https://registry.yarnpkg.com/@carrotsearch/gatsby-transformer-html/-/gatsby-transformer-html-1.0.25.tgz#b0054c63ecb6f6984d01544dc46e0714f1044040"
-  integrity sha512-obk7TEIIWMMjU6rSqAJWX27giUExr+kH218C7OnpG0PU9IKPFEFIRR/PzZ83vEpK5WrqVEQr1p8y47y5f2YMTw==
+"@carrotsearch/gatsby-transformer-html@1.0.26":
+  version "1.0.26"
+  resolved "https://registry.yarnpkg.com/@carrotsearch/gatsby-transformer-html/-/gatsby-transformer-html-1.0.26.tgz#f2a109f1a283a4f719544bd2d043afa4789a8563"
+  integrity sha512-wnMg8FFJN+woQ1TgACWAIDkUAjuK536k2soyBJVHBBO27a4ybH6UgyCkaZCbt21PVQIqomY0cyUnjo7QJpeUow==
   dependencies:
     cheerio "1.0.0-rc.3"
     gatsby-plugin-sharp "2.6.36"
