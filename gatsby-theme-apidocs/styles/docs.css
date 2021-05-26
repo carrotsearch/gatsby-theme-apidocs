@@ -97,7 +97,6 @@ h4 .anchor svg {
   padding-right: calc(var(--padding-scale) * var(--h4-font-size));
 }
 
-
 /** Anchored headers */
 section.target > h2,
 section.target > h3,
@@ -110,8 +109,7 @@ section:target > h3,
 section:target > h4,
 section:target > h5,
 section:target > h6,
-code:target
-{
+code:target {
   position: relative;
   background-color: var(--highlight-background-color) !important;
 }
@@ -128,7 +126,7 @@ section:target > h4:after,
 section:target > h5:after,
 section:target > h6:after,
 code:target:after {
-  content: ' ';
+  content: " ";
   position: absolute;
   left: 0;
   right: 0;
@@ -145,10 +143,14 @@ article {
 :root {
   --target-marker-margin-left: calc(-1 * var(--leading));
 }
-ul, ol {
+ul,
+ol {
   --target-marker-margin-left: calc(-2 * var(--leading));
 }
-ul ul, ol ol, ul ol, ol ul {
+ul ul,
+ol ol,
+ul ol,
+ol ul {
   --target-marker-margin-left: calc(-3 * var(--leading));
 }
 code {
@@ -174,7 +176,7 @@ dt:target:before,
 p:target:before,
 p.target:before {
   font-size: 0.9rem;
-  content: '\1f449';
+  content: "\1f449";
   position: absolute;
   margin-left: var(--target-marker-margin-left);
   margin-top: -0.15rem;
@@ -217,7 +219,12 @@ li {
   }
 }
 
-h1 code, h2 code, h3 code, h4 code, h5 code, h6 code,
+h1 code,
+h2 code,
+h3 code,
+h4 code,
+h5 code,
+h6 code,
 .gatsby-highlight code {
   background-color: inherit;
   border-radius: inherit;
@@ -327,8 +334,12 @@ dd > p:first-child {
 }
 
 @media (min-width: 768px) {
-  dl { --dl-indent: 10em; }
-  dl.narrow { --dl-indent: 5em; }
+  dl {
+    --dl-indent: 10em;
+  }
+  dl.narrow {
+    --dl-indent: 5em;
+  }
 
   dl.compact > dd {
     margin-bottom: calc(0.25 * var(--leading));

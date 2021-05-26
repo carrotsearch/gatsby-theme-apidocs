@@ -19,18 +19,38 @@ button.menu {
   background: none;
   border: none;
 }
-button.menu svg { color: var(--text-color); }
+button.menu svg {
+  color: var(--text-color);
+}
 button.menu.open,
-button.menu.close { grid-area: theme; }
-button.menu.close { display: none; }
+button.menu.close {
+  grid-area: theme;
+}
+button.menu.close {
+  display: none;
+}
 
-.layout.menu-open nav.main { display: block; }
-.layout.menu-open article  { display: none; }
-.layout.menu-open button.menu.open  { display: none; }
-.layout.menu-open button.menu.close { display: unset; }
-.layout.menu-open .Search { display: none; }
-.layout.menu-open .logo span { display: unset; }
-.layout.menu-open .LightDarkSwitch { display: unset; }
+.layout.menu-open nav.main {
+  display: block;
+}
+.layout.menu-open article {
+  display: none;
+}
+.layout.menu-open button.menu.open {
+  display: none;
+}
+.layout.menu-open button.menu.close {
+  display: unset;
+}
+.layout.menu-open .Search {
+  display: none;
+}
+.layout.menu-open .logo span {
+  display: unset;
+}
+.layout.menu-open .LightDarkSwitch {
+  display: unset;
+}
 
 .layout {
   display: grid;
@@ -57,7 +77,9 @@ article {
   right: 0;
 }
 
-.logo, .search, .theme-switch {
+.logo,
+.search,
+.theme-switch {
   background-color: var(--background-color-dimmed);
   display: flex;
   flex-direction: row;
@@ -118,16 +140,23 @@ footer {
   display: none;
 }
 
-nav.main > ul, nav.toc > ul {
+nav.main > ul,
+nav.toc > ul {
   position: sticky;
   top: var(--leading);
 }
 
 @media (min-width: 768px) {
   button.menu.open,
-  .layout.menu-open button.menu.close { display: none; }
-  .layout.menu-open article  { display: unset; }
-  .layout.menu-open .Search { display: unset; }
+  .layout.menu-open button.menu.close {
+    display: none;
+  }
+  .layout.menu-open article {
+    display: unset;
+  }
+  .layout.menu-open .Search {
+    display: unset;
+  }
 
   .layout {
     grid-template-columns: 192px 1fr 224px;
@@ -206,7 +235,10 @@ nav.main > ul, nav.toc > ul {
 }
 
 @media print {
-  footer, .SearchInput, .LightDarkSwitch, .menu.open {
+  footer,
+  .SearchInput,
+  .LightDarkSwitch,
+  .menu.open {
     display: none !important;
   }
   .logo svg {
@@ -219,5 +251,4 @@ nav.main > ul, nav.toc > ul {
   article {
     margin-top: calc(2 * var(--leading));
   }
-
 }

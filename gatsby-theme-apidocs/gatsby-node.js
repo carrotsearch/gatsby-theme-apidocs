@@ -5,7 +5,9 @@ const fs = require(`fs`);
 const chokidar = require(`chokidar`);
 
 const capitalize = s => {
-  return s.length === 0 ? s : s.substring(0, 1).toLocaleUpperCase() + s.substring(1);
+  return s.length === 0
+    ? s
+    : s.substring(0, 1).toLocaleUpperCase() + s.substring(1);
 };
 
 exports.onCreateNode = ({ node, getNode, actions }, { basePath }) => {
@@ -15,7 +17,7 @@ exports.onCreateNode = ({ node, getNode, actions }, { basePath }) => {
     createNodeField({
       node,
       name: `slug`,
-      value: slug,
+      value: slug
     });
   }
 };
@@ -50,7 +52,7 @@ exports.createPages = ({ graphql, actions }) => {
             // in page queries as GraphQL variables.
             slug: slug
           }
-        })
+        });
       };
 
       const slug = node.fields.slug;
@@ -61,11 +63,13 @@ exports.createPages = ({ graphql, actions }) => {
         create("/", slug);
       }
     });
-  })
+  });
 };
 
-exports.sourceNodes = ({ actions, reporter, createNodeId, createContentDigest, schema },
-                       { navigation, logo, footer }) => {
+exports.sourceNodes = (
+  { actions, reporter, createNodeId, createContentDigest, schema },
+  { navigation, logo, footer }
+) => {
   const { createNode, createTypes } = actions;
 
   const files = [
@@ -125,7 +129,7 @@ exports.sourceNodes = ({ actions, reporter, createNodeId, createContentDigest, s
           [fieldName]: contentType
         },
         interfaces: [`Node`]
-      }),
+      })
     ]);
   }
 

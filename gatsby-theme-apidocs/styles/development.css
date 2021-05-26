@@ -28,6 +28,3 @@ pre[data-language] {
   font-size: calc(1em / var(--scale));
   line-height: calc(var(--base-line-height) / (var(--scale) * var(--scale)));
 }
-
-
-

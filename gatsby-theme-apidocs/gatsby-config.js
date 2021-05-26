@@ -1,12 +1,12 @@
 module.exports = options => ({
-  pathPrefix: '__RELATIVIZE_PREFIX__',
+  pathPrefix: "__RELATIVIZE_PREFIX__",
   plugins: [
     {
       resolve: `gatsby-source-filesystem`,
       options: {
         name: `content`,
-        path: `./src/content`,
-      },
+        path: `./src/content`
+      }
     },
     {
       resolve: `gatsby-plugin-nprogress`,
@@ -25,7 +25,7 @@ module.exports = options => ({
         transformers: options.transformers
       }
     },
-    '@carrotsearch/gatsby-plugin-content-search',
+    "@carrotsearch/gatsby-plugin-content-search",
     `gatsby-plugin-offline`,
     `gatsby-plugin-catch-links`,
     `@carrotsearch/gatsby-plugin-relativize`

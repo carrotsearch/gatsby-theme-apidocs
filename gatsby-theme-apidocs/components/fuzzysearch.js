@@ -11,7 +11,10 @@ const correctBoundaries = (chunks, text) => {
     while (chunk[0] > 0 && text.codePointAt(chunk[0] - 1) !== 32) {
       chunk[0]--;
     }
-    while (chunk[1] < maxPos && !rightBoundary.has(text.codePointAt(chunk[1]))) {
+    while (
+      chunk[1] < maxPos &&
+      !rightBoundary.has(text.codePointAt(chunk[1]))
+    ) {
       chunk[1]++;
     }
   });
@@ -61,12 +64,15 @@ const truncateHighlights = (hl, maxCharsPerContext = 100) => {
     const match = fullSplit[i];
     const after = i + 1 < fullSplit.length ? fullSplit[i + 1] : "";
 
-    const chunk = [ pos + before.length, pos + before.length + match.length ];
+    const chunk = [pos + before.length, pos + before.length + match.length];
 
     if (i <= 1 && match.length + before.length <= maxCharsPerContext) {
       // Prefer a longer prefix for the first match.
       chunk[0] -= Math.min(maxCharsPerContext - match.length, before.length);
-      chunk[1] += Math.min(maxCharsPerContext - (chunk[1] - chunk[0]), after.length);
+      chunk[1] += Math.min(
+        maxCharsPerContext - (chunk[1] - chunk[0]),
+        after.length
+      );
     } else {
       const halfContext = (maxCharsPerContext - match.length) >> 1;
       chunk[0] -= Math.min(halfContext, before.length);
@@ -78,15 +84,26 @@ const truncateHighlights = (hl, maxCharsPerContext = 100) => {
   }
 
   const finalChunks = mergeChunks(correctBoundaries(chunks, hl));
-  return finalChunks.map((chunk, i) => {
-    // If content was truncated at the beginning or end, add ellipsis.
-    return (i === 0 && chunk[0] > 0 ? "... " : "") +
-      hl.substring(chunk[0], chunk[1]) +
-      (i === finalChunks.length - 1 && chunk[1] < hl.length ? "\u00a0..." : "")
-  }).join(" ... ");
+  return finalChunks
+    .map((chunk, i) => {
+      // If content was truncated at the beginning or end, add ellipsis.
+      return (
+        (i === 0 && chunk[0] > 0 ? "... " : "") +
+        hl.substring(chunk[0], chunk[1]) +
+        (i === finalChunks.length - 1 && chunk[1] < hl.length
+          ? "\u00a0..."
+          : "")
+      );
+    })
+    .join(" ... ");
 };
 
-export const runFuzzySort = (query, data, maxParagraphResults = 10, maxParagraphsPerHeading = 2) => {
+export const runFuzzySort = (
+  query,
+  data,
+  maxParagraphResults = 10,
+  maxParagraphsPerHeading = 2
+) => {
   const index = data.index;
   const searchableFields = data.searchableFields;
 
@@ -106,34 +123,49 @@ export const runFuzzySort = (query, data, maxParagraphResults = 10, maxParagraph
   // results are the same otherwise.
   const queryForSearch = query.replace(/\s+/g, "");
 
-  const results = fuzzysort.go(queryForSearch, index, options)
-    .filter((() => {
-      const paragraphsPerHeading = new Map();
-      let paragraphResults = 0;
-      return r => {
-        if (r.obj.type === "paragraph") {
-          if (++paragraphResults >= maxParagraphResults) {
-            return false;
+  const results = fuzzysort
+    .go(queryForSearch, index, options)
+    .filter(
+      (() => {
+        const paragraphsPerHeading = new Map();
+        let paragraphResults = 0;
+        return r => {
+          if (r.obj.type === "paragraph") {
+            if (++paragraphResults >= maxParagraphResults) {
+              return false;
+            }
+            const heading = r.obj.parents[r.obj.parents.length - 1];
+            if (paragraphsPerHeading.has(heading)) {
+              paragraphsPerHeading.set(
+                heading,
+                paragraphsPerHeading.get(heading) + 1
+              );
+            } else {
+              paragraphsPerHeading.set(heading, 1);
+            }
+            return paragraphsPerHeading.get(heading) <= maxParagraphsPerHeading;
           }
-          const heading = r.obj.parents[r.obj.parents.length - 1];
-          if (paragraphsPerHeading.has(heading)) {
-            paragraphsPerHeading.set(heading, paragraphsPerHeading.get(heading) + 1);
-          } else {
-            paragraphsPerHeading.set(heading, 1);
-          }
-          return paragraphsPerHeading.get(heading) <= maxParagraphsPerHeading;
-        }
-        return true;
-      };
-    })())
+          return true;
+        };
+      })()
+    )
     .sort((a, b) => {
       if (a.score !== b.score) {
         return b.score - a.score;
       } else {
-        const textA = a[0], textB = b[0];
-        const urlA = a.obj.url, urlB = b.obj.url;
-        return textA < textB ? -1 : textA > textB ? 1 :
-          urlA < urlB ? -1 : urlA > urlB ? 1 : 0;
+        const textA = a[0],
+          textB = b[0];
+        const urlA = a.obj.url,
+          urlB = b.obj.url;
+        return textA < textB
+          ? -1
+          : textA > textB
+          ? 1
+          : urlA < urlB
+          ? -1
+          : urlA > urlB
+          ? 1
+          : 0;
       }
     });
 
@@ -179,20 +211,26 @@ export const runFuzzySort = (query, data, maxParagraphResults = 10, maxParagraph
   }, []);
 };
 
-const getHeadingForIndex = r => r.type === "heading" || r.type === "figure" ?
-  r.searchable + r.url : r.parents[r.parents.length - 1];
+const getHeadingForIndex = r =>
+  r.type === "heading" || r.type === "figure"
+    ? r.searchable + r.url
+    : r.parents[r.parents.length - 1];
 
 const reorderResultsByHeading = resultsByPage => {
-  const byHeading = resultsByPage.map(r => ({ heading: getHeadingForIndex(r), results: [] }));
+  const byHeading = resultsByPage.map(r => ({
+    heading: getHeadingForIndex(r),
+    results: []
+  }));
   const headingIndex = byHeading.reduce((map, h) => {
     map.set(h.heading, h);
     return map;
   }, new Map());
 
-
   resultsByPage.forEach(r => {
     const forHeading = headingIndex.get(getHeadingForIndex(r));
-    r.headless = !r.class.includes("image") && !r.class.includes("example") &&
+    r.headless =
+      !r.class.includes("image") &&
+      !r.class.includes("example") &&
       forHeading.results.length > 0;
     forHeading.results.push(r);
   });
@@ -231,6 +269,5 @@ export const resultsByPage = (results, reorderByHeading) => {
     byPage.forEach(r => reorderResultsByHeading(r.results));
   }
 
-  return [ byPage, byPageFlattened ];
+  return [byPage, byPageFlattened];
 };
-

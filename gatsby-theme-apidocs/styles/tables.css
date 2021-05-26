@@ -5,8 +5,8 @@ article table {
 }
 
 article table > caption {
-  padding-top: .5em;
-  padding-bottom: .5em;
+  padding-top: 0.5em;
+  padding-bottom: 0.5em;
   caption-side: top;
 }
 
@@ -14,8 +14,9 @@ article thead {
   border-bottom: 1pt solid gray;
 }
 
-article td, article th {
-  padding: .5em;
+article td,
+article th {
+  padding: 0.5em;
   vertical-align: top;
   text-align: left;
 }

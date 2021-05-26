@@ -1,0 +1,4 @@
+package.json
+doc/.cache
+doc/public
+*.jpg

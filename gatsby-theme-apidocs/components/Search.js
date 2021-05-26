@@ -32,7 +32,8 @@ const Searcher = function () {
   };
 
   this.addListener = listener => listeners.push(listener);
-  this.removeListener = listener => listeners = listeners.filter(l => l !== listener);
+  this.removeListener = listener =>
+    (listeners = listeners.filter(l => l !== listener));
 };
 const searcher = new Searcher();
 
@@ -43,7 +44,8 @@ const Interactions = function () {
   this.trigger = e => listeners.forEach(l => l(e));
 
   this.addListener = listener => listeners.push(listener);
-  this.removeListener = listener => listeners = listeners.filter(l => l !== listener);
+  this.removeListener = listener =>
+    (listeners = listeners.filter(l => l !== listener));
 };
 const interactions = new Interactions();
 
@@ -59,7 +61,8 @@ const Visibility = function () {
   this.isVisible = () => visible;
 
   this.addListener = listener => listeners.push(listener);
-  this.removeListener = listener => listeners = listeners.filter(l => l !== listener);
+  this.removeListener = listener =>
+    (listeners = listeners.filter(l => l !== listener));
 };
 const visibility = new Visibility();
 
@@ -68,13 +71,17 @@ const visibility = new Visibility();
  */
 const SearchInput = ({ onQueryChange }) => {
   const inputRef = useRef(null);
-  const [query, setQuery] = useState('');
-  useDebounce(() => {
-    visibility.setVisible(true);
+  const [query, setQuery] = useState("");
+  useDebounce(
+    () => {
+      visibility.setVisible(true);
 
-    // Normalize spaces
-    return onQueryChange(query.trim().split(/\s+/).join(" "));
-  }, 20, [query]);
+      // Normalize spaces
+      return onQueryChange(query.trim().split(/\s+/).join(" "));
+    },
+    20,
+    [query]
+  );
 
   const focusSearch = () => {
     const input = inputRef.current;
@@ -101,7 +108,10 @@ const SearchInput = ({ onQueryChange }) => {
 
   useEffect(() => {
     const listener = e => {
-      if (e.target.classList && e.target.classList.contains("SearchInputInput")) {
+      if (
+        e.target.classList &&
+        e.target.classList.contains("SearchInputInput")
+      ) {
         return;
       }
       if (e.keyCode === 191 && inputRef.current) {
@@ -114,13 +124,25 @@ const SearchInput = ({ onQueryChange }) => {
 
   return (
     <div className="SearchInput">
-      <FontAwesomeIcon icon={faSearch} style={{ width: "1em" }} onClick={focusSearch} />
-      <input type="text" className="SearchInputInput" placeholder="Option, method, keyword"
-             value={query} onChange={e => setQuery(e.target.value)}
-             onKeyDown={handleKeyDown}
-             onFocus={() => visibility.setVisible(true)}
-             ref={inputRef} aria-label="Search this site" />
-      <kbd title="Press / to focus" onClick={focusSearch}>/</kbd>
+      <FontAwesomeIcon
+        icon={faSearch}
+        style={{ width: "1em" }}
+        onClick={focusSearch}
+      />
+      <input
+        type="text"
+        className="SearchInputInput"
+        placeholder="Option, method, keyword"
+        value={query}
+        onChange={e => setQuery(e.target.value)}
+        onKeyDown={handleKeyDown}
+        onFocus={() => visibility.setVisible(true)}
+        ref={inputRef}
+        aria-label="Search this site"
+      />
+      <kbd title="Press / to focus" onClick={focusSearch}>
+        /
+      </kbd>
     </div>
   );
 };
@@ -141,9 +163,12 @@ const hideResultsOnInternalNavigation = (result, location) => {
 
 const isElementInViewport = element => {
   const rect = element.getBoundingClientRect();
-  return rect.top >= 0 && rect.left >= 0 &&
+  return (
+    rect.top >= 0 &&
+    rect.left >= 0 &&
     rect.bottom <= window.innerHeight &&
-    rect.right <= window.innerWidth;
+    rect.right <= window.innerWidth
+  );
 };
 
 // Browsers won't apply the :target CSS pseudo class on location.pushState,
@@ -167,10 +192,10 @@ const highlightTargetOnInternalNavigation = (result, location) => {
 };
 
 const classToImage = {
-  "warning": { icon: faExclamationTriangle, title: "Warning" },
-  "info": { icon: faInfoCircle, title: "Information" },
-  "example": { icon: faCode, title: "Code example" },
-  "image": { icon: faImage, title: "Image" }
+  warning: { icon: faExclamationTriangle, title: "Warning" },
+  info: { icon: faInfoCircle, title: "Information" },
+  example: { icon: faCode, title: "Code example" },
+  image: { icon: faImage, title: "Image" }
 };
 
 const SearchResultHeading = ({ result }) => {
@@ -179,28 +204,37 @@ const SearchResultHeading = ({ result }) => {
   }
 
   // Icons for special kinds of matches
-  const iconImageName = Object.keys(classToImage).find(c => result.class.indexOf(c) >= 0);
+  const iconImageName = Object.keys(classToImage).find(
+    c => result.class.indexOf(c) >= 0
+  );
   const iconImage = iconImageName ? classToImage[iconImageName].icon : null;
-  const icon = iconImage ?
-    <FontAwesomeIcon icon={iconImage} style={{ width: "1em" }} title={classToImage[iconImageName].title} /> : null;
+  const icon = iconImage ? (
+    <FontAwesomeIcon
+      icon={iconImage}
+      style={{ width: "1em" }}
+      title={classToImage[iconImageName].title}
+    />
+  ) : null;
 
   const parents = result.parents;
   if (result.type === "paragraph") {
-    const parent = parents.length > 1 ? <small>{parents[parents.length - 2]}</small> : null;
+    const parent =
+      parents.length > 1 ? <small>{parents[parents.length - 2]}</small> : null;
     return (
       <div className="SearchResultHeading">
-        { icon }
-        { parents[parents.length - 1] }
-        { parent }
+        {icon}
+        {parents[parents.length - 1]}
+        {parent}
       </div>
     );
   } else {
-    const parent = parents.length > 1 ? <small>{parents[parents.length - 1]}</small> : null;
+    const parent =
+      parents.length > 1 ? <small>{parents[parents.length - 1]}</small> : null;
     return (
       <div className="SearchResultHeading">
-        { icon }
-        <span dangerouslySetInnerHTML={{__html: result.highlighted[0]}} />
-        { parent }
+        {icon}
+        <span dangerouslySetInnerHTML={{ __html: result.highlighted[0] }} />
+        {parent}
       </div>
     );
   }
@@ -208,7 +242,12 @@ const SearchResultHeading = ({ result }) => {
 
 const SearchResultSnippet = ({ result }) => {
   if (result.type === "paragraph") {
-    return <small className="snippet" dangerouslySetInnerHTML={{__html: result.highlighted[0]}} />;
+    return (
+      <small
+        className="snippet"
+        dangerouslySetInnerHTML={{ __html: result.highlighted[0] }}
+      />
+    );
   } else {
     return null;
   }
@@ -230,16 +269,24 @@ const SearchResult = ({ result, active, location }) => {
     }
   });
 
-  return useMemo(() => (
-    <li className={result.class + (active ? " active" : "")} ref={elementRef}
-        onClick={() => hideResultsOnInternalNavigation(result, location)}>
-      <Link to={result.url}
-            onClick={() => highlightTargetOnInternalNavigation(result, location)}>
-        <SearchResultHeading result={result} />
-        <SearchResultSnippet result={result} />
-      </Link>
-    </li>
-  ), [ result, active, location ]);
+  return useMemo(
+    () => (
+      <li
+        className={result.class + (active ? " active" : "")}
+        ref={elementRef}
+        onClick={() => hideResultsOnInternalNavigation(result, location)}
+      >
+        <Link
+          to={result.url}
+          onClick={() => highlightTargetOnInternalNavigation(result, location)}
+        >
+          <SearchResultHeading result={result} />
+          <SearchResultSnippet result={result} />
+        </Link>
+      </li>
+    ),
+    [result, active, location]
+  );
 };
 
 /**
@@ -248,14 +295,14 @@ const SearchResult = ({ result, active, location }) => {
  * the regular content.
  */
 export const SearchResultList = ({ location }) => {
-  const [ visible, setVisible ] = useState(false);
-  const [ query, setQuery ] = useState("");
-  const [ apiResults, setApiResults ] = useState([]);
-  const [ apiResultsByPage, setApiResultsByPage ] = useState([]);
-  const [ contentResults, setContentResults ] = useState([]);
-  const [ contentResultsByPage, setContentResultsByPage ] = useState([]);
+  const [visible, setVisible] = useState(false);
+  const [query, setQuery] = useState("");
+  const [apiResults, setApiResults] = useState([]);
+  const [apiResultsByPage, setApiResultsByPage] = useState([]);
+  const [contentResults, setContentResults] = useState([]);
+  const [contentResultsByPage, setContentResultsByPage] = useState([]);
 
-  const [ activeResultIndex, setActiveResultIndex ] = useState(0);
+  const [activeResultIndex, setActiveResultIndex] = useState(0);
 
   // React on interactions from document body
   useEffect(() => {
@@ -271,9 +318,11 @@ export const SearchResultList = ({ location }) => {
     const listener = e => {
       let node = e.target;
       while (node) {
-        if (node.classList &&
+        if (
+          node.classList &&
           (node.classList.contains("SearchResultList") ||
-            node.classList.contains("SearchInputInput"))) {
+            node.classList.contains("SearchInputInput"))
+        ) {
           return;
         }
         node = node.parentNode;
@@ -286,11 +335,10 @@ export const SearchResultList = ({ location }) => {
 
   // Listen to visibility changes
   useEffect(() => {
-    const listener = (v) => setVisible(v);
+    const listener = v => setVisible(v);
     visibility.addListener(listener);
     return () => visibility.removeListener(listener);
   }, []);
-
 
   // Listen to new search results
   useEffect(() => {
@@ -306,10 +354,14 @@ export const SearchResultList = ({ location }) => {
           setActiveResultIndex(0);
           return;
         }
-        const [apiByPage, apiFlattened] =
-          resultsByPage(result.filter(r => r.class.indexOf("api") >= 0), false);
-        const [contentByPage, contentFlattened] =
-          resultsByPage(result.filter(r => r.class.indexOf("api") < 0), true);
+        const [apiByPage, apiFlattened] = resultsByPage(
+          result.filter(r => r.class.indexOf("api") >= 0),
+          false
+        );
+        const [contentByPage, contentFlattened] = resultsByPage(
+          result.filter(r => r.class.indexOf("api") < 0),
+          true
+        );
 
         setApiResults(apiFlattened);
         setApiResultsByPage(apiByPage);
@@ -332,7 +384,10 @@ export const SearchResultList = ({ location }) => {
     const activateFirstContentResult = () => {
       setActiveResultIndex(Math.min(totalLength - 1, apiResults.length));
     };
-    const activateSibling = delta => setActiveResultIndex((activeResultIndex + delta + totalLength) % totalLength);
+    const activateSibling = delta =>
+      setActiveResultIndex(
+        (activeResultIndex + delta + totalLength) % totalLength
+      );
 
     const listener = e => {
       if (!resultsShowing) {
@@ -404,37 +459,53 @@ export const SearchResultList = ({ location }) => {
     };
     interactions.addListener(listener);
     return () => interactions.removeListener(listener);
-  }, [ apiResults, contentResults, activeResultIndex, resultsShowing, location ]);
+  }, [apiResults, contentResults, activeResultIndex, resultsShowing, location]);
 
-  const style = resultsShowing ? null : { "display": "none" };
+  const style = resultsShowing ? null : { display: "none" };
 
   // Use two active result references (one per section) to be able
   // to memoize the rendering of the panel without active result.
-  const activeApiResult = activeResultIndex < apiResults.length ?
-    apiResults[activeResultIndex] : null;
-  const activeContentResult = activeResultIndex >= apiResults.length ?
-    contentResults[activeResultIndex - apiResults.length] : null;
+  const activeApiResult =
+    activeResultIndex < apiResults.length
+      ? apiResults[activeResultIndex]
+      : null;
+  const activeContentResult =
+    activeResultIndex >= apiResults.length
+      ? contentResults[activeResultIndex - apiResults.length]
+      : null;
 
   return (
     <div className="SearchResultList" style={style}>
       <div className="container">
         <section className="api">
-          <h1><u>A</u>PI elements</h1>
+          <h1>
+            <u>A</u>PI elements
+          </h1>
 
-          <SearchResultListSection results={apiResults} resultsByPage={apiResultsByPage}
-                                   activeResult={activeApiResult} location={location} />
+          <SearchResultListSection
+            results={apiResults}
+            resultsByPage={apiResultsByPage}
+            activeResult={activeApiResult}
+            location={location}
+          />
         </section>
 
         <div className="divider" />
 
         <section className="content">
-          <h1><u>S</u>ections and content</h1>
+          <h1>
+            <u>S</u>ections and content
+          </h1>
 
-          <SearchResultListSection results={contentResults} resultsByPage={contentResultsByPage}
-                                   activeResult={activeContentResult} location={location} />
+          <SearchResultListSection
+            results={contentResults}
+            resultsByPage={contentResultsByPage}
+            activeResult={activeContentResult}
+            location={location}
+          />
         </section>
       </div>
-      <SearchResultListHints/>
+      <SearchResultListHints />
     </div>
   );
 };
@@ -442,49 +513,61 @@ export const SearchResultList = ({ location }) => {
 const SearchResultListHints = () => {
   return (
     <ul className="hints">
-      <li><kbd>Enter</kbd> to go to the highlighted result.</li>
-      <li><kbd>&#8593;</kbd> and <kbd>&#8595;</kbd> to change highlight.</li>
-      <li><kbd>Tab</kbd> to switch between result lists.</li>
-      <li><kbd>Esc</kbd> to hide the results.</li>
+      <li>
+        <kbd>Enter</kbd> to go to the highlighted result.
+      </li>
+      <li>
+        <kbd>&#8593;</kbd> and <kbd>&#8595;</kbd> to change highlight.
+      </li>
+      <li>
+        <kbd>Tab</kbd> to switch between result lists.
+      </li>
+      <li>
+        <kbd>Esc</kbd> to hide the results.
+      </li>
     </ul>
   );
 };
 
-const SearchResultListSection = ({ results, resultsByPage,
-                                   activeResult, location }) => {
+const SearchResultListSection = ({
+  results,
+  resultsByPage,
+  activeResult,
+  location
+}) => {
   return useMemo(() => {
     if (results.length === 0) {
       return <div className="NoResults">No matching results</div>;
     }
 
     return (
-        <table>
-          <tbody>
-          {
-            resultsByPage.map(page => (
-                <tr key={page.title}>
-                  <td className="page">
-                    <ul>
-                      <li>{page.title}</li>
-                    </ul>
-                  </td>
-                  <td className="results">
-                    <ul>
-                      {
-                        page.results.map((r) =>
-                            <SearchResult key={r.url} result={r} location={location}
-                                          active={r === activeResult} />)
-
-                      }
-                    </ul>
-                  </td>
-                </tr>
-            ))
-          }
-          </tbody>
-        </table>
+      <table>
+        <tbody>
+          {resultsByPage.map(page => (
+            <tr key={page.title}>
+              <td className="page">
+                <ul>
+                  <li>{page.title}</li>
+                </ul>
+              </td>
+              <td className="results">
+                <ul>
+                  {page.results.map(r => (
+                    <SearchResult
+                      key={r.url}
+                      result={r}
+                      location={location}
+                      active={r === activeResult}
+                    />
+                  ))}
+                </ul>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
     );
-  }, [ results, resultsByPage, activeResult, location ] );
+  }, [results, resultsByPage, activeResult, location]);
 };
 
 export const Search = ({ headings }) => {

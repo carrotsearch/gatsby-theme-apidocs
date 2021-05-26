@@ -1,7 +1,8 @@
 body {
   --text-font-family: Lato, sans-serif;
   --heading-font-family: Raleway, sans-serif;
-  --monospace-font-family: Consolas, Menlo, Monaco, source-code-pro, Courier New, monospace;
+  --monospace-font-family: Consolas, Menlo, Monaco, source-code-pro, Courier New,
+    monospace;
 
   font-family: var(--text-font-family);
   background-color: var(--background-color);
@@ -15,9 +16,8 @@ body.light {
 body.dark {
 }
 
-
-
-body.light, body {
+body.light,
+body {
   --background-color: #ffffff;
   --background-color-dimmed: rgb(238, 238, 238);
   --text-color: black;
@@ -58,7 +58,7 @@ body.dark {
 
   --background-color: hsl(207, 23%, 17%);
   --background-color-dimmed: hsl(207, 23%, 22%);
-  --text-color: rgba(255, 255, 255, 1.0);
+  --text-color: rgba(255, 255, 255, 1);
   --text-color-muted: rgba(255, 255, 255, 0.75);
   --text-color-light: rgba(255, 255, 255, 0.5);
   --text-color-inverted: black;
@@ -89,7 +89,8 @@ body.dark {
   --map-overlay-border-color: rgba(255, 255, 255, 0.2);
 }
 
-input, input:focus {
+input,
+input:focus {
   border: none;
   outline: none;
   border-radius: 0.125em;
@@ -99,39 +100,39 @@ input, input:focus {
 }
 
 body.light input {
-  box-shadow: 0 0 0 0 rgba(19, 124, 189, 0),
-  0 0 0 0 rgba(19, 124, 189, 0),
-  inset 0 0 0 1px rgba(16, 22, 26, .15),
-  inset 0 1px 1px rgba(16, 22, 26, .2);
+  box-shadow: 0 0 0 0 rgba(19, 124, 189, 0), 0 0 0 0 rgba(19, 124, 189, 0),
+    inset 0 0 0 1px rgba(16, 22, 26, 0.15),
+    inset 0 1px 1px rgba(16, 22, 26, 0.2);
 }
 
 body.light input:focus {
-  box-shadow: 0 0 0 1px #137cbd,
-  0 0 0 3px rgba(19, 124, 189, .3),
-  inset 0 1px 1px rgba(16, 22, 26, .2);
+  box-shadow: 0 0 0 1px #137cbd, 0 0 0 3px rgba(19, 124, 189, 0.3),
+    inset 0 1px 1px rgba(16, 22, 26, 0.2);
 }
 
 body.dark input {
-  box-shadow: 0 0 0 0 rgba(19, 124, 189, 0),
-  0 0 0 0 rgba(19, 124, 189, 0),
-  0 0 0 0 rgba(19, 124, 189, 0),
-  inset 0 0 0 1px rgba(16, 22, 26, .3),
-  inset 0 1px 1px rgba(16, 22, 26, .4);
+  box-shadow: 0 0 0 0 rgba(19, 124, 189, 0), 0 0 0 0 rgba(19, 124, 189, 0),
+    0 0 0 0 rgba(19, 124, 189, 0), inset 0 0 0 1px rgba(16, 22, 26, 0.3),
+    inset 0 1px 1px rgba(16, 22, 26, 0.4);
 }
 
 body.dark input:focus {
-  box-shadow: 0 0 0 1px #137cbd,
-  0 0 0 1px #137cbd,
-  0 0 0 3px rgba(19, 124, 189, .3),
-  inset 0 0 0 1px rgba(16, 22, 26, .3),
-  inset 0 1px 1px rgba(16, 22, 26, .4);
+  box-shadow: 0 0 0 1px #137cbd, 0 0 0 1px #137cbd,
+    0 0 0 3px rgba(19, 124, 189, 0.3), inset 0 0 0 1px rgba(16, 22, 26, 0.3),
+    inset 0 1px 1px rgba(16, 22, 26, 0.4);
 }
 
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   font-family: var(--heading-font-family);
 }
 
-a:not(.anchor), button.link {
+a:not(.anchor),
+button.link {
   color: var(--link-color);
   text-underline-width: 1px;
 }
@@ -156,9 +157,10 @@ kbd {
   display: inline-block;
   border: 1px solid var(--kbd-outer-border-color);
   border-radius: 4px;
-  padding: 0.0em 0.35em;
+  padding: 0em 0.35em;
   margin: 0 0.2em;
-  box-shadow: 0 2px 0 var(--kbd-outer-border-color), 0 0 0 2px var(--kbd-inner-border-color) inset;
+  box-shadow: 0 2px 0 var(--kbd-outer-border-color),
+    0 0 0 2px var(--kbd-inner-border-color) inset;
 }
 
 hr {
@@ -173,7 +175,7 @@ code {
   box-shadow: inset 0 0 1px var(--inlineCode-border-color);
   padding: 0.125em 0.25em;
   border-radius: 0.125em;
-  line-height: var(--base-line-height)
+  line-height: var(--base-line-height);
 }
 .dark code.target,
 .dark code:target {

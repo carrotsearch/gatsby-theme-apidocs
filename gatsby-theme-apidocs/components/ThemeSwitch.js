@@ -10,18 +10,21 @@ export const ThemeSwitch = () => {
           return null;
         }
         const changeTheme = e => {
-          toggleTheme(e.target.checked ? 'dark' : 'light');
+          toggleTheme(e.target.checked ? "dark" : "light");
           setTimeout(() => {
             const meta = document.querySelector("meta[name='theme-color']");
             if (meta) {
-              meta.setAttribute("content",
-                window.getComputedStyle(document.body)
-                  .getPropertyValue("background-color"));
+              meta.setAttribute(
+                "content",
+                window
+                  .getComputedStyle(document.body)
+                  .getPropertyValue("background-color")
+              );
             }
           }, 10);
         };
         return (
-          <LightDarkSwitch dark={theme === 'dark'} onChange={changeTheme} />
+          <LightDarkSwitch dark={theme === "dark"} onChange={changeTheme} />
         );
       }}
     </ThemeToggler>

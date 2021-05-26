@@ -7,7 +7,8 @@ module.exports = {
   },
   plugins: [
     {
-      resolve: `@carrotsearch/gatsby-theme-apidocs`, options: {
+      resolve: `@carrotsearch/gatsby-theme-apidocs`,
+      options: {
         navigation: `${__dirname}/src/navigation.json`,
         logo: `${__dirname}/src/logo.html`,
         footer: `${__dirname}/src/footer.html`,
@@ -15,4 +16,4 @@ module.exports = {
       }
     }
   ]
-}
+};
