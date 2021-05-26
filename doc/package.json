@@ -5,11 +5,12 @@
   "license": "MIT",
   "scripts": {
     "develop": "gatsby develop",
+    "clean": "gatsby clean",
     "build": "gatsby build --prefix-paths"
   },
   "dependencies": {
     "gatsby": "2.24.63",
-    "@carrotsearch/gatsby-theme-apidocs": "1.0.0",
+    "@carrotsearch/gatsby-theme-apidocs": "1.0.3",
     "react": "16.13.1",
     "react-dom": "16.13.1"
   }
