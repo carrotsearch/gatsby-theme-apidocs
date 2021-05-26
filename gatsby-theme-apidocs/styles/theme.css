@@ -8,6 +8,15 @@ body {
   color: var(--text-color);
 }
 
+body,
+body.light {
+}
+
+body.dark {
+}
+
+
+
 body.light, body {
   --background-color: #ffffff;
   --background-color-dimmed: rgb(238, 238, 238);
@@ -32,6 +41,8 @@ body.light, body {
   --inlineCode-background-color: #e6f3fa;
   --inlineCode-border-color: #8db4c9;
   --input-background-color: #f8f8f8;
+  --info-background-color: hsla(90, 80%, 95%, 1);
+  --info-border-color: hsla(90, 70%, 50%, 1);
   --warning-background-color: var(--accent-color-muted);
   --warning-border-color: var(--accent-color);
   --kbd-outer-border-color: #ccc;
@@ -66,6 +77,8 @@ body.dark {
   --inlineCode-background-color: hsl(207, 16%, 13%);
   --inlineCode-border-color: #000000;
   --input-background-color: hsla(204, 24%, 14%, 0.4);
+  --info-background-color: hsla(90, 30%, 24%, 1);
+  --info-border-color: hsla(90, 100%, 13%, 1);
   --warning-background-color: hsla(40, 100%, 60%, 0.4);
   --warning-border-color: hsl(40, 100%, 50%);
   --kbd-outer-border-color: hsl(207, 28%, 11%);

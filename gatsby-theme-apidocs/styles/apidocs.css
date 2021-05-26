@@ -1,5 +1,7 @@
 @import "docs.css";
-@import "prism/dracula.css";
+@import "tables.css";
+@import "spreadsheet.css";
+@import "prism/vs-code.css";
 @import "../components/ToC.css";
 @import "../components/PrevNextArticle.css";
 @import "../components/Search.css";

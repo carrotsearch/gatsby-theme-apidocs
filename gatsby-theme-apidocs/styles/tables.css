@@ -1,0 +1,32 @@
+article table {
+  font-size: var(--small-font-size);
+  border-top: 2pt solid gray;
+  border-bottom: 2pt solid gray;
+}
+
+article table > caption {
+  padding-top: .5em;
+  padding-bottom: .5em;
+  caption-side: top;
+}
+
+article thead {
+  border-bottom: 1pt solid gray;
+}
+
+article td, article th {
+  padding: .5em;
+  vertical-align: top;
+  text-align: left;
+}
+
+article thead th {
+  text-align: center;
+}
+article table td.center {
+  text-align: center;
+}
+
+table td p:first-child {
+  margin-top: 0;
+}
