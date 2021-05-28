@@ -1017,10 +1017,10 @@
     is-text-path "^2.0.0"
     p-map "^3.0.0"
 
-"@carrotsearch/gatsby-transformer-html@1.0.26":
-  version "1.0.26"
-  resolved "https://registry.yarnpkg.com/@carrotsearch/gatsby-transformer-html/-/gatsby-transformer-html-1.0.26.tgz#f2a109f1a283a4f719544bd2d043afa4789a8563"
-  integrity sha512-wnMg8FFJN+woQ1TgACWAIDkUAjuK536k2soyBJVHBBO27a4ybH6UgyCkaZCbt21PVQIqomY0cyUnjo7QJpeUow==
+"@carrotsearch/gatsby-transformer-html@1.0.27":
+  version "1.0.27"
+  resolved "https://registry.yarnpkg.com/@carrotsearch/gatsby-transformer-html/-/gatsby-transformer-html-1.0.27.tgz#4f5e777cd266e0c78d5c5c4bb7acb594138c57c5"
+  integrity sha512-Nhndw21YCxxpTrsC1WGS80g7FHd8JgTo8N2XqGdL2Dtj0cjxa2aclB3/VoUN2ZzHvYSZB8f2KlvuHMywoFGXqA==
   dependencies:
     cheerio "1.0.0-rc.3"
     gatsby-plugin-sharp "2.6.36"

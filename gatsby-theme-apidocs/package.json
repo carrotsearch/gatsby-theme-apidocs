@@ -1,7 +1,7 @@
 {
   "name": "@carrotsearch/gatsby-theme-apidocs",
   "description": "A Gatsby theme for creating functional and responsive API documentation websites.",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "main": "index.js",
   "license": "MIT",
   "repository": {
@@ -16,7 +16,7 @@
     "registry": "https://registry.npmjs.org/"
   },
   "dependencies": {
-    "@carrotsearch/gatsby-transformer-html": "1.0.26",
+    "@carrotsearch/gatsby-transformer-html": "1.0.27",
     "@carrotsearch/gatsby-plugin-relativize": "1.0.3",
     "@carrotsearch/gatsby-plugin-content-search": "1.0.0",
 
