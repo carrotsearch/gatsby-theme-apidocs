@@ -365,4 +365,24 @@ article {
       <pre data-embed="example.js" data-preserve-common-indent="true"></pre>
     </pre>
   </section>
+
+  <section id="leading-and-trailing-newline-removal">
+    <h2>New line removal</h2>
+
+    <p>
+      APIdocs by default removes leading and trailing new lines of the code
+      block you embed. This strips unnecessary margins from the
+      <code>pre</code> blocks.
+    </p>
+
+    <p>
+      To preserve leading and trailing new lines, set the the
+      <code>data-preserve-leading-and-trailing-newlines</code> attribute to
+      <code>true</code>:
+    </p>
+
+    <pre data-language="markup">
+      <pre data-embed="example.js" data-preserve-leading-and-trailing-newlines="true"></pre>
+    </pre>
+  </section>
 </article>
