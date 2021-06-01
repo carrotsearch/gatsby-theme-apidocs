@@ -144,6 +144,10 @@ export const runFuzzySort = (
         // related to the parent section must be a prefix of the URL of the
         // subsection result.
         return r => {
+          if (r.obj.class.includes("api")) {
+            return true;
+          }
+
           let prefix;
 
           // Check if current result is a suffix of the previous results.
