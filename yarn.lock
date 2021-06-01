@@ -1055,10 +1055,10 @@
     lodash "4.17.20"
     prismjs "1.21.0"
 
-"@carrotsearch/gatsby-transformer-html@1.0.28":
-  version "1.0.28"
-  resolved "https://registry.yarnpkg.com/@carrotsearch/gatsby-transformer-html/-/gatsby-transformer-html-1.0.28.tgz#878dd910d73ff53b4401bbba2e21dfb19f4c8c44"
-  integrity sha512-G+gCOk4dTwmgoQZEK9ORd8PK4F84Gq27JqrpaVLT9teS3vETZyG7T1/aClXMc3N5OL3H3pZjm89GdhJ+xE1plw==
+"@carrotsearch/gatsby-transformer-html@1.0.29":
+  version "1.0.29"
+  resolved "https://registry.yarnpkg.com/@carrotsearch/gatsby-transformer-html/-/gatsby-transformer-html-1.0.29.tgz#a5e38a2ebe80547ff5c5c509a98b4e91c425a053"
+  integrity sha512-nV4n/pTI98DpthX2kzpAkQxIWgz8IUcdXLmmTJBHtP2tJGHEWls3BvEgW9XkLaHTMf7VPIQTQt7R4UVOaIghlg==
   dependencies:
     cheerio "1.0.0-rc.3"
     gatsby-plugin-sharp "2.6.36"
