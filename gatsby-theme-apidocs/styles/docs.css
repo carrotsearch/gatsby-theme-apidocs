@@ -292,12 +292,12 @@ article .warning .gatsby-highlight > pre[class*="language-"] {
 }
 
 /** API sections */
-article .api {
+article section.api {
   margin-top: var(--hr-margin);
   border-top: 1px solid var(--hr-color);
 }
 
-article .api > h3 {
+article section.api > h3 {
   font-family: var(--monospace-font-family);
 }
 
