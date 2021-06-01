@@ -14,7 +14,7 @@ const correctBoundaries = (chunks, text) => {
     while (
       chunk[1] < maxPos &&
       !rightBoundary.has(text.codePointAt(chunk[1]))
-    ) {
+      ) {
       chunk[1]++;
     }
   });
@@ -101,6 +101,7 @@ const truncateHighlights = (hl, maxCharsPerContext = 100) => {
 export const runFuzzySort = (
   query,
   data,
+  articleToChapter,
   maxParagraphResults = 10,
   maxParagraphsPerHeading = 2
 ) => {
@@ -125,6 +126,58 @@ export const runFuzzySort = (
 
   const results = fuzzysort
     .go(queryForSearch, index, options)
+    .sort((a, b) => {
+      // Sort by URL. We need the temporary order to remove paragraph-level
+      // results if the heading of the parent section of the paragraph is
+      // also in the result list.
+      const urlA = a.obj.url, urlB = b.obj.url;
+      return urlA < urlB ? -1 : urlA > urlB ? 1 : 0;
+    })
+    .filter(
+      (() => {
+        let prefixStack = [];
+
+        // Remove results if they are located inside a section whose
+        // heading is already on the list as a separate result.
+        // The results must be sorted by the URL and the URL must
+        // reflect the section hierarchy structure: the URL of a result
+        // related to the parent section must be a prefix of the URL of the
+        // subsection result.
+        return r => {
+          let prefix;
+
+          // Check if current result is a suffix of the previous results.
+          while (prefixStack.length > 0) {
+            const top = prefixStack[prefixStack.length - 1];
+            if (r.obj.url.startsWith(top.obj.url)) {
+              prefix = top;
+              break;
+            } else {
+              prefixStack.pop();
+            }
+          }
+
+          let accept = true;
+          if (prefix) {
+            switch(r.obj.type) {
+              case "heading":
+                if (r.obj.searchable === prefix.obj.searchable) {
+                  accept = false;
+                }
+                break;
+
+              case "paragraph":
+                accept = false;
+                break;
+            }
+          }
+
+          prefixStack.push(r);
+
+          return accept;
+        };
+      })()
+    )
     .filter(
       (() => {
         const paragraphsPerHeading = new Map();
@@ -160,14 +213,24 @@ export const runFuzzySort = (
         return textA < textB
           ? -1
           : textA > textB
-          ? 1
-          : urlA < urlB
-          ? -1
-          : urlA > urlB
-          ? 1
-          : 0;
+            ? 1
+            : urlA < urlB
+              ? -1
+              : urlA > urlB
+                ? 1
+                : 0;
       }
     });
+
+  // Unshift article group (from navigation) as the first element in the
+  // parent path. We guard this operation because index is persistent
+  // between calls to this method.
+  results.forEach(r => {
+    if (!r.obj.updated) {
+      r.obj.parents.unshift(articleToChapter.get(navigationPageFromUrl(r.obj.url)));
+      r.obj.updated = true;
+    }
+  });
 
   return results.reduce((res, r) => {
     const highlighted = searchableFields.map((field, index) => {
@@ -270,4 +333,20 @@ export const resultsByPage = (results, reorderByHeading) => {
   }
 
   return [byPage, byPageFlattened];
+};
+
+const navigationPageFromUrl = url => {
+  const u = url.substring(1);
+  const index = u.indexOf("/");
+  return index >= 0 ? u.substring(0, index) : u;
+};
+
+export const navigationArticleToChapter = navigation => {
+  const pageToChapter = new Map();
+  navigation.chapters.forEach(c => {
+    c.articles.forEach(p => {
+      pageToChapter.set(p, c.title);
+    });
+  });
+  return pageToChapter;
 };

@@ -1017,10 +1017,48 @@
     is-text-path "^2.0.0"
     p-map "^3.0.0"
 
-"@carrotsearch/gatsby-transformer-html@1.0.27":
-  version "1.0.27"
-  resolved "https://registry.yarnpkg.com/@carrotsearch/gatsby-transformer-html/-/gatsby-transformer-html-1.0.27.tgz#4f5e777cd266e0c78d5c5c4bb7acb594138c57c5"
-  integrity sha512-Nhndw21YCxxpTrsC1WGS80g7FHd8JgTo8N2XqGdL2Dtj0cjxa2aclB3/VoUN2ZzHvYSZB8f2KlvuHMywoFGXqA==
+"@carrotsearch/gatsby-theme-apidocs@1.0.3":
+  version "1.0.3"
+  resolved "https://registry.yarnpkg.com/@carrotsearch/gatsby-theme-apidocs/-/gatsby-theme-apidocs-1.0.3.tgz#da2f30294099237d313d1d052a3169de32690eb6"
+  integrity sha512-qkdquoFn9SQqrXRROd1jM9xJ7/j2MSbmtxPhGUP+PVUjgxM7SEYj55U7GMlrQ2trDVkcfVkbGlmTeEqeRne6Ag==
+  dependencies:
+    "@carrotsearch/gatsby-plugin-content-search" "1.0.0"
+    "@carrotsearch/gatsby-plugin-relativize" "1.0.3"
+    "@carrotsearch/gatsby-transformer-html" "1.0.26"
+    "@fortawesome/fontawesome-svg-core" "1.2.30"
+    "@fortawesome/free-regular-svg-icons" "5.14.0"
+    "@fortawesome/free-solid-svg-icons" "5.14.0"
+    "@fortawesome/react-fontawesome" "0.1.11"
+    gatsby-link "2.4.14"
+    gatsby-plugin-catch-links "2.3.12"
+    gatsby-plugin-dark-mode "1.1.2"
+    gatsby-plugin-nprogress "2.3.11"
+    gatsby-plugin-offline "3.2.28"
+    gatsby-plugin-react-helmet "3.3.11"
+    gatsby-source-filesystem "2.3.30"
+    html-react-parser "0.14.0"
+    normalize.css "8.0.1"
+    react "16.13.1"
+    react-dom "16.13.1"
+    react-helmet "6.1.0"
+    typeface-lato "0.0.75"
+    typeface-raleway "0.0.75"
+
+"@carrotsearch/gatsby-transformer-html@1.0.26":
+  version "1.0.26"
+  resolved "https://registry.yarnpkg.com/@carrotsearch/gatsby-transformer-html/-/gatsby-transformer-html-1.0.26.tgz#f2a109f1a283a4f719544bd2d043afa4789a8563"
+  integrity sha512-wnMg8FFJN+woQ1TgACWAIDkUAjuK536k2soyBJVHBBO27a4ybH6UgyCkaZCbt21PVQIqomY0cyUnjo7QJpeUow==
+  dependencies:
+    cheerio "1.0.0-rc.3"
+    gatsby-plugin-sharp "2.6.36"
+    gatsby-remark-prismjs "3.5.13"
+    lodash "4.17.20"
+    prismjs "1.21.0"
+
+"@carrotsearch/gatsby-transformer-html@1.0.28":
+  version "1.0.28"
+  resolved "https://registry.yarnpkg.com/@carrotsearch/gatsby-transformer-html/-/gatsby-transformer-html-1.0.28.tgz#878dd910d73ff53b4401bbba2e21dfb19f4c8c44"
+  integrity sha512-G+gCOk4dTwmgoQZEK9ORd8PK4F84Gq27JqrpaVLT9teS3vETZyG7T1/aClXMc3N5OL3H3pZjm89GdhJ+xE1plw==
   dependencies:
     cheerio "1.0.0-rc.3"
     gatsby-plugin-sharp "2.6.36"

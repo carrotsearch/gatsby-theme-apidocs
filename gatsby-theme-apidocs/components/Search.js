@@ -11,7 +11,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Link, navigate, withPrefix } from "gatsby";
 import ReactDOM from "react-dom";
 import { useDebounce } from "./useDebounce.js";
-import { runFuzzySort, resultsByPage } from "./fuzzysearch.js";
+import { runFuzzySort, resultsByPage, navigationArticleToChapter } from "./fuzzysearch.js";
 
 // Simple data stores for exchanging state data between the main search component
 // and search results which are in different hierarchies (so that results can
@@ -22,12 +22,12 @@ const Searcher = function () {
   let listeners = [];
   let query = "";
 
-  this.search = (q, index) => {
+  this.search = (q, index, articleToChapter) => {
     if (q === query) {
       return;
     }
     query = q;
-    const result = runFuzzySort(q, index);
+    const result = runFuzzySort(q, index, articleToChapter);
     listeners.forEach(l => l(q, result));
   };
 
@@ -570,10 +570,12 @@ const SearchResultListSection = ({
   }, [results, resultsByPage, activeResult, location]);
 };
 
-export const Search = ({ headings }) => {
+export const Search = ({ headings, navigation }) => {
+  const articleToChapter = navigationArticleToChapter(navigation);
+
   return (
     <div className="Search">
-      <SearchInput onQueryChange={query => searcher.search(query, headings)} />
+      <SearchInput onQueryChange={query => searcher.search(query, headings, articleToChapter)} />
     </div>
   );
 };
