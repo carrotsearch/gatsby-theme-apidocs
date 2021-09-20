@@ -10,6 +10,7 @@ nav.main button.link {
   font-family: Raleway, sans-serif;
   text-decoration: none;
 }
+
 nav.main a:hover {
   text-decoration: underline;
 }
@@ -19,6 +20,7 @@ nav.main ul {
   list-style: none;
   padding-left: 0;
 }
+
 nav.main button {
   text-transform: uppercase;
   color: var(--text-color-light);
@@ -29,12 +31,15 @@ nav.main button {
 nav.main > ul > li:not(:first-child) {
   margin-top: calc(0.5 * var(--leading));
 }
+
 nav.main > ul > li.active > button.link {
   color: var(--text-color-muted);
 }
+
 nav.main > ul > li > .fa-chevron-down {
   display: none;
 }
+
 nav.main > ul > li > ul {
   margin-top: calc(0.5 * var(--leading));
   margin-bottom: calc(1 * var(--leading));
@@ -45,6 +50,7 @@ nav.main > ul > li > ul > li > a {
   line-height: 1.15;
   display: block;
 }
+
 nav.main a {
   color: var(--text-color-muted);
 }
@@ -72,6 +78,7 @@ nav.main > ul > li > ul > li.active {
     transition: transform 0.2s;
     opacity: 0.6;
   }
+
   nav.main > ul > li.active > .fa-chevron-down {
     transform: rotate(0);
     opacity: 1;

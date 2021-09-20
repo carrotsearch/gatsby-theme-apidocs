@@ -27,7 +27,10 @@ export const Layout = ({
     <div className="layout">
       <div className="logo">{logo}</div>
       <div className="search">
-        <Search headings={data.contentSearchHeadings} navigation={data.navigation.navigation} />
+        <Search
+          headings={data.contentSearchHeadings}
+          navigation={data.navigation.navigation}
+        />
       </div>
       <div className="theme-switch" title="Switch dark mode">
         <ThemeSwitch />

@@ -5,6 +5,7 @@
 .toc {
   display: none;
 }
+
 nav.main {
   display: none;
   grid-row-start: main;
@@ -19,13 +20,16 @@ button.menu {
   background: none;
   border: none;
 }
+
 button.menu svg {
   color: var(--text-color);
 }
+
 button.menu.open,
 button.menu.close {
   grid-area: theme;
 }
+
 button.menu.close {
   display: none;
 }
@@ -33,21 +37,27 @@ button.menu.close {
 .layout.menu-open nav.main {
   display: block;
 }
+
 .layout.menu-open article {
   display: none;
 }
+
 .layout.menu-open button.menu.open {
   display: none;
 }
+
 .layout.menu-open button.menu.close {
   display: unset;
 }
+
 .layout.menu-open .Search {
   display: none;
 }
+
 .layout.menu-open .logo span {
   display: unset;
 }
+
 .layout.menu-open .LightDarkSwitch {
   display: unset;
 }
@@ -97,6 +107,7 @@ footer {
   grid-area: logo;
   padding-left: var(--leading);
 }
+
 .search {
   grid-row-start: search;
   grid-column-start: search;
@@ -104,6 +115,7 @@ footer {
   grid-column-end: search;
   padding-left: calc(0.5 * var(--leading));
 }
+
 .search:focus-within {
   padding-left: var(--leading);
   grid-column-start: logo;
@@ -116,6 +128,7 @@ footer {
   padding-right: calc(0.5 * var(--leading));
   justify-content: flex-end;
 }
+
 .theme-switch .LightDarkSwitch {
   margin-right: calc(0.5 * var(--leading));
   display: none;
@@ -129,6 +142,7 @@ footer {
   fill: var(--logo-color);
   height: 0.8em;
 }
+
 .logo span {
   font-family: var(--heading-font-family);
   color: var(--logo-color);
@@ -151,9 +165,11 @@ nav.toc > ul {
   .layout.menu-open button.menu.close {
     display: none;
   }
+
   .layout.menu-open article {
     display: unset;
   }
+
   .layout.menu-open .Search {
     display: unset;
   }
@@ -169,6 +185,7 @@ nav.toc > ul {
   .logo svg {
     height: 1.2em;
   }
+
   .logo span {
     font-size: 1.15em;
     display: unset;
@@ -178,6 +195,7 @@ nav.toc > ul {
   .search {
     padding-left: 0;
   }
+
   .search:focus-within {
     grid-column-start: search;
     padding-left: 0;
@@ -241,13 +259,16 @@ nav.toc > ul {
   .menu.open {
     display: none !important;
   }
+
   .logo svg {
     height: 1.7em;
   }
+
   .logo span {
     font-size: 1.5em;
     display: unset !important;
   }
+
   article {
     margin-top: calc(2 * var(--leading));
   }

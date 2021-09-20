@@ -1,6 +1,5 @@
 const { createFilePath } = require(`gatsby-source-filesystem`);
 const { GraphQLJSON } = require(`gatsby/graphql`);
-const path = require(`path`);
 const fs = require(`fs`);
 const chokidar = require(`chokidar`);
 
@@ -46,7 +45,7 @@ exports.createPages = ({ graphql, actions }) => {
       const create = (url, slug) => {
         createPage({
           path: url,
-          component: path.resolve(__dirname, `templates/documentation-page.js`),
+          component: require.resolve("./templates/documentation-page.js"),
           context: {
             // Data passed to context is available
             // in page queries as GraphQL variables.
@@ -84,7 +83,7 @@ exports.sourceNodes = (
         try {
           return JSON.parse(raw);
         } catch (e) {
-          reporter.panic(`Could not parse ${what}.`);
+          reporter.panic(`Could not parse ${what}: ${e}.`);
         }
       }
     },

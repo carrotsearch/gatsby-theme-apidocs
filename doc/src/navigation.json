@@ -2,7 +2,10 @@
   "chapters": [
     {
       "title": "Getting started",
-      "articles": ["hello-apidocs", "quick-start"]
+      "articles": [
+        "hello-apidocs",
+        "quick-start"
+      ]
     },
     {
       "title": "Basic usage",
@@ -16,7 +19,10 @@
     },
     {
       "title": "Advanced topics",
-      "articles": ["under-the-hood", "configuration-reference"]
+      "articles": [
+        "under-the-hood",
+        "configuration-reference"
+      ]
     }
   ]
 }

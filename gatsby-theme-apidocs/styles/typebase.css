@@ -13,8 +13,8 @@
   --leading: calc(var(--base-line-height) * 1rem);
 
   /* Rate of growth for headings
-     I actually like this to be slightly smaller then the leading. Makes for tight headings.
-  */
+       I actually like this to be slightly smaller then the leading. Makes for tight headings.
+    */
   --scale: 1.0625;
 
   --h1-font-size: calc(2.75 * var(--scale) * 1rem);
@@ -61,11 +61,12 @@ html {
   /* Make everything look a little nicer in webkit */
   -webkit-font-smoothing: antialiased;
   /* -webkit-text-size-adjust: auto
-  // -moz-text-size-adjust: auto
-  // -ms-text-size-adjust: auto
-  // -o-text-size-adjust: auto
-  // text-size-adjust: auto */
+    // -moz-text-size-adjust: auto
+    // -ms-text-size-adjust: auto
+    // -o-text-size-adjust: auto
+    // text-size-adjust: auto */
 }
+
 /* Copy & Lists */
 
 body {
@@ -76,12 +77,14 @@ p {
   margin-top: var(--leading);
   margin-bottom: 0;
 }
+
 ul,
 ol {
   margin-top: var(--leading);
   margin-bottom: var(--leading);
   padding-inline-start: var(--leading);
 }
+
 ul ul,
 ol ul,
 ul ol,
@@ -89,10 +92,12 @@ ol ol {
   margin-top: 0;
   margin-bottom: 0;
 }
+
 article .warning {
   margin-top: var(--leading);
   margin-bottom: var(--leading);
 }
+
 /* Headings */
 
 h1,
@@ -105,27 +110,33 @@ h6 {
   margin-top: var(--leading);
   margin-bottom: 0;
 }
+
 h1 {
   font-size: var(--h1-font-size);
   line-height: calc(3 * var(--leading));
   margin-top: calc(2 * var(--leading));
 }
+
 h2 {
   font-size: var(--h2-font-size);
   line-height: calc(2 * var(--leading));
   margin-top: calc(2 * var(--leading));
 }
+
 h3 {
   font-size: var(--h3-font-size);
   line-height: calc(1.5 * var(--leading));
   margin-top: calc(1.5 * var(--leading));
 }
+
 h4 {
   font-size: var(--h4-font-size);
 }
+
 h5 {
   font-size: var(--h5-font-size);
 }
+
 h6 {
   font-size: var(--h6-font-size);
 }
@@ -148,6 +159,7 @@ table {
   border-spacing: 0;
   border-collapse: collapse;
 }
+
 td,
 th {
   padding: 0;

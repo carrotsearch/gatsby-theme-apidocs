@@ -14,7 +14,7 @@ const correctBoundaries = (chunks, text) => {
     while (
       chunk[1] < maxPos &&
       !rightBoundary.has(text.codePointAt(chunk[1]))
-      ) {
+    ) {
       chunk[1]++;
     }
   });
@@ -130,7 +130,8 @@ export const runFuzzySort = (
       // Sort by URL. We need the temporary order to remove paragraph-level
       // results if the heading of the parent section of the paragraph is
       // also in the result list.
-      const urlA = a.obj.url, urlB = b.obj.url;
+      const urlA = a.obj.url,
+        urlB = b.obj.url;
       return urlA < urlB ? -1 : urlA > urlB ? 1 : 0;
     })
     .filter(
@@ -163,7 +164,7 @@ export const runFuzzySort = (
 
           let accept = true;
           if (prefix) {
-            switch(r.obj.type) {
+            switch (r.obj.type) {
               case "heading":
                 if (r.obj.searchable === prefix.obj.searchable) {
                   accept = false;
@@ -217,12 +218,12 @@ export const runFuzzySort = (
         return textA < textB
           ? -1
           : textA > textB
-            ? 1
-            : urlA < urlB
-              ? -1
-              : urlA > urlB
-                ? 1
-                : 0;
+          ? 1
+          : urlA < urlB
+          ? -1
+          : urlA > urlB
+          ? 1
+          : 0;
       }
     });
 
@@ -231,7 +232,9 @@ export const runFuzzySort = (
   // between calls to this method.
   results.forEach(r => {
     if (!r.obj.updated) {
-      r.obj.parents.unshift(articleToChapter.get(navigationPageFromUrl(r.obj.url)));
+      r.obj.parents.unshift(
+        articleToChapter.get(navigationPageFromUrl(r.obj.url))
+      );
       r.obj.updated = true;
     }
   });

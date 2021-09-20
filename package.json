@@ -1,20 +1,11 @@
 {
-  "name": "gatsby-theme-apidocs",
   "private": true,
-  "version": "0.0.1",
-  "main": "index.js",
-  "license": "MIT",
-  "scripts": {
-    "build": "yarn workspace doc build",
-    "develop": "yarn workspace doc develop",
-    "prettier": "prettier -w .",
-    "prettier-check": "prettier --check ."
-  },
-  "devDependencies": {
-    "prettier": "2.3.0"
-  },
   "workspaces": [
     "gatsby-theme-apidocs",
-    "doc"
-  ]
+    "doc",
+    "plugins/*"
+  ],
+  "dependencies": {
+    "prettier": "^2.4.1"
+  }
 }

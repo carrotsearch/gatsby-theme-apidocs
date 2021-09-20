@@ -148,6 +148,7 @@ button.link {
 code a:not(.anchor):hover {
   color: var(--link-color);
 }
+
 code a:not(.anchor) {
   color: var(--inlineCode-link-color);
 }
@@ -177,6 +178,7 @@ code {
   border-radius: 0.125em;
   line-height: var(--base-line-height);
 }
+
 .dark code.target,
 .dark code:target {
   color: var(--text-color);

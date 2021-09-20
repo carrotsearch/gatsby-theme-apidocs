@@ -52,9 +52,11 @@ figcaption p {
   position: relative;
   z-index: 1;
 }
+
 .anchor path {
   fill: var(--text-color);
 }
+
 .anchor:hover,
 h2:hover .anchor,
 h3:hover .anchor,
@@ -143,16 +145,19 @@ article {
 :root {
   --target-marker-margin-left: calc(-1 * var(--leading));
 }
+
 ul,
 ol {
   --target-marker-margin-left: calc(-2 * var(--leading));
 }
+
 ul ul,
 ol ol,
 ul ol,
 ol ul {
   --target-marker-margin-left: calc(-3 * var(--leading));
 }
+
 code {
   --target-marker-margin-left: calc(-1.2 * var(--leading));
 }
@@ -181,6 +186,7 @@ p.target:before {
   margin-left: var(--target-marker-margin-left);
   margin-top: -0.15rem;
 }
+
 code.target:before,
 code:target:before {
   margin-top: 0;
@@ -208,6 +214,7 @@ li {
   :root {
     --code-block-border-radius: 0 0.5em 0.5em 0;
   }
+
   li {
     --code-block-border-radius: 0.5em;
   }
@@ -225,7 +232,7 @@ h3 code,
 h4 code,
 h5 code,
 h6 code,
-.gatsby-highlight code {
+pre code {
   background-color: inherit;
   border-radius: inherit;
   box-shadow: none;
@@ -234,9 +241,10 @@ h6 code,
   line-height: inherit;
 }
 
-.gatsby-highlight > pre[class*="language-"] {
+pre {
+  color: #d4d4d4;
   margin: var(--leading) calc(-1 * var(--leading));
-  padding-left: var(--leading);
+  padding: 1em 0 1em var(--leading);
   font-size: calc(1em / var(--scale));
   background: var(--code-background-color);
   border-radius: var(--code-block-border-radius);
@@ -281,12 +289,9 @@ article .container .warning {
   margin: var(--leading) 0;
 }
 
-article .box .gatsby-highlight > code[class*="language-"],
-article .box .gatsby-highlight > pre[class*="language-"],
-article .info .gatsby-highlight > code[class*="language-"],
-article .info .gatsby-highlight > pre[class*="language-"],
-article .warning .gatsby-highlight > code[class*="language-"],
-article .warning .gatsby-highlight > pre[class*="language-"] {
+article .box pre,
+article .info pre,
+article .warning pre {
   margin-left: 0;
   margin-right: 0;
 }
@@ -337,6 +342,7 @@ dd > p:first-child {
   dl {
     --dl-indent: 10em;
   }
+
   dl.narrow {
     --dl-indent: 5em;
   }
@@ -357,7 +363,7 @@ dd > p:first-child {
     margin: 0 0 var(--leading) 0;
   }
 
-  .gatsby-highlight > pre[class*="language-"] {
+  pre {
     white-space: pre-wrap;
   }
 }

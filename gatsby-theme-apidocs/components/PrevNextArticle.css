@@ -5,6 +5,7 @@
   border-top: 1px solid var(--hr-color);
   padding-top: var(--leading);
 }
+
 .PrevNextArticle .prev,
 .PrevNextArticle .next {
   width: 50%;
@@ -24,6 +25,7 @@
 .PrevNextArticle a {
   text-decoration: none;
 }
+
 .PrevNextArticle .main {
   font-size: var(--h5-font-size);
   border-bottom: 1px solid var(--link-color);

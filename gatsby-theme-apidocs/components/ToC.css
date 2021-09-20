@@ -11,6 +11,7 @@ nav.toc a {
   font-weight: 300;
   text-decoration: none;
 }
+
 nav.toc a:hover {
   opacity: 1;
   background-color: inherit;

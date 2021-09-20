@@ -6,9 +6,11 @@
 footer .about .logo {
   padding-left: 0;
 }
+
 footer .about .logo svg {
   height: 2em;
 }
+
 footer .about p {
   font-weight: 300;
 }
@@ -19,6 +21,7 @@ footer nav {
   margin-top: calc(2 * var(--leading));
   margin-bottom: calc(2 * var(--leading));
 }
+
 footer nav strong {
   text-transform: uppercase;
   font-size: calc(100% / var(--scale));
@@ -29,26 +32,32 @@ footer nav > ul {
   display: flex;
   flex-direction: row;
 }
+
 footer nav > ul > li:not(:last-child) {
   margin-right: var(--leading);
 }
+
 footer nav > ul > li > ul {
   margin-top: calc(0.5 * var(--leading));
 }
+
 footer nav ul {
   list-style: none;
   padding-inline-start: 0;
   margin: 0;
 }
+
 footer .copyright a,
 footer nav a {
   color: var(--text-color-muted) !important;
   text-decoration: none;
 }
+
 footer .copyright a:hover,
 footer nav a:hover {
   text-decoration: underline;
 }
+
 footer .copyright {
   margin-top: var(--leading);
   font-weight: 300;

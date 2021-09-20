@@ -39,6 +39,7 @@ pre[class*="language-"] {
   color: #db4c69;
   background: #f9f2f4;
 }
+
 /*********************************************************
 * Tokens
 */
@@ -220,6 +221,7 @@ pre[class*="language-"] {
 .token.namespace {
   color: #4ec9b0;
 }
+
 /*********************************************************
 * Language Specific
 */
