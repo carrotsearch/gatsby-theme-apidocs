@@ -1,7 +1,6 @@
 const path = require("path");
 const fs = require("fs");
 
-const cheerio = require("cheerio");
 const { GraphQLJSON } = require(`gatsby/graphql`);
 
 const {
@@ -9,14 +8,11 @@ const {
   validateVariables,
   createMapReplacer
 } = require("./src/replace-variables.js");
-const { removeCommonIndent } = require("./src/remove-common-indent.js");
-const {
-  removeLeadingAndTrailingNewlines
-} = require("./src/remove-leading-and-trailing-newlines.js");
 const { rewriteInternalLinks } = require("./src/rewrite-internal-links.js");
 const { generateElementId } = require("./src/generate-element-id.js");
 const extractFragment = require("./src/extract-fragment.js");
-const { CodeHighlighter } = require("./src/transformers/code-highlighter");
+const { CodeHighlighter, highlightCode } = require("./src/transformers/code-highlighter");
+const { loadHtml, renderHtml } = require("./src/html-transformer");
 
 // The transformation functions should be converted to plugins, but
 // for now we keep them integrated to avoid proliferation of boilerplate.
@@ -71,10 +67,6 @@ const embedCode = ($, dir, variables, reporter) => {
       const declaredEmbed = $el.data("embed");
       const fragment = $el.data("fragment");
       const declaredLanguage = $el.data("language");
-      const preserveIndent = $el.data("preserve-common-indent");
-      const preserveNewlines = $el.data(
-        "preserve-leading-and-trailing-newlines"
-      );
 
       const rawContent = loadEmbeddedContent(
         declaredEmbed,
@@ -102,15 +94,7 @@ const embedCode = ($, dir, variables, reporter) => {
         content = rawContent;
       }
 
-      if (!preserveIndent) {
-        content = removeCommonIndent(content);
-      }
-
-      if (!preserveNewlines) {
-        content = removeLeadingAndTrailingNewlines(content);
-      }
-
-      return content;
+      return `<pre data-language=${language}>${content}</pre>`;
     });
   return $;
 };
@@ -334,7 +318,7 @@ const onCreateNode = async ({
   }
 
   const rawHtml = await loadNodeContent(node);
-  let $ = cheerio.load(rawHtml, { decodeEntities: false });
+  let $ = loadHtml(rawHtml);
 
   const htmlNode = {
     rawHtml: rawHtml,
@@ -398,7 +382,7 @@ const setFieldsOnGraphQLNodeType = (
           // For correct highlighting of HTML code, we need to disable
           // entity resolution in cheerio and then patch this in the
           // serialized HTML, see fixClosingTagsInHighlightedCode() below.
-          let $ = cheerio.load(node.rawHtml, { decodeEntities: false });
+          let $ = loadHtml(node.rawHtml);
           $ = runTransformers($, node.dir);
           $ = rewriteInternalLinks($);
           $ = addSectionAnchors($);
@@ -406,22 +390,22 @@ const setFieldsOnGraphQLNodeType = (
           $ = codeHighlighter.transform($);
           $ = addIdsForIndexableFragments($);
 
-          let html = $.html("article");
-          html = replaceVariables(html, createMapReplacer(variables));
-          return html;
+          let rendered = renderHtml($);
+          rendered = replaceVariables(rendered, createMapReplacer(variables));
+          return rendered;
         }
       },
       tableOfContents: {
         type: GraphQLJSON,
         resolve: node => {
-          return createToc(cheerio.load(node.rawHtml));
+          return createToc(loadHtml(node.rawHtml));
         }
       },
       indexableFragments: {
         type: GraphQLJSON,
         resolve: async node => {
           return tryCache(cache, node.internal.contentDigest, () => {
-            let $ = cheerio.load(node.rawHtml);
+            let $ = loadHtml(node.rawHtml);
             $ = runTransformers($, node.dir);
             $ = addIdsForIndexableFragments($);
             return collectIndexableFragments($);
