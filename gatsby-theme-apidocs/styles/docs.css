@@ -242,21 +242,23 @@ pre code {
 }
 
 pre {
+  --line-height: calc(var(--base-line-height) / (var(--scale) * var(--scale)));
   color: #d4d4d4;
   margin: var(--leading) calc(-1 * var(--leading));
   padding: 1em 0 1em var(--leading);
   font-size: calc(1em / var(--scale));
   background: var(--code-background-color);
   border-radius: var(--code-block-border-radius);
-  line-height: calc(var(--base-line-height) / (var(--scale) * var(--scale)));
+  line-height: var(--line-height);
 }
 
-.gatsby-highlight-code-line {
+pre > code mark {
   background: var(--code-highlight-background-color);
   display: block;
+  margin-bottom: calc(-1.0em * var(--line-height));
+  color: inherit;
 
   margin-left: calc(-1 * var(--leading));
-  margin-right: calc(-0.55 * var(--leading));
   padding-left: calc(0.75 * var(--leading));
   border-left: calc(0.25 * var(--leading)) solid #0da6ff;
 }

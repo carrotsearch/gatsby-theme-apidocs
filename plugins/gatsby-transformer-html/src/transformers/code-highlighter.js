@@ -1,6 +1,9 @@
 const hljs = require("highlight.js");
 const { removeCommonIndent } = require("../remove-common-indent");
-const { removeLeadingAndTrailingNewlines } = require("../remove-leading-and-trailing-newlines.js");
+const {
+  removeLeadingAndTrailingNewlines
+} = require("../remove-leading-and-trailing-newlines.js");
+const { decode } = require("html-entities");
 
 // Map language name from Prism to HighlightJS codes.
 const mapLanguage = lang => (lang === "markup" ? "xml" : lang);
@@ -203,7 +206,20 @@ exports.CodeHighlighter = function () {
         "preserve-leading-and-trailing-newlines"
       );
       const language = $el.data("language");
-      const html = $el.html();
+
+      //
+      // In principle, we should use the $.text() method to get the contents
+      // of the pre tag, because the tag cannot contain any HTML. However,
+      // this would make it hard to inline XML or simple HTML in pre tags --
+      // all tags would have to be escaped.
+      //
+      // To make this work, we extract the content of the pre tag using
+      // the $.html() method, which preserves the tags, but also encodes
+      // all entities. Since we'll again use $.html() to serialize the whole
+      // article to HTML, to avoid double-encoding, we'll decode the contents
+      // of pre before highlighting.
+      //
+      const html = decode($el.html());
       return highlightCode(html, preserveIndent, preserveNewlines, language);
     });
     return $;

@@ -6,6 +6,7 @@
     "plugins/*"
   ],
   "scripts": {
+    "clean": "yarn workspace doc clean",
     "build": "yarn workspace doc build",
     "develop": "yarn workspace doc develop"
   },

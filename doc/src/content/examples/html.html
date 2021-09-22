@@ -1,0 +1,35 @@
+<!doctype html>
+<html>
+<head>
+  <title>dotAtlas Hello World</title>
+  <meta charset="utf-8" />
+</head>
+
+<body>
+<div id="dotatlas" style="width: 600px; height: 400px"></div>  <!-- highlight-line -->
+<script src="dotatlas.min.js"></script>  <!-- highlight-line -->
+<script>
+  import { DotAtlas } from "../../../core/src/dotatlas.js"; // hide-line
+
+  window.addEventListener("load", function () { // highlight-line
+    const points = [
+      { x:  0, y: 0,  elevation: 1.0, label: "Central peak" },
+      { x: -1, y: 0,  elevation: 0.6, label: "West peak" },
+      { x:  1, y: 0,  elevation: 0.6, label: "East peak" },
+      { x:  0, y: -1, elevation: 0.4, label: "North peak" },
+      { x:  0, y: 1,  elevation: 0.4, label: "South peak" },
+    ];
+
+    const dotatlas = DotAtlas.embed({ // highlight-line
+      element: document.getElementById("dotatlas"),
+      layers: [
+        { points: points, type: "elevation" },
+        { points: points, type: "marker" },
+        { points: points, type: "label" }
+      ],
+      pixelRatio: window.devicePixelRatio || 1
+    });
+  });
+</script>
+</body>
+</html>

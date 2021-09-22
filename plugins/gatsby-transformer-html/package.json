@@ -28,7 +28,8 @@
   },
   "dependencies": {
     "cheerio": "1.0.0-rc.10",
-    "highlight.js": "11.2.0"
+    "highlight.js": "11.2.0",
+    "html-entities": "2.3.2"
   },
   "devDependencies": {
     "mocha": "8.1.3",

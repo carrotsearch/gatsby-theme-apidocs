@@ -13,6 +13,7 @@ const { generateElementId } = require("./src/generate-element-id.js");
 const extractFragment = require("./src/extract-fragment.js");
 const { CodeHighlighter, highlightCode } = require("./src/transformers/code-highlighter");
 const { loadHtml, renderHtml } = require("./src/html-transformer");
+const { encode } = require("html-entities");
 
 // The transformation functions should be converted to plugins, but
 // for now we keep them integrated to avoid proliferation of boilerplate.
@@ -94,7 +95,8 @@ const embedCode = ($, dir, variables, reporter) => {
         content = rawContent;
       }
 
-      return `<pre data-language=${language}>${content}</pre>`;
+      // Encode entities inside the embedded fragment.
+      return `<pre data-language=${language}>${encode(content)}</pre>`;
     });
   return $;
 };
