@@ -5,6 +5,10 @@
     "doc",
     "plugins/*"
   ],
+  "scripts": {
+    "build": "yarn workspace doc build",
+    "develop": "yarn workspace doc develop"
+  },
   "dependencies": {
     "prettier": "^2.4.1"
   }
