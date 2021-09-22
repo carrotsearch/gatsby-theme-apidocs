@@ -1,0 +1,4 @@
+/** HighlightJS theme patches */
+.hljs-number {
+    color: #6cc;
+}
