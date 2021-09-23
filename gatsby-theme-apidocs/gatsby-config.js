@@ -15,6 +15,7 @@ module.exports = options => ({
         showSpinner: false
       }
     },
+    "gatsby-plugin-sharp",
     "gatsby-plugin-react-helmet",
     "gatsby-plugin-dark-mode",
     {

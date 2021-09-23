@@ -14,11 +14,12 @@ const extractFragment = require("./src/extract-fragment.js");
 const { CodeHighlighter, highlightCode } = require("./src/transformers/code-highlighter");
 const { loadHtml, renderHtml } = require("./src/html-transformer");
 const { encode } = require("html-entities");
+const { notInPre } = require("./src/cheerio-utils");
+const { ImageProcessor } = require("./src/transformers/image-processor");
 
 // The transformation functions should be converted to plugins, but
 // for now we keep them integrated to avoid proliferation of boilerplate.
 
-const notInPre = $ => (i, el) => $(el).parents("pre").length === 0;
 const indexingAllowed = $ => (i, el) => $(el).data("indexing") !== "disabled";
 
 const error = (message, reporter) => {
@@ -111,8 +112,8 @@ const addSectionAnchors = $ => {
       const $el = $(el);
       return `<${el.name}>
         <a class="anchor" href="#${$el
-          .parent()
-          .attr("id")}" aria-hidden="true">${anchorSvg}</a>${$el.html()}
+        .parent()
+        .attr("id")}" aria-hidden="true">${anchorSvg}</a>${$el.html()}
       </${el.name}>`;
     });
   return $;
@@ -139,8 +140,8 @@ const createToc = $ => {
       const $subsections = $section.is("[data-toc='omit-children']")
         ? []
         : $section
-            .children("section[id]")
-            .filter((i, el) => !$(el).is("[data-toc='omit']"));
+          .children("section[id]")
+          .filter((i, el) => !$(el).is("[data-toc='omit']"));
       return {
         heading: $section.children(":header").eq(0).text(),
         anchor: $section.attr("id"),
@@ -304,12 +305,12 @@ const collectIndexableFragments = $ => {
 
 // Gatsby API implementation
 const onCreateNode = async ({
-  node,
-  actions,
-  loadNodeContent,
-  createNodeId,
-  createContentDigest
-}) => {
+                              node,
+                              actions,
+                              loadNodeContent,
+                              createNodeId,
+                              createContentDigest
+                            }) => {
   const { createNode, createParentChildLink } = actions;
 
   if (
@@ -377,6 +378,14 @@ const setFieldsOnGraphQLNodeType = (
 
     const codeHighlighter = new CodeHighlighter();
 
+    const fileNodesByPath = getNodesByType("File").reduce((map, n) => {
+      map.set(n.relativePath, n);
+      return map;
+    }, new Map());
+    const imageProcessor = new ImageProcessor({
+      fileNodesByPath, pathPrefix, imageQuality, reporter, cache
+    });
+
     return {
       html: {
         type: "String",
@@ -386,6 +395,7 @@ const setFieldsOnGraphQLNodeType = (
           // serialized HTML, see fixClosingTagsInHighlightedCode() below.
           let $ = loadHtml(node.rawHtml);
           $ = runTransformers($, node.dir);
+          $ = await imageProcessor.transform($);
           $ = rewriteInternalLinks($);
           $ = addSectionAnchors($);
           $ = embedCode($, node.dir, variables, reporter);
