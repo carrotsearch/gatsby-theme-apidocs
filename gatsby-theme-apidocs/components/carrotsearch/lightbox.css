@@ -1,0 +1,130 @@
+figure.zoomable {
+  cursor: pointer;
+}
+
+figure.zoomable figcaption {
+  will-change: transform, opacity;
+}
+
+figure.zoomable .only.zoomed {
+  display: none;
+}
+
+figure.zoomed {
+  position: absolute;
+  will-change: transform, opacity;
+  top: 0.5em;
+  left: 0.5em;
+  bottom: 0.5em;
+  right: 0.5em;
+  width: inherit;
+}
+
+figure.zoomed img {
+  max-width: none;
+  border-radius: 0.25rem;
+  display: block;
+  margin: 0 auto;
+}
+
+figure.zoomed img.hires {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+}
+
+figure.zoomed figcaption {
+  display: block;
+  opacity: unset;
+  padding: inherit;
+  margin: 0 auto;
+  color: white;
+  position: relative;
+  overflow: hidden;
+  box-sizing: border-box;
+}
+
+figure.zoomed figcaption .only.unzoomed {
+  display: none;
+}
+
+figure.zoomed figcaption .only.zoomed {
+  display: block;
+}
+
+figure.zoomed figcaption.over {
+  z-index: 1;
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  margin: 0 auto;
+  background-color: rgba(0, 0, 0, 0.8);
+  padding: 0 1rem;
+  border-radius: 0 0 0.15rem 0.15rem;
+  transform-origin: 0 100%;
+}
+
+figure.zoomed.horizontal img {
+  margin-left: 0;
+}
+
+figure.zoomed.horizontal figcaption {
+  position: absolute;
+  top: 0;
+  right: 0;
+  padding: 0 0 0 1em;
+}
+
+figure.zoomed.horizontal figcaption p:first-child {
+  margin-top: 0;
+}
+
+figure.zoomed:not(.horizontal) figcaption {
+  padding-top: 1em;
+}
+
+@media (min-width: 48rem) {
+  figure.zoomed:not(.horizontal) figcaption {
+    column-width: 22rem;
+    column-fill: balance;
+    column-rule: 1px solid rgba(255, 255, 255, 0.15);
+    column-gap: 2em;
+    padding: 1em;
+  }
+
+  figure.zoomed:not(.horizontal) figcaption.over {
+    padding-bottom: 1rem;
+  }
+}
+
+figure.zoomed:not(.horizontal) figcaption p:first-child {
+  margin-top: 0;
+}
+
+.overlay {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  pointer-events: none;
+  z-index: 3;
+}
+
+.overlay .background {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: rgba(0, 0, 0, 0.95);
+  transition: opacity 0.45s;
+  will-change: opacity;
+  opacity: 0;
+}
+
+.overlay a {
+  color: white;
+}

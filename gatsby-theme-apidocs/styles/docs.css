@@ -16,6 +16,26 @@ figure {
   margin: calc(var(--leading)) 0;
 }
 
+figure .preview,
+figure img {
+  width: 100%;
+}
+
+figure .img > .preview {
+  display: block;
+  position: relative;
+  background-size: cover;
+  z-index: 1;
+}
+
+figure .img > img {
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+}
+
 figure.round .preview,
 figure.round img {
   border-radius: calc(0.125 * var(--leading));
@@ -250,6 +270,7 @@ pre {
   background: var(--code-background-color);
   border-radius: var(--code-block-border-radius);
   line-height: var(--line-height);
+  overflow: auto;
 }
 
 pre > code mark {

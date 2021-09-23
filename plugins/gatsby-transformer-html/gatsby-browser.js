@@ -14,8 +14,7 @@ export const onRouteUpdate = ({ location }) => {
   }
 
   // Fluid images: replace in-page previews with the actual resources.
-  const previews = document.querySelectorAll(`.fluid.preview`);
-
+  const previews = document.querySelectorAll(`.img > .preview`);
   for (let i = 0; i < previews.length; i++) {
     const preview = previews[i];
 

@@ -53,22 +53,20 @@ exports.ImageProcessor = function ({
       .filter((i, img) => processedByRelativePath.has(img.attribs.src))
       .replaceWith((i, img) => {
         const fluid = processedByRelativePath.get(img.attribs.src);
-        const className = [img.attribs.class, "fluid"]
-          .filter(e => !!e)
-          .join(" ");
+        const className = [img.attribs.class].filter(e => !!e).join(" ");
         const ratio = `${(1 / fluid.aspectRatio) * 100}%`;
 
-        const previewTag = `<span style="padding-bottom: ${ratio}; background-image: url('${fluid.base64}')" 
+        const previewImg = `<span style="padding-bottom: ${ratio}; background-image: url('${fluid.base64}')" 
               class="preview ${className}"> </span>`;
 
-        const imgTag = `<img class="${className}"
+        const mainImg = `<img class="${className}"
              alt="${img.attribs.alt || ""}"
              title="${img.attribs.title || ""}"
              src="${fluid.src}"
              srcSet="${fluid.srcSet}"
              sizes="${fluid.sizes}" />`;
 
-        return `<div style="position: relative">${previewTag}${imgTag}</div>`;
+        return `<div class="img" style="position: relative">${previewImg}${mainImg}</div>`;
       });
     return $;
   };
