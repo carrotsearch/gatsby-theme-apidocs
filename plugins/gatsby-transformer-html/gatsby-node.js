@@ -377,13 +377,8 @@ const setFieldsOnGraphQLNodeType = (
     };
 
     const codeHighlighter = new CodeHighlighter();
-
-    const fileNodesByPath = getNodesByType("File").reduce((map, n) => {
-      map.set(n.relativePath, n);
-      return map;
-    }, new Map());
     const imageProcessor = new ImageProcessor({
-      fileNodesByPath, pathPrefix, imageQuality, reporter, cache
+      getNodesByType, pathPrefix, imageQuality, reporter, cache
     });
 
     return {

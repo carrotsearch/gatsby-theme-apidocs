@@ -6,7 +6,7 @@ const { notInPre } = require("../cheerio-utils");
  * the image in multiple resolutions for different devices.
  */
 exports.ImageProcessor = function ({
-  fileNodesByPath,
+  getNodesByType,
   pathPrefix,
   imageQuality,
   reporter,
@@ -14,6 +14,12 @@ exports.ImageProcessor = function ({
 }) {
   this.transform = async $ => {
     const $img = $("img").filter(notInPre($));
+
+    // Collect nodes for all files we process.
+    const fileNodesByPath = getNodesByType("File").reduce((map, n) => {
+      map.set(n.relativePath, n);
+      return map;
+    }, new Map());
 
     // Collect images whose relative paths point at existing files.
     const imageNodesToProcess = [];
