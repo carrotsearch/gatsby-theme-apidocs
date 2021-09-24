@@ -1,31 +1,6 @@
 // - support for standalone img tags
 // - support for light/dark images
 
-const DOM = {
-  querySelectorAllForEach: function (selector, callback) {
-    Array.prototype.slice
-      .call(document.querySelectorAll(selector))
-      .forEach(callback);
-  },
-
-  addClass: function (element, toAdd) {
-    const classes = element.className.split(/\s+/);
-    if (classes.indexOf(toAdd) < 0) {
-      classes.push(toAdd);
-      element.className = classes.join(" ");
-    }
-  },
-
-  removeClass: function (element, toRemove) {
-    const classes = element.className.split(/\s+/);
-    element.className = classes
-      .filter(function (c) {
-        return c !== toRemove;
-      })
-      .join(" ");
-  }
-};
-
 export const Lightbox = function () {
   // Build background overlay
   const overlay = document.createElement("div");
@@ -62,7 +37,7 @@ export const Lightbox = function () {
 
       // We'll use the clone of the figure in the zoomed-in view
       const absoluteFigure = figure.cloneNode(true);
-      DOM.addClass(absoluteFigure, "zoomed");
+      absoluteFigure.classList.add("zoomed");
       absoluteFigure.style.opacity = 0;
       absoluteFigure.inPageImg = inPageImg; // we need a reference to the in-page img to perform the un-zoom animation
 
@@ -141,9 +116,9 @@ export const Lightbox = function () {
     // Forced reflow, probably unavoidable
     const imgRect = imgs[0].getBoundingClientRect();
     if (figureRect.width - imgRect.width > 256) {
-      DOM.addClass(figure, "horizontal");
+      figure.classList.add("horizontal");
     } else {
-      DOM.removeClass(figure, "horizontal");
+      figure.classList.remove("horizontal");
     }
 
     function setStyles(nodeList, width, height) {
@@ -248,7 +223,7 @@ export const Lightbox = function () {
       if (!absoluteFigure.removing) {
         absoluteFigure.removing = true;
         absoluteFigure.addEventListener("transitionend", function (e) {
-          if (e.target == absoluteFigure && e.propertyName == "opacity") {
+          if (e.target === absoluteFigure && e.propertyName === "opacity") {
             overlay.removeChild(absoluteFigure);
           }
         });

@@ -1,5 +1,5 @@
-figure.zoomable {
-  cursor: pointer;
+figure.zoomable img {
+  cursor: zoom-in;
 }
 
 figure.zoomable figcaption {
@@ -25,6 +25,7 @@ figure.zoomed img {
   border-radius: 0.25rem;
   display: block;
   margin: 0 auto;
+  cursor: zoom-out;
 }
 
 figure.zoomed img.hires {
