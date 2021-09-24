@@ -10,6 +10,6 @@ import "highlight.js/styles/base16/eighties.css"
 import { Lightbox } from "./components/carrotsearch/lightbox.js";
 import "./components/carrotsearch/lightbox.css";
 
-export const onRouteUpdate = () => {
+export const onInitialClientRender = () => {
   new Lightbox();
 };

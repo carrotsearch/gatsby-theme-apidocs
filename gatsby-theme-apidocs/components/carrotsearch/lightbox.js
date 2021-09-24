@@ -1,4 +1,7 @@
-var DOM = {
+// - support for standalone img tags
+// - support for light/dark images
+
+const DOM = {
   querySelectorAllForEach: function (selector, callback) {
     Array.prototype.slice
       .call(document.querySelectorAll(selector))
@@ -25,8 +28,8 @@ var DOM = {
 
 export const Lightbox = function () {
   // Build background overlay
-  var overlay = document.createElement("div");
-  var background = document.createElement("div");
+  const overlay = document.createElement("div");
+  const background = document.createElement("div");
   background.className = "background";
   overlay.className = "overlay";
   overlay.appendChild(background);
@@ -44,15 +47,22 @@ export const Lightbox = function () {
   window.addEventListener("resize", layoutCaptionIfNeeded);
   window.addEventListener("orientationchange", layoutCaptionIfNeeded);
 
-  // Show zoomable figures on click
-  DOM.querySelectorAllForEach("figure.zoomable", function (target) {
-    target.addEventListener("click", function (e) {
-      var inPageImg = target.querySelector("img");
+  document.body.addEventListener("click", e => {
+    if (e.target.matches("img")) {
+      // Look for a parent figure
+      let figure = e.target;
+      while (figure && !figure.matches("figure.zoomable")) {
+        figure = figure.parentElement;
+      }
+      if (!figure || figure.matches(".zoomed")) {
+        return;
+      }
+
+      const inPageImg = e.target;
 
       // We'll use the clone of the figure in the zoomed-in view
-      var absoluteFigure = target.cloneNode(true);
+      const absoluteFigure = figure.cloneNode(true);
       DOM.addClass(absoluteFigure, "zoomed");
-      // absoluteFigure.className = "zoomable screenshot zoomed";
       absoluteFigure.style.opacity = 0;
       absoluteFigure.inPageImg = inPageImg; // we need a reference to the in-page img to perform the un-zoom animation
 
@@ -77,7 +87,7 @@ export const Lightbox = function () {
             absoluteFigure.boundingClientRect = undefined;
             absoluteFigure.querySelector("img").boundingClientRect = undefined;
 
-            var hiresImg = absoluteFigure.querySelector("img").cloneNode(true);
+            const hiresImg = absoluteFigure.querySelector("img").cloneNode(true);
             hiresImg.className = "hires";
             hiresImg.sizes = "100vw";
             absoluteFigure.appendChild(hiresImg);
@@ -93,10 +103,10 @@ export const Lightbox = function () {
           overlay.style.pointerEvents = "auto";
         });
       });
-    });
+    }
   });
 
-  var layoutTimeout;
+  let layoutTimeout;
 
   function layoutCaptionIfNeeded() {
     window.clearTimeout(layoutTimeout);
@@ -112,11 +122,11 @@ export const Lightbox = function () {
 
   // Chooses the vertical vs horizontal layout for the zoomed-in figure.
   function layoutFigure(figure) {
-    var imgs = figure.querySelectorAll("img, .img");
+    const imgs = figure.querySelectorAll("img, .img");
 
     // Dimensions
-    var figureRect = figure.getBoundingClientRect();
-    var inPageImgRect = figure.inPageImg.getBoundingClientRect();
+    const figureRect = figure.getBoundingClientRect();
+    const inPageImgRect = figure.inPageImg.getBoundingClientRect();
 
     // Depending on the ratios, the image should fill the whole width or height.
     if (
@@ -129,7 +139,7 @@ export const Lightbox = function () {
     }
 
     // Forced reflow, probably unavoidable
-    var imgRect = imgs[0].getBoundingClientRect();
+    const imgRect = imgs[0].getBoundingClientRect();
     if (figureRect.width - imgRect.width > 256) {
       DOM.addClass(figure, "horizontal");
     } else {
@@ -137,7 +147,7 @@ export const Lightbox = function () {
     }
 
     function setStyles(nodeList, width, height) {
-      for (var i = 0; i < nodeList.length; i++) {
+      for (let i = 0; i < nodeList.length; i++) {
         nodeList[i].style.width = width;
         nodeList[i].style.height = height;
       }
@@ -146,19 +156,19 @@ export const Lightbox = function () {
 
   // Lays out the caption for the figure.
   function layoutCaption(figure, initial) {
-    var caption = figure.querySelector("figcaption");
+    const caption = figure.querySelector("figcaption");
     if (caption) {
-      var img = figure.querySelector("img");
+      const img = figure.querySelector("img");
 
       // Dimensions
-      var overlayRect = overlay.getBoundingClientRect();
-      var figureRect = figure.getBoundingClientRect();
-      var imgRect = img.getBoundingClientRect();
-      var padding = overlayRect.height - figureRect.bottom;
+      const overlayRect = overlay.getBoundingClientRect();
+      const figureRect = figure.getBoundingClientRect();
+      const imgRect = img.getBoundingClientRect();
+      const padding = overlayRect.height - figureRect.bottom;
 
       caption.className = "";
 
-      var captionRect;
+      let captionRect;
       if (/horizontal/.test(figure.className)) {
         // For horizontal layout, set the caption width to fill the remaining space on the right
         caption.style.width = figureRect.width - imgRect.width + "px";
@@ -196,7 +206,7 @@ export const Lightbox = function () {
                 caption.folded = false;
                 caption.style.transform = "none";
               } else {
-                var captionRect = caption.getBoundingClientRect();
+                const captionRect = caption.getBoundingClientRect();
                 caption.folded = true;
                 caption.style.transform =
                   "scaleY(" +
@@ -247,7 +257,7 @@ export const Lightbox = function () {
         absoluteFigure.style.opacity = 0;
         transform(absoluteFigure);
 
-        var caption = absoluteFigure.querySelector("figcaption");
+        const caption = absoluteFigure.querySelector("figcaption");
         if (caption) {
           caption.style.transition = "opacity 0.45s";
           caption.style.opacity = 0;
@@ -257,15 +267,15 @@ export const Lightbox = function () {
   }
 
   function transform(absoluteFigure) {
-    var absoluteImg = absoluteFigure.querySelector("img");
+    const absoluteImg = absoluteFigure.querySelector("img");
 
-    var imgRect = absoluteFigure.inPageImg.getBoundingClientRect();
-    var absoluteImgRect = cachedRect(absoluteImg);
-    var containerRect = cachedRect(absoluteFigure);
+    const imgRect = absoluteFigure.inPageImg.getBoundingClientRect();
+    const absoluteImgRect = cachedRect(absoluteImg);
+    const containerRect = cachedRect(absoluteFigure);
 
-    var factor = imgRect.width / absoluteImgRect.width;
-    var xOffset = imgRect.left - absoluteImgRect.left;
-    var yOffset = imgRect.top - absoluteImgRect.top;
+    const factor = imgRect.width / absoluteImgRect.width;
+    const xOffset = imgRect.left - absoluteImgRect.left;
+    const yOffset = imgRect.top - absoluteImgRect.top;
     absoluteFigure.style.transform =
       "translateX(" +
       xOffset.toFixed(2) +
