@@ -120,7 +120,7 @@ figure.zoomed:not(.horizontal) figcaption p:first-child {
   bottom: 0;
   left: 0;
   right: 0;
-  background-color: rgba(0, 0, 0, 0.95);
+  background-color: rgba(0, 0, 0, 0.9);
   transition: opacity 0.45s;
   will-change: opacity;
   opacity: 0;

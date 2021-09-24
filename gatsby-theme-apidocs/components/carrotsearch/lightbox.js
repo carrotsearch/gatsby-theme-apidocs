@@ -1,5 +1,5 @@
 // - support for standalone img tags
-// - support for light/dark images
+// - support for SVG figures
 
 export const Lightbox = function () {
   // Build background overlay
@@ -60,9 +60,10 @@ export const Lightbox = function () {
           absoluteFigure.addEventListener("transitionend", function zoomed() {
             absoluteFigure.removeEventListener("transitionend", zoomed);
             absoluteFigure.boundingClientRect = undefined;
-            absoluteFigure.querySelector("img").boundingClientRect = undefined;
+            const img = firstVisibleImg(absoluteFigure);
 
-            const hiresImg = absoluteFigure.querySelector("img").cloneNode(true);
+            img.boundingClientRect = undefined;
+            const hiresImg = img.cloneNode(true);
             hiresImg.className = "hires";
             hiresImg.sizes = "100vw";
             absoluteFigure.appendChild(hiresImg);
@@ -81,6 +82,13 @@ export const Lightbox = function () {
     }
   });
 
+  function firstVisibleImg(absoluteFigure) {
+    // Take the first visible img
+    return [...absoluteFigure.querySelectorAll("img")].find(n => {
+      return window.getComputedStyle(n).getPropertyValue("display") !== "none";
+    });
+  }
+
   let layoutTimeout;
 
   function layoutCaptionIfNeeded() {
@@ -97,7 +105,7 @@ export const Lightbox = function () {
 
   // Chooses the vertical vs horizontal layout for the zoomed-in figure.
   function layoutFigure(figure) {
-    const imgs = figure.querySelectorAll("img, .img");
+    const img = firstVisibleImg(figure);
 
     // Dimensions
     const figureRect = figure.getBoundingClientRect();
@@ -108,24 +116,22 @@ export const Lightbox = function () {
       figureRect.width / figureRect.height <
       inPageImgRect.width / inPageImgRect.height
     ) {
-      setStyles(imgs, "100%", "auto");
+      setStyles(img, "100%", "auto");
     } else {
-      setStyles(imgs, "auto", "100%");
+      setStyles(img, "auto", "100%");
     }
 
     // Forced reflow, probably unavoidable
-    const imgRect = imgs[0].getBoundingClientRect();
+    const imgRect = img.getBoundingClientRect();
     if (figureRect.width - imgRect.width > 256) {
       figure.classList.add("horizontal");
     } else {
       figure.classList.remove("horizontal");
     }
 
-    function setStyles(nodeList, width, height) {
-      for (let i = 0; i < nodeList.length; i++) {
-        nodeList[i].style.width = width;
-        nodeList[i].style.height = height;
-      }
+    function setStyles(img, width, height) {
+      img.style.width = width;
+      img.style.height = height;
     }
   }
 
@@ -133,7 +139,7 @@ export const Lightbox = function () {
   function layoutCaption(figure, initial) {
     const caption = figure.querySelector("figcaption");
     if (caption) {
-      const img = figure.querySelector("img");
+      const img = firstVisibleImg(figure);
 
       // Dimensions
       const overlayRect = overlay.getBoundingClientRect();
@@ -242,7 +248,7 @@ export const Lightbox = function () {
   }
 
   function transform(absoluteFigure) {
-    const absoluteImg = absoluteFigure.querySelector("img");
+    const absoluteImg = firstVisibleImg(absoluteFigure);
 
     const imgRect = absoluteFigure.inPageImg.getBoundingClientRect();
     const absoluteImgRect = cachedRect(absoluteImg);
