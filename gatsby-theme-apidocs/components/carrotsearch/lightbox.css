@@ -1,12 +1,12 @@
-figure.zoomable img {
+figure img {
   cursor: zoom-in;
 }
 
-figure.zoomable figcaption {
+figure img ~ figcaption {
   will-change: transform, opacity;
 }
 
-figure.zoomable .only.zoomed {
+figure .only.zoomed {
   display: none;
 }
 

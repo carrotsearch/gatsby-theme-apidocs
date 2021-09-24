@@ -1,5 +1,6 @@
 // - support for standalone img tags
 // - support for SVG figures
+// - exit zoomed view on scroll
 
 export const Lightbox = function () {
   // Build background overlay
@@ -26,7 +27,7 @@ export const Lightbox = function () {
     if (e.target.matches("img")) {
       // Look for a parent figure
       let figure = e.target;
-      while (figure && !figure.matches("figure.zoomable")) {
+      while (figure && !figure.matches("figure")) {
         figure = figure.parentElement;
       }
       if (!figure || figure.matches(".zoomed")) {
