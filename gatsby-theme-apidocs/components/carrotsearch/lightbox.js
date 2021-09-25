@@ -1,5 +1,12 @@
 // - support for standalone img tags
-// - support for SVG figures
+
+const closest = (el, selector) => {
+  let result = el;
+  while (result && !result.matches(selector)) {
+    result = result.parentElement;
+  }
+  return result;
+};
 
 export const Lightbox = function () {
   const transformTransitionTime = 350;
@@ -37,18 +44,15 @@ export const Lightbox = function () {
   window.addEventListener("orientationchange", layoutCaptionIfNeeded);
 
   document.body.addEventListener("click", e => {
-    if (e.target.matches("img")) {
+    if (e.target.matches("img, svg, svg *")) {
       // Look for a parent figure
-      let figure = e.target;
-      while (figure && !figure.matches("figure")) {
-        figure = figure.parentElement;
-      }
+      const figure = closest(e.target, "figure");
       if (!figure || figure.matches(".zoomed")) {
         return;
       }
 
       scrollWhenShown = window.scrollY;
-      const inPageImg = e.target;
+      const inPageImg = closest(e.target, "img, svg");
 
       // We'll use the clone of the figure in the zoomed-in view
       const absoluteFigure = figure.cloneNode(true);
@@ -76,12 +80,14 @@ export const Lightbox = function () {
             absoluteFigure.removeEventListener("transitionend", zoomed);
             absoluteFigure.boundingClientRect = undefined;
             const img = firstVisibleImg(absoluteFigure);
-
             img.boundingClientRect = undefined;
-            const hiresImg = img.cloneNode(true);
-            hiresImg.className = "hires";
-            hiresImg.sizes = "100vw";
-            absoluteFigure.appendChild(hiresImg);
+
+            if (img.tagName === "img") {
+              const hiresImg = img.cloneNode(true);
+              hiresImg.className = "hires";
+              hiresImg.sizes = "100vw";
+              absoluteFigure.appendChild(hiresImg);
+            }
           });
 
           // Fade-in the figure, set transform to "none" to create the zoom-in effect.
@@ -99,7 +105,7 @@ export const Lightbox = function () {
 
   function firstVisibleImg(absoluteFigure) {
     // Take the first visible img
-    return [...absoluteFigure.querySelectorAll("img")].find(n => {
+    return [...absoluteFigure.querySelectorAll("img, svg")].find(n => {
       return window.getComputedStyle(n).getPropertyValue("display") !== "none";
     });
   }

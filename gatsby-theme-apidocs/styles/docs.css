@@ -52,6 +52,10 @@ body.light figure img.dark {
   display: none;
 }
 
+figure.zoomed svg {
+  background-color: var(--background-color);
+}
+
 figcaption {
   font-style: italic;
   font-size: var(--small-font-size);
