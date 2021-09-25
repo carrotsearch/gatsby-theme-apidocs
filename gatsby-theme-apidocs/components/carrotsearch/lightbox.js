@@ -1,8 +1,9 @@
 // - support for standalone img tags
 // - support for SVG figures
-// - exit zoomed view on scroll
 
 export const Lightbox = function () {
+  const transformTransitionTime = 350;
+
   // Build background overlay
   const overlay = document.createElement("div");
   const background = document.createElement("div");
@@ -14,7 +15,19 @@ export const Lightbox = function () {
   // Close on click and Esc
   overlay.addEventListener("click", unzoom);
   window.addEventListener("keydown", function (e) {
-    if (e.keyCode === 27) {
+    if (e.code === "Escape") {
+      unzoom();
+    }
+  });
+
+  // Close on scroll
+  let scrollWhenShown = undefined;
+  document.addEventListener("scroll", function (e) {
+    if (scrollWhenShown === undefined) {
+      return;
+    }
+
+    if (Math.abs(window.scrollY - scrollWhenShown) > 40) {
       unzoom();
     }
   });
@@ -34,6 +47,7 @@ export const Lightbox = function () {
         return;
       }
 
+      scrollWhenShown = window.scrollY;
       const inPageImg = e.target;
 
       // We'll use the clone of the figure in the zoomed-in view
@@ -72,7 +86,7 @@ export const Lightbox = function () {
 
           // Fade-in the figure, set transform to "none" to create the zoom-in effect.
           absoluteFigure.style.opacity = 1;
-          absoluteFigure.style.transition = "transform 0.45s";
+          absoluteFigure.style.transition = `transform ${transformTransitionTime}ms`;
           absoluteFigure.style.transform = "none";
 
           // Show overlay, enable event capture.
@@ -219,6 +233,8 @@ export const Lightbox = function () {
   }
 
   function unzoom() {
+    const unzoomStartTime = Date.now();
+
     Array.prototype.slice
       .call(overlay.querySelectorAll("figure.zoomed"))
       .forEach(unzoomImage);
@@ -228,22 +244,50 @@ export const Lightbox = function () {
 
     function unzoomImage(absoluteFigure) {
       if (!absoluteFigure.removing) {
+        // Update the transform when scroll position changes, so that the
+        // animated zoomed image converges towards the new position of the
+        // in-page image.
+        let updateScheduled = false;
+        const onScroll = () => {
+          if (!updateScheduled) {
+            updateScheduled = true;
+            requestAnimationFrame(() => {
+              transform(absoluteFigure);
+
+              const transitionTime =
+                transformTransitionTime - (Date.now() - unzoomStartTime);
+              absoluteFigure.style.transition = `transform ${
+                transitionTime >= 20 ? transitionTime : 0
+              }ms ease-out, opacity 0.3s ease ${
+                transformTransitionTime - 50
+              }ms`;
+              updateScheduled = false;
+            });
+          }
+        };
+        document.addEventListener("scroll", onScroll);
+
         absoluteFigure.removing = true;
         absoluteFigure.addEventListener("transitionend", function (e) {
           if (e.target === absoluteFigure && e.propertyName === "opacity") {
             overlay.removeChild(absoluteFigure);
+            document.removeEventListener("scroll", onScroll);
           }
         });
-        absoluteFigure.style.transition =
-          "transform 0.45s, opacity 0.45s ease 0.4s";
+        absoluteFigure.style.transition = `transform ${transformTransitionTime}ms, 
+        opacity ${transformTransitionTime}ms ease ${
+          transformTransitionTime - 50
+        }ms`;
         absoluteFigure.style.opacity = 0;
         transform(absoluteFigure);
 
         const caption = absoluteFigure.querySelector("figcaption");
         if (caption) {
-          caption.style.transition = "opacity 0.45s";
+          caption.style.transition = `opacity ${transformTransitionTime}ms`;
           caption.style.opacity = 0;
         }
+
+        scrollWhenShown = undefined;
       }
     }
   }
