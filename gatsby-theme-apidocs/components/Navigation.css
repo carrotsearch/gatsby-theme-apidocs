@@ -1,7 +1,6 @@
 nav.main {
   --padding-left: var(--leading);
   font-size: calc(1rem * var(--scale) * var(--scale));
-  padding-left: var(--padding-left);
   background-color: var(--background-color);
 }
 
@@ -21,28 +20,24 @@ nav.main ul {
   padding-left: 0;
 }
 
-nav.main button {
+nav.main > ul > li {
   text-transform: uppercase;
-  color: var(--text-color-light);
   font-size: calc(100% / var(--scale));
   font-weight: 700;
+  margin-left: calc(1 * var(--padding-left));
 }
 
 nav.main > ul > li:not(:first-child) {
   margin-top: calc(0.5 * var(--leading));
 }
 
-nav.main > ul > li.active > button.link {
-  color: var(--text-color-muted);
-}
-
-nav.main > ul > li > .fa-chevron-down {
-  display: none;
-}
-
 nav.main > ul > li > ul {
   margin-top: calc(0.5 * var(--leading));
   margin-bottom: calc(1 * var(--leading));
+  padding-left: 0;
+  text-transform: none;
+  font-weight: normal;
+  font-size: 1rem;
 }
 
 nav.main > ul > li > ul > li > a {
@@ -77,20 +72,6 @@ nav.main > ul > li > ul > li.active {
     transform: rotate(-90deg);
     transition: transform 0.2s;
     opacity: 0.6;
-  }
-
-  nav.main > ul > li.active > .fa-chevron-down {
-    transform: rotate(0);
-    opacity: 1;
-  }
-
-  nav.main > ul > li > ul {
-    display: none;
-  }
-
-  nav.main > ul > li.active > ul {
-    display: block;
-    margin-right: var(--leading);
   }
 
   nav.main > ul > li > ul > li.active {

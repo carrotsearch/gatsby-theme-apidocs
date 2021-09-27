@@ -10,6 +10,15 @@ export const onRouteUpdate = ({ location }) => {
     const newTarget = document.getElementById(location.hash.substring(1));
     if (newTarget) {
       newTarget.classList.add("target");
+
+      // Also scroll the document so that the target element is not
+      // obscured by the fixed header. This is pretty ugly, but I don't
+      // see a way to solve this in CSS when pages are not reloaded but
+      // updated without reloading the whole document.atsb
+      document.documentElement.scrollTop =
+        newTarget.getBoundingClientRect().top +
+        document.documentElement.scrollTop -
+        5.5 * 17;
     }
   }
 

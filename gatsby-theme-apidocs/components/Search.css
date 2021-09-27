@@ -49,6 +49,7 @@
   min-height: 35vh;
   z-index: 2;
   padding-bottom: var(--leading);
+  padding-top: var(--leading);
 }
 
 .SearchResultList .divider {

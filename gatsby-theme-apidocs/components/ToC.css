@@ -2,7 +2,6 @@ nav.toc {
   padding-top: calc(var(--leading) * 3.4);
   font-size: var(--small-font-size);
   grid-area: toc;
-  padding-right: var(--leading);
 }
 
 nav.toc a {

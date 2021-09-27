@@ -2,6 +2,10 @@
 @import "Search.css";
 @import "ThemeSwitch.css";
 
+.layout {
+  --header-height: 4rem;
+}
+
 .toc {
   display: none;
 }
@@ -70,15 +74,15 @@ button.menu.close {
     "logo   search theme"
     "main   main   main"
     "footer footer footer";
-  grid-row-gap: calc(var(--leading));
 }
 
 article {
   grid-area: main;
   min-width: 0; /* prevent content from stretching the article */
   max-width: 100%;
+  min-height: 100vh; /* prevent movement of sticky menu for short articles */
   box-sizing: border-box;
-  margin: 0 calc(1 * var(--leading)) 0 0;
+  margin: calc(0.75 * var(--leading)) calc(1 * var(--leading)) 0 0;
   padding-left: var(--leading);
 }
 
@@ -94,7 +98,10 @@ article {
   display: flex;
   flex-direction: row;
   align-items: center;
-  padding-bottom: 0.125rem;
+  position: sticky;
+  top: 0;
+  z-index: 3;
+  height: var(--header-height);
 }
 
 footer {
@@ -119,7 +126,7 @@ footer {
 .search:focus-within {
   padding-left: var(--leading);
   grid-column-start: logo;
-  z-index: 2;
+  z-index: 4;
 }
 
 .theme-switch {
@@ -132,6 +139,7 @@ footer {
 .theme-switch .LightDarkSwitch {
   margin-right: calc(0.5 * var(--leading));
   display: none;
+  height: 1.4rem;
 }
 
 .theme-switch .react-toggle {
@@ -157,7 +165,14 @@ footer {
 nav.main > ul,
 nav.toc > ul {
   position: sticky;
-  top: var(--leading);
+  top: calc(var(--header-height) + var(--leading));
+  overflow-y: auto;
+  margin-right: 1rem;
+  padding-right: 0.25rem;
+}
+
+nav.main > ul {
+  height: calc(100vh - var(--header-height) - var(--leading));
 }
 
 @media (min-width: 768px) {
@@ -272,4 +287,43 @@ nav.toc > ul {
   article {
     margin-top: calc(2 * var(--leading));
   }
+}
+
+/** In-page scrollbars */
+nav.toc ::-webkit-scrollbar,
+nav.main ::-webkit-scrollbar {
+  width: 0.6em;
+  height: 0.6em;
+}
+
+nav.toc ::-webkit-scrollbar,
+nav.main ::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.03);
+  border-radius: 4px;
+}
+
+nav.toc ::-webkit-scrollbar,
+nav.main ::-webkit-scrollbar-thumb {
+  background: rgba(0, 0, 0, 0.07);
+  border-radius: 0.425em;
+}
+
+nav.toc ::-webkit-scrollbar,
+nav.main ::-webkit-scrollbar-thumb:hover {
+  background: rgba(0, 0, 0, 0.12);
+}
+
+.dark nav.toc ::-webkit-scrollbar,
+.dark nav.main ::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.dark nav.toc ::-webkit-scrollbar,
+.dark nav.main ::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.07);
+}
+
+.dark nav.toc ::-webkit-scrollbar,
+.dark nav.main ::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.12);
 }
