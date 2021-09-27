@@ -4,9 +4,10 @@
   "version": "3.0.0",
   "license": "MIT",
   "scripts": {
-    "build": "gatsby build",
+    "build": "gatsby build --prefix-paths",
     "develop": "gatsby develop",
-    "clean": "gatsby clean"
+    "clean": "gatsby clean",
+    "serve": "gatsby serve --prefix-paths"
   },
   "dependencies": {
     "@carrotsearch/gatsby-theme-apidocs": "workspace:*",

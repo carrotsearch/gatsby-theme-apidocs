@@ -7,7 +7,7 @@ module.exports = {
   },
   plugins: [
     {
-      resolve: "gatsby-theme-apidocs",
+      resolve: "@carrotsearch/gatsby-theme-apidocs",
       options: {
         navigation: `${__dirname}/src/navigation.json`,
         logo: `${__dirname}/src/logo.html`,
