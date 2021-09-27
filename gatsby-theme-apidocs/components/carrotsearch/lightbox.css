@@ -19,9 +19,31 @@ figure.zoomed {
   bottom: 0.5em;
   right: 0.5em;
   width: inherit;
+
+  display: grid;
+  grid-template-columns: auto;
+  grid-template-rows: 1fr auto;
+  grid-template-areas:
+    "img"
+    "cap";
 }
 
+figure.zoomed.horizontal {
+  grid-template-columns: 1fr auto;
+  grid-template-rows: auto;
+  grid-template-areas: "img cap";
+}
+
+figure.zoomed .img {
+  grid-area: img;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+figure.zoomed svg,
 figure.zoomed img {
+  position: relative;
   max-width: none;
   border-radius: 0.25rem;
   display: block;
@@ -29,14 +51,13 @@ figure.zoomed img {
   cursor: zoom-out;
 }
 
-figure.zoomed img.hires {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
+figure.zoomed .img > img {
+  left: unset;
+  right: unset;
 }
 
 figure.zoomed figcaption {
+  grid-area: cap;
   display: block;
   opacity: unset;
   padding: inherit;
@@ -47,36 +68,17 @@ figure.zoomed figcaption {
   box-sizing: border-box;
 }
 
+figure.zoomed.horizontal figcaption {
+  max-width: 20em;
+  margin-left: 1em;
+}
+
 figure.zoomed figcaption .only.unzoomed {
   display: none;
 }
 
 figure.zoomed figcaption .only.zoomed {
   display: block;
-}
-
-figure.zoomed figcaption.over {
-  z-index: 1;
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  margin: 0 auto;
-  background-color: rgba(0, 0, 0, 0.8);
-  padding: 0 1rem;
-  border-radius: 0 0 0.15rem 0.15rem;
-  transform-origin: 0 100%;
-}
-
-figure.zoomed.horizontal img {
-  margin-left: 0;
-}
-
-figure.zoomed.horizontal figcaption {
-  position: absolute;
-  top: 0;
-  right: 0;
-  padding: 0 0 0 1em;
 }
 
 figure.zoomed.horizontal figcaption p:first-child {

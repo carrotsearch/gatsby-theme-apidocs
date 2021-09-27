@@ -29,7 +29,7 @@ export const Lightbox = function () {
 
   // Close on scroll
   let scrollWhenShown = undefined;
-  document.addEventListener("scroll", function (e) {
+  document.addEventListener("scroll", function () {
     if (scrollWhenShown === undefined) {
       return;
     }
@@ -60,14 +60,16 @@ export const Lightbox = function () {
       absoluteFigure.style.opacity = 0;
       absoluteFigure.inPageImg = inPageImg; // we need a reference to the in-page img to perform the un-zoom animation
 
+      // Remove preview image
+      [ ...absoluteFigure.querySelectorAll(".preview")].forEach(p => {
+        p.parentElement.removeChild(p);
+      });
+
       overlay.appendChild(absoluteFigure);
 
       // Let the browser insert the zoomed-in figure to the page and compute styles.
       window.requestAnimationFrame(function () {
         layoutFigure(absoluteFigure);
-
-        // Lay out the caption
-        layoutCaption(absoluteFigure, true);
 
         // Add a CSS transform that will scale/translate the zoomed-in figure to look like the in-page figure.
         // The zoomed-in figure has opacity 0, so it's not yet visible. We'll transition the transform to
@@ -119,7 +121,6 @@ export const Lightbox = function () {
         .call(overlay.querySelectorAll("figure.zoomed"))
         .forEach(function (figure) {
           layoutFigure(figure);
-          layoutCaption(figure);
         });
     }, 100);
   }
@@ -153,88 +154,6 @@ export const Lightbox = function () {
     function setStyles(img, width, height) {
       img.style.width = width;
       img.style.height = height;
-    }
-  }
-
-  // Lays out the caption for the figure.
-  function layoutCaption(figure, initial) {
-    const caption = figure.querySelector("figcaption");
-    if (caption) {
-      const img = firstVisibleImg(figure);
-
-      // Dimensions
-      const overlayRect = overlay.getBoundingClientRect();
-      const figureRect = figure.getBoundingClientRect();
-      const imgRect = img.getBoundingClientRect();
-      const padding = overlayRect.height - figureRect.bottom;
-
-      caption.className = "";
-
-      let captionRect;
-      if (/horizontal/.test(figure.className)) {
-        // For horizontal layout, set the caption width to fill the remaining space on the right
-        caption.style.width = figureRect.width - imgRect.width + "px";
-        caption.style.height = "auto";
-
-        // On initial layout, add a slide-in animation
-        if (initial) {
-          captionRect = caption.getBoundingClientRect();
-          caption.style.transform =
-            "translateX(" + captionRect.width / 2 + "px)";
-        }
-      } else {
-        // For vertical layout, we'll put the caption below or over the image.
-        // We'll set the caption width to the width of the image.
-        caption.style.width = imgRect.width + "px";
-        caption.folded = false;
-
-        // If there's not enough space below the image, overlay the caption on the image.
-        captionRect = caption.getBoundingClientRect();
-        if (captionRect.bottom > figureRect.bottom) {
-          caption.className = "over";
-        } else {
-          caption.style.height = figureRect.height - imgRect.height + "px";
-        }
-
-        // On initial layout, add a slide-in animation
-        if (initial) {
-          caption.style.transform = "translateY(" + captionRect.height + "px)";
-
-          // On click, hide the caption so that it doesn't obscure the image.
-          caption.addEventListener("click", function (e) {
-            if (caption.className === "over") {
-              e.stopPropagation();
-              if (caption.folded) {
-                caption.folded = false;
-                caption.style.transform = "none";
-              } else {
-                const captionRect = caption.getBoundingClientRect();
-                caption.folded = true;
-                caption.style.transform =
-                  "scaleY(" +
-                  (padding * 2) / captionRect.height +
-                  ") " +
-                  "scaleX(" +
-                  (padding * 2) / captionRect.height +
-                  ") " +
-                  "translateY(" +
-                  captionRect.height +
-                  "px)";
-              }
-            }
-          });
-        }
-      }
-
-      // Run the slide-in animation
-      if (initial) {
-        caption.style.opacity = 0;
-        window.setTimeout(function () {
-          caption.style.transition = "transform 0.5s ease, opacity 0.5s";
-          caption.style.transform = "none";
-          caption.style.opacity = 1;
-        }, 250);
-      }
     }
   }
 
