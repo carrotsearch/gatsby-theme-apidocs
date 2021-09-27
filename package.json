@@ -8,7 +8,8 @@
   "scripts": {
     "clean": "yarn workspace doc clean",
     "build": "yarn workspace doc build",
-    "develop": "yarn workspace doc develop"
+    "develop": "yarn workspace doc develop",
+    "serve": "yarn workspace doc serve"
   },
   "dependencies": {
     "prettier": "^2.4.1"
