@@ -1471,6 +1471,39 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@carrotsearch/gatsby-theme-apidocs@workspace:*, @carrotsearch/gatsby-theme-apidocs@workspace:gatsby-theme-apidocs":
+  version: 0.0.0-use.local
+  resolution: "@carrotsearch/gatsby-theme-apidocs@workspace:gatsby-theme-apidocs"
+  dependencies:
+    "@carrotsearch/gatsby-plugin-content-search": "*"
+    "@carrotsearch/gatsby-plugin-relativize": "*"
+    "@carrotsearch/gatsby-transformer-html": "*"
+    "@fortawesome/fontawesome-svg-core": 1.2.36
+    "@fortawesome/free-regular-svg-icons": 5.15.4
+    "@fortawesome/free-solid-svg-icons": 5.15.4
+    "@fortawesome/react-fontawesome": 0.1.15
+    chokidar: 3.5.2
+    gatsby-link: 3.14.0
+    gatsby-plugin-catch-links: 3.14.0
+    gatsby-plugin-dark-mode: 1.1.2
+    gatsby-plugin-nprogress: 3.14.0
+    gatsby-plugin-offline: 4.14.0
+    gatsby-plugin-react-helmet: 4.14.0
+    gatsby-plugin-sharp: 3.14.0
+    gatsby-source-filesystem: 3.14.0
+    highlight.js: 11.2.0
+    html-react-parser: 1.3.0
+    normalize.css: 8.0.1
+    react-helmet: 6.1.0
+    typeface-lato: 0.0.75
+    typeface-raleway: 0.0.75
+  peerDependencies:
+    gatsby: "*"
+    react: "*"
+    react-dom: "*"
+  languageName: unknown
+  linkType: soft
+
 "@carrotsearch/gatsby-transformer-html@*, @carrotsearch/gatsby-transformer-html@workspace:plugins/gatsby-transformer-html":
   version: 0.0.0-use.local
   resolution: "@carrotsearch/gatsby-transformer-html@workspace:plugins/gatsby-transformer-html"
@@ -5631,8 +5664,8 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "doc@workspace:doc"
   dependencies:
+    "@carrotsearch/gatsby-theme-apidocs": "workspace:*"
     gatsby: 3.14.0
-    gatsby-theme-apidocs: "workspace:*"
     react: 17.0.2
     react-dom: 17.0.2
   languageName: unknown
@@ -7516,39 +7549,6 @@ fsevents@~2.3.2:
   checksum: 643924a1f2f2fb705c7f63abd6e87adcb0ed20dd523b245abc86b17f5d8e5b6d50e3d5f93dc79e8b2b7f31a78f3c01270fc0afe7b0adb5d90dcd44bfcc9adf9e
   languageName: node
   linkType: hard
-
-"gatsby-theme-apidocs@workspace:*, gatsby-theme-apidocs@workspace:gatsby-theme-apidocs":
-  version: 0.0.0-use.local
-  resolution: "gatsby-theme-apidocs@workspace:gatsby-theme-apidocs"
-  dependencies:
-    "@carrotsearch/gatsby-plugin-content-search": "*"
-    "@carrotsearch/gatsby-plugin-relativize": "*"
-    "@carrotsearch/gatsby-transformer-html": "*"
-    "@fortawesome/fontawesome-svg-core": 1.2.36
-    "@fortawesome/free-regular-svg-icons": 5.15.4
-    "@fortawesome/free-solid-svg-icons": 5.15.4
-    "@fortawesome/react-fontawesome": 0.1.15
-    chokidar: 3.5.2
-    gatsby-link: 3.14.0
-    gatsby-plugin-catch-links: 3.14.0
-    gatsby-plugin-dark-mode: 1.1.2
-    gatsby-plugin-nprogress: 3.14.0
-    gatsby-plugin-offline: 4.14.0
-    gatsby-plugin-react-helmet: 4.14.0
-    gatsby-plugin-sharp: 3.14.0
-    gatsby-source-filesystem: 3.14.0
-    highlight.js: 11.2.0
-    html-react-parser: 1.3.0
-    normalize.css: 8.0.1
-    react-helmet: 6.1.0
-    typeface-lato: 0.0.75
-    typeface-raleway: 0.0.75
-  peerDependencies:
-    gatsby: "*"
-    react: "*"
-    react-dom: "*"
-  languageName: unknown
-  linkType: soft
 
 "gatsby-worker@npm:^0.5.0":
   version: 0.5.0

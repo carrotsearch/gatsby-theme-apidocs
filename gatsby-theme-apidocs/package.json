@@ -1,5 +1,5 @@
 {
-  "name": "gatsby-theme-apidocs",
+  "name": "@carrotsearch/gatsby-theme-apidocs",
   "version": "3.0.0",
   "main": "index.js",
   "license": "MIT",
