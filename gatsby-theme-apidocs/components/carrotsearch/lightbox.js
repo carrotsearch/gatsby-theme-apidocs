@@ -54,6 +54,10 @@ export const Lightbox = function () {
       scrollWhenShown = window.scrollY;
       const inPageImg = closest(e.target, "img, svg");
 
+      if (inPageImg.matches("img")) {
+        inPageImg.setAttribute("sizes", "100vw");
+      }
+
       // We'll use the clone of the figure in the zoomed-in view
       const absoluteFigure = figure.cloneNode(true);
       absoluteFigure.classList.add("zoomed");
