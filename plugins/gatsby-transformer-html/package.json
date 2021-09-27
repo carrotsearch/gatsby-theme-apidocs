@@ -1,6 +1,6 @@
 {
   "name": "@carrotsearch/gatsby-transformer-html",
-  "description": "A Gatsby transformer plugin for authoring content in HTML. Supports ToC generation, responsive images, section anchors and Prism.JS code highlighting.",
+  "description": "A Gatsby transformer plugin for authoring content in HTML. Supports ToC generation, responsive images, section anchors and HighlightJS code highlighting.",
   "version": "3.0.0",
   "main": "index.js",
   "keywords": [
@@ -11,9 +11,12 @@
     "responsive images",
     "prismjs"
   ],
-  "repository": "https://github.com/carrotsearch/gatsby-transformer-html",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/carrotsearch/gatsby-theme-apidocs.git"
+  },
   "bugs": {
-    "url": "https://github.com/carrotsearch/gatsby-transformer-html/issues"
+    "url": "https://github.com/carrotsearch/gatsby-theme-apidocs/issues"
   },
   "publishConfig": {
     "access": "public",

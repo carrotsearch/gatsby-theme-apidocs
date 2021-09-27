@@ -1,8 +1,16 @@
 {
   "name": "@carrotsearch/gatsby-theme-apidocs",
+  "description": "A Gatsby theme for creating functional and responsive API documentation websites.",
   "version": "3.0.0",
   "main": "index.js",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/carrotsearch/gatsby-theme-apidocs.git"
+  },
+  "bugs": {
+    "url": "https://github.com/carrotsearch/gatsby-theme-apidocs/issues"
+  },
   "dependencies": {
     "@carrotsearch/gatsby-plugin-content-search": "*",
     "@carrotsearch/gatsby-plugin-relativize": "*",

@@ -8,9 +8,12 @@
     "gatsby-plugin",
     "relative-urls"
   ],
-  "repository": "https://github.com/carrotsearch/gatsby-plugin-relativize",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/carrotsearch/gatsby-theme-apidocs.git"
+  },
   "bugs": {
-    "url": "https://github.com/carrotsearch/gatsby-plugin-relativize/issues"
+    "url": "https://github.com/carrotsearch/gatsby-theme-apidocs/issues"
   },
   "publishConfig": {
     "access": "public",

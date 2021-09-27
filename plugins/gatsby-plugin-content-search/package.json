@@ -9,9 +9,12 @@
     "search",
     "fuzzysort"
   ],
-  "repository": "https://github.com/carrotsearch/gatsby-plugin-content-search",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/carrotsearch/gatsby-theme-apidocs.git"
+  },
   "bugs": {
-    "url": "https://github.com/carrotsearch/gatsby-plugin-content-search/issues"
+    "url": "https://github.com/carrotsearch/gatsby-theme-apidocs/issues"
   },
   "publishConfig": {
     "access": "public",
