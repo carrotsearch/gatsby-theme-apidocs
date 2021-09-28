@@ -64,11 +64,13 @@ figure.zoomed figcaption {
   position: relative;
   overflow: hidden;
   box-sizing: border-box;
+  text-align: center;
 }
 
 figure.zoomed.horizontal figcaption {
   width: 20em;
   margin-left: 1em;
+  text-align: left;
 }
 
 figure.zoomed figcaption .only.unzoomed {
