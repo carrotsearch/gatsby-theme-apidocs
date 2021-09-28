@@ -34,16 +34,15 @@ figure.zoomed.horizontal {
   grid-template-areas: "img cap";
 }
 
-figure.zoomed .img {
+figure.zoomed img {
   grid-area: img;
-  display: flex;
-  justify-content: center;
-  align-items: center;
 }
 
 figure.zoomed svg,
 figure.zoomed img {
-  position: relative;
+  position: absolute;
+  left: 0;
+  right: 0;
   max-width: none;
   border-radius: 0.25rem;
   display: block;
@@ -51,9 +50,8 @@ figure.zoomed img {
   cursor: zoom-out;
 }
 
-figure.zoomed .img > img {
-  left: unset;
-  right: unset;
+figure.zoomed img.hires {
+  z-index: 2;
 }
 
 figure.zoomed figcaption {

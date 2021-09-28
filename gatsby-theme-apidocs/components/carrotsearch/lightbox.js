@@ -54,20 +54,26 @@ export const Lightbox = function () {
       scrollWhenShown = window.scrollY;
       const inPageImg = closest(e.target, "img, svg");
 
-      if (inPageImg.matches("img")) {
-        inPageImg.setAttribute("sizes", "100vw");
-      }
-
       // We'll use the clone of the figure in the zoomed-in view
       const absoluteFigure = figure.cloneNode(true);
+
+      // Remove all images from the figure, we'll insert our own.
+      for (let i = 0;  i < absoluteFigure.children.length; i++) {
+        const child = absoluteFigure.children[i];
+        if (!child.matches("figcaption")) {
+          absoluteFigure.removeChild(child);
+        }
+      }
+
       absoluteFigure.classList.add("zoomed");
       absoluteFigure.style.opacity = 0;
-      absoluteFigure.inPageImg = inPageImg; // we need a reference to the in-page img to perform the un-zoom animation
 
-      // Remove preview image
-      [ ...absoluteFigure.querySelectorAll(".preview")].forEach(p => {
-        p.parentElement.removeChild(p);
-      });
+      // The original in-page image to serve as a place-holder when
+      // for zoom-in animation and when the hi-res image is loading.
+      const placeholderImg = inPageImg.cloneNode(true);
+      absoluteFigure.appendChild(placeholderImg);
+      absoluteFigure.inPageImg = inPageImg; // we need a reference to the in-page img to perform the un-zoom animation
+      absoluteFigure.placeholderImg = placeholderImg;
 
       overlay.appendChild(absoluteFigure);
 
@@ -85,10 +91,10 @@ export const Lightbox = function () {
           absoluteFigure.addEventListener("transitionend", function zoomed() {
             absoluteFigure.removeEventListener("transitionend", zoomed);
             absoluteFigure.boundingClientRect = undefined;
-            const img = firstVisibleImg(absoluteFigure);
+            const img = absoluteFigure.placeholderImg;
             img.boundingClientRect = undefined;
 
-            if (img.tagName === "img") {
+            if (img.matches("img")) {
               const hiresImg = img.cloneNode(true);
               hiresImg.className = "hires";
               hiresImg.sizes = "100vw";
@@ -109,13 +115,6 @@ export const Lightbox = function () {
     }
   });
 
-  function firstVisibleImg(absoluteFigure) {
-    // Take the first visible img
-    return [...absoluteFigure.querySelectorAll("img, svg")].find(n => {
-      return window.getComputedStyle(n).getPropertyValue("display") !== "none";
-    });
-  }
-
   let layoutTimeout;
 
   function layoutCaptionIfNeeded() {
@@ -131,7 +130,7 @@ export const Lightbox = function () {
 
   // Chooses the vertical vs horizontal layout for the zoomed-in figure.
   function layoutFigure(figure) {
-    const img = firstVisibleImg(figure);
+    const img = figure.placeholderImg;
 
     // Dimensions
     const figureRect = figure.getBoundingClientRect();
@@ -148,8 +147,8 @@ export const Lightbox = function () {
     }
 
     // Forced reflow, probably unavoidable
-    const imgRect = img.getBoundingClientRect();
-    if (figureRect.width - imgRect.width > 256) {
+    const zoomedWidth = figureRect.height * inPageImgRect.width / inPageImgRect.height;
+    if (figureRect.width - zoomedWidth > 300) {
       figure.classList.add("horizontal");
     } else {
       figure.classList.remove("horizontal");
@@ -222,7 +221,7 @@ export const Lightbox = function () {
   }
 
   function transform(absoluteFigure) {
-    const absoluteImg = firstVisibleImg(absoluteFigure);
+    const absoluteImg = absoluteFigure.placeholderImg;
 
     const imgRect = absoluteFigure.inPageImg.getBoundingClientRect();
     const absoluteImgRect = cachedRect(absoluteImg);
