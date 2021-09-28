@@ -28,6 +28,10 @@ figure.zoomed {
     "cap";
 }
 
+figure.zoomed > .container {
+  position: relative;
+}
+
 figure.zoomed.horizontal {
   grid-template-columns: 1fr auto;
   grid-template-rows: auto;
@@ -48,6 +52,11 @@ figure.zoomed img {
   display: block;
   margin: 0 auto;
   cursor: zoom-out;
+}
+
+figure.zoomed.horizontal svg,
+figure.zoomed.horizontal img {
+  left: unset;
 }
 
 figure.zoomed img.hires {

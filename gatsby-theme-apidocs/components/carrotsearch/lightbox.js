@@ -55,23 +55,25 @@ export const Lightbox = function () {
       const inPageImg = closest(e.target, "img, svg");
 
       // We'll use the clone of the figure in the zoomed-in view
-      const absoluteFigure = figure.cloneNode(true);
+      const absoluteFigure = figure.cloneNode(false);
 
-      // Remove all images from the figure, we'll insert our own.
-      for (let i = 0;  i < absoluteFigure.children.length; i++) {
-        const child = absoluteFigure.children[i];
-        if (!child.matches("figcaption")) {
-          absoluteFigure.removeChild(child);
-        }
+      const caption = figure.querySelector("figcaption");
+      if (caption) {
+        absoluteFigure.appendChild(caption.cloneNode(true));
       }
 
       absoluteFigure.classList.add("zoomed");
       absoluteFigure.style.opacity = 0;
 
+      const imgContainer = document.createElement("div");
+      imgContainer.className = "container";
+      absoluteFigure.appendChild(imgContainer);
+      absoluteFigure.imgContainer = imgContainer;
+
       // The original in-page image to serve as a place-holder when
       // for zoom-in animation and when the hi-res image is loading.
       const placeholderImg = inPageImg.cloneNode(true);
-      absoluteFigure.appendChild(placeholderImg);
+      imgContainer.appendChild(placeholderImg);
       absoluteFigure.inPageImg = inPageImg; // we need a reference to the in-page img to perform the un-zoom animation
       absoluteFigure.placeholderImg = placeholderImg;
 
@@ -98,7 +100,7 @@ export const Lightbox = function () {
               const hiresImg = img.cloneNode(true);
               hiresImg.className = "hires";
               hiresImg.sizes = "100vw";
-              absoluteFigure.appendChild(hiresImg);
+              absoluteFigure.imgContainer.appendChild(hiresImg);
             }
           });
 
