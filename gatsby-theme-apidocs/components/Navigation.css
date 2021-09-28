@@ -50,6 +50,33 @@ nav.main a {
   color: var(--text-color-muted);
 }
 
+nav.main .Section {
+  display: table;
+  font-size: smaller;
+  color: var(--text-color-light);
+  font-weight: normal;
+  text-transform: uppercase;
+  margin-bottom: 0.5em;
+}
+nav.main .Section > span {
+  padding-left: 0.5em;
+  padding-right: 0.5em;
+}
+
+nav.main .Section:before,
+nav.main .Section:after {
+  content: "";
+  display: table-cell;
+  position: relative;
+  top: -0.95em;
+  width: 50%;
+  border-bottom: 1px solid var(--hr-color);
+}
+
+nav.main .Section:before {
+  width: 50%;
+}
+
 nav.main > ul > li > ul > li.active {
   background-color: var(--background-color-dimmed);
   border-left: 0.3em solid var(--logo-color);

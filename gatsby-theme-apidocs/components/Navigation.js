@@ -2,12 +2,22 @@ import React from "react";
 import { useState } from "react";
 
 import { Link } from "gatsby";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faChevronDown } from "@fortawesome/free-solid-svg-icons/faChevronDown.js";
 
-const Chapter = ({ chapter, active, activate, articleId }) => {
+const Section = ({ section }) => {
+  if (!section) {
+    return null;
+  }
+  return (
+    <div className="Section">
+      <span>{section}</span>
+    </div>
+  );
+};
+
+const Chapter = ({ chapter, articleId }) => {
   return (
     <li>
+      <Section section={chapter.section} />
       {chapter.title}
       <ul>
         {chapter.articles.map(article => {
@@ -58,6 +68,7 @@ export const Navigation = ({ navigation, pages, articleId }) => {
       return {
         id: c.title,
         title: c.title,
+        section: c.section,
         articles: c.articles
           .filter(n => {
             if (!pageById.has(n)) {
