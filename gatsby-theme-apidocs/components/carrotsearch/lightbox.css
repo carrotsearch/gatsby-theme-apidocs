@@ -47,10 +47,12 @@ figure.zoomed img {
   position: absolute;
   left: 0;
   right: 0;
+  top: 0;
+  bottom: 0;
   max-width: none;
   border-radius: 0.25rem;
   display: block;
-  margin: 0 auto;
+  margin: auto;
   cursor: zoom-out;
 }
 
