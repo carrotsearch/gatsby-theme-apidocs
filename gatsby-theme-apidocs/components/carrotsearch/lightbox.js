@@ -135,7 +135,7 @@ export const Lightbox = function () {
     const img = figure.placeholderImg;
 
     // Dimensions
-    const figureRect = figure.getBoundingClientRect();
+    const figureRect = figure.imgContainer.getBoundingClientRect();
     const inPageImgRect = figure.inPageImg.getBoundingClientRect();
 
     // Depending on the ratios, the image should fill the whole width or height.
