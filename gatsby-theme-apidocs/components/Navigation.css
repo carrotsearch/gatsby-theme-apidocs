@@ -57,6 +57,7 @@ nav.main .Section {
   font-weight: normal;
   text-transform: uppercase;
   margin-bottom: 0.5em;
+  padding-right: 0.5em;
 }
 nav.main .Section > span {
   padding-left: 0.5em;
