@@ -67,7 +67,7 @@ figure.zoomed figcaption {
 }
 
 figure.zoomed.horizontal figcaption {
-  max-width: 20em;
+  width: 20em;
   margin-left: 1em;
 }
 
@@ -89,10 +89,6 @@ figure.zoomed:not(.horizontal) figcaption {
 
 @media (min-width: 48rem) {
   figure.zoomed:not(.horizontal) figcaption {
-    column-width: 22rem;
-    column-fill: balance;
-    column-rule: 1px solid rgba(255, 255, 255, 0.15);
-    column-gap: 2em;
     padding: 1em;
   }
 
