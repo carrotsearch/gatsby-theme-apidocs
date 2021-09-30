@@ -65,76 +65,75 @@ exports.createPages = ({ graphql, actions }) => {
   });
 };
 
+const files = {
+  navigation: {
+    what: "navigation JSON",
+    typeName: "Navigation",
+    fieldName: "navigation",
+    contentType: GraphQLJSON,
+    mediaType: "text/json",
+    parser: (raw, what) => {
+      try {
+        return JSON.parse(raw);
+      } catch (e) {
+        reporter.panic(`Could not parse ${what}: ${e}.`);
+      }
+    }
+  },
+  footer: {
+    what: "footer HTML",
+    typeName: "Footer",
+    fieldName: "footer",
+    contentType: "String",
+    mediaType: "text/html",
+    parser: raw => raw
+  },
+  logo: {
+    what: "logo HTML",
+    typeName: "Logo",
+    fieldName: "logo",
+    contentType: "String",
+    mediaType: "text/html",
+    parser: raw => raw
+  }
+};
+
+
 exports.sourceNodes = (
   { actions, reporter, createNodeId, createContentDigest, schema },
   { navigation, logo, footer }
 ) => {
-  const { createNode, createTypes } = actions;
+  const { createNode } = actions;
 
-  const files = [
+  [
     {
       path: navigation,
-      what: "navigation JSON",
-      typeName: "Navigation",
-      fieldName: "navigation",
-      contentType: GraphQLJSON,
-      mediaType: "text/json",
-      parser: (raw, what) => {
-        try {
-          return JSON.parse(raw);
-        } catch (e) {
-          reporter.panic(`Could not parse ${what}: ${e}.`);
-        }
-      }
-    },
-    {
-      path: footer,
-      what: "footer HTML",
-      typeName: "Footer",
-      fieldName: "footer",
-      contentType: "String",
-      mediaType: "text/html",
-      parser: raw => raw
+      spec: files.navigation
     },
     {
       path: logo,
-      what: "logo HTML",
-      typeName: "Logo",
-      fieldName: "logo",
-      contentType: "String",
-      mediaType: "text/html",
-      parser: raw => raw
+      spec: files.logo
+    },
+    {
+      path: footer,
+      spec: files.footer
     }
-  ];
-
-  files.forEach(f => {
-    addType(f.typeName, f.contentType, f.fieldName);
+  ].forEach(f => {
     process(f);
 
     if (f.path) {
       const watcher = chokidar.watch(f.path);
       watcher.on("change", () => {
-        reporter.info(capitalize(`${f.what} changed.`));
+        reporter.info(capitalize(`${f.spec.what} changed.`));
         process(f);
       });
     }
   });
 
-  function addType(name, contentType, fieldName) {
-    createTypes([
-      schema.buildObjectType({
-        name: name,
-        fields: {
-          [fieldName]: contentType
-        },
-        interfaces: [`Node`]
-      })
-    ]);
-  }
-
   function process(file) {
     const filename = file.path;
-    const what = file.what;
+    const spec = file.spec;
+    const what = spec.what;
 
     let raw = "";
     if (filename) {
@@ -151,14 +150,37 @@ exports.sourceNodes = (
       parent: null,
       children: [],
       internal: {
-        type: file.typeName,
-        mediaType: file.mediaType,
+        type: spec.typeName,
+        mediaType: spec.mediaType,
         content: raw,
         contentDigest: createContentDigest(raw)
       },
-      [file.fieldName]: file.parser(raw, what)
+      [spec.fieldName]: spec.parser(raw, what)
     };
 
     createNode(node);
+  }
+};
+
+exports.createSchemaCustomization = (
+  { actions,  schema }
+) => {
+  const { createTypes } = actions;
+
+  Object.keys(files).forEach(key => {
+    const file = files[key];
+    addType(file.typeName, file.contentType, file.fieldName);
+  });
+
+  function addType(name, contentType, fieldName) {
+    createTypes([
+      schema.buildObjectType({
+        name: name,
+        fields: {
+          [fieldName]: contentType
+        },
+        interfaces: [`Node`]
+      })
+    ]);
   }
 };
