@@ -29,18 +29,12 @@ export const PrevNextArticleBox = ({ which, articleId, articleTitle }) => {
   );
 };
 
-export const PrevNextArticle = ({ articleId, pages, navigation }) => {
-  const pageTitleById = pages.edges.reduce((map, edge) => {
-    const frontmatter = edge.node.frontmatter;
-    map.set(frontmatter.id, frontmatter.title);
-    return map;
-  }, new Map());
-
+export const PrevNextArticle = ({ articleId, navigation }) => {
   const flattenedArticles = navigation.chapters.reduce((array, chapter) => {
     chapter.articles.forEach(a => array.push(a));
     return array;
   }, []);
-  const articleIndex = flattenedArticles.indexOf(articleId);
+  const articleIndex = flattenedArticles.findIndex(a => a.id === articleId);
   if (articleIndex < 0) {
     return null;
   }
@@ -55,13 +49,13 @@ export const PrevNextArticle = ({ articleId, pages, navigation }) => {
     <div className="PrevNextArticle">
       <PrevNextArticleBox
         which="prev"
-        articleId={previousArticle}
-        articleTitle={pageTitleById.get(previousArticle)}
+        articleId={previousArticle?.id}
+        articleTitle={previousArticle?.title}
       />
       <PrevNextArticleBox
         which="next"
-        articleId={nextArticle}
-        articleTitle={pageTitleById.get(nextArticle)}
+        articleId={nextArticle?.id}
+        articleTitle={nextArticle?.title}
       />
     </div>
   );

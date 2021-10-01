@@ -10,6 +10,41 @@ import { Helmet } from "react-helmet";
 
 import parse, { domToReact } from "html-react-parser";
 
+const resolveNavigation = (navigation, pages) => {
+  const pageById = pages.reduce((map, node) => {
+    map.set(node.node.frontmatter.id, node.node);
+    return map;
+  }, new Map());
+
+  const resolvedChapters = navigation.chapters.map(c => {
+    return {
+      id: c.title,
+      title: c.title,
+      section: c.section,
+      articles: c.articles
+        .filter(n => {
+          if (!pageById.has(n)) {
+            console.warn(
+              `No article content for for navigation entry ${n}, skipping.`
+            );
+          }
+          return pageById.has(n);
+        })
+        .map(n => {
+          return {
+            id: n,
+            slug: pageById.get(n).fields.slug,
+            title: pageById.get(n).frontmatter.title
+          };
+        })
+    }
+  });
+
+  return {
+    chapters: resolvedChapters
+  }
+};
+
 export const DocumentationPage = ({ pageData, location }) => {
   const q = graphql`
     query {
@@ -56,7 +91,7 @@ export const DocumentationPage = ({ pageData, location }) => {
   const articleId = article.frontmatter.id;
   const site = data.site;
   const metadata = site.siteMetadata;
-  const navigation = data.navigation.navigation;
+  const navigation = resolveNavigation(data.navigation.navigation, data.allHtml.edges);
   const footer = data.footer.footer;
   const logo = data.logo.logo;
 
@@ -93,7 +128,6 @@ export const DocumentationPage = ({ pageData, location }) => {
             {domToReact(children, parserOptions)}
             <PrevNextArticle
               articleId={articleId}
-              pages={data.allHtml}
               navigation={navigation}
             />
           </article>
@@ -111,7 +145,8 @@ export const DocumentationPage = ({ pageData, location }) => {
     <Layout
       articleId={articleId}
       location={location}
-      data={data}
+      searchIndex={data.contentSearchHeadings}
+      navigation={navigation}
       footer={footerElement}
       logo={logoElement}
     >

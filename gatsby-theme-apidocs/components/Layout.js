@@ -4,8 +4,7 @@ import { Search, SearchResultList } from "./Search.js";
 import { Navigation } from "./Navigation.js";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faBars } from "@fortawesome/free-solid-svg-icons/faBars.js";
-import { faTimes } from "@fortawesome/free-solid-svg-icons/faTimes.js";
+import { faBars, faTimes } from "@fortawesome/free-solid-svg-icons";
 
 export const MenuButton = ({ icon, onClick, className }) => {
   return (
@@ -19,7 +18,8 @@ export const Layout = ({
   articleId,
   children,
   location,
-  data,
+  searchIndex,
+  navigation,
   logo,
   footer
 }) => {
@@ -28,8 +28,8 @@ export const Layout = ({
       <div className="logo">{logo}</div>
       <div className="search">
         <Search
-          headings={data.contentSearchHeadings}
-          navigation={data.navigation.navigation}
+          headings={searchIndex}
+          navigation={navigation}
         />
       </div>
       <div className="theme-switch" title="Switch dark mode">
@@ -52,8 +52,7 @@ export const Layout = ({
 
       <nav className="main">
         <Navigation
-          navigation={data.navigation.navigation}
-          pages={data.allHtml.edges}
+          navigation={navigation}
           articleId={articleId}
         />
       </nav>

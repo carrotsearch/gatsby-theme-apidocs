@@ -33,8 +33,8 @@ const Chapter = ({ chapter, articleId }) => {
   );
 };
 
-export const Navigation = ({ navigation, pages, articleId }) => {
-  const chapters = fuse(navigation, pages);
+export const Navigation = ({ navigation, articleId }) => {
+  const chapters = navigation.chapters;
   let initialActiveChapterId;
   for (let chapter of chapters) {
     if (chapter.articles.map(a => a.id).includes(articleId)) {
@@ -57,35 +57,4 @@ export const Navigation = ({ navigation, pages, articleId }) => {
   ));
 
   return <ul>{listItems}</ul>;
-
-  function fuse(navigation, pages) {
-    const pageById = pages.reduce((map, node) => {
-      map.set(node.node.frontmatter.id, node.node);
-      return map;
-    }, new Map());
-
-    return navigation.chapters.map(c => {
-      return {
-        id: c.title,
-        title: c.title,
-        section: c.section,
-        articles: c.articles
-          .filter(n => {
-            if (!pageById.has(n)) {
-              console.warn(
-                `No article content for for navigation entry ${n}, skipping.`
-              );
-            }
-            return pageById.has(n);
-          })
-          .map(n => {
-            return {
-              id: n,
-              slug: pageById.get(n).fields.slug,
-              title: pageById.get(n).frontmatter.title
-            };
-          })
-      };
-    });
-  }
 };
