@@ -16,33 +16,62 @@ const resolveNavigation = (navigation, pages) => {
     return map;
   }, new Map());
 
-  const resolvedChapters = navigation.chapters.map(c => {
-    return {
-      id: c.title,
-      title: c.title,
-      section: c.section,
-      articles: c.articles
-        .filter(n => {
-          if (!pageById.has(n)) {
-            console.warn(
-              `No article content for for navigation entry ${n}, skipping.`
-            );
-          }
-          return pageById.has(n);
-        })
-        .map(n => {
-          return {
-            id: n,
-            slug: pageById.get(n).fields.slug,
-            title: pageById.get(n).frontmatter.title
-          };
-        })
-    }
-  });
+  const resolvedChapters = navigation.chapters
+    .filter(c => {
+      if (!c.expand || pageById.has(c.expand)) {
+        return true;
+      } else {
+        console.warn(
+          `No article content for for navigation entry ${c.expand}, skipping.`
+        );
+      }
+    })
+    .map(c => {
+      if (c.expand) {
+        const page = pageById.get(c.expand);
+
+        return {
+          id: page.frontmatter.title,
+          title: page.frontmatter.title,
+          section: c.section,
+          articles: page.tableOfContents.map(tc => {
+            return {
+              id: tc.anchor,
+              slug: page.fields.slug,
+              url: page.fields.slug + "#" + tc.anchor,
+              title: tc.heading
+            }
+          })
+        };
+      } else {
+        return {
+          id: c.title,
+          title: c.title,
+          section: c.section,
+          articles: c.articles
+            .filter(n => {
+              if (!pageById.has(n)) {
+                console.warn(
+                  `No article content for for navigation entry ${n}, skipping.`
+                );
+              }
+              return pageById.has(n);
+            })
+            .map(n => {
+              return {
+                id: n,
+                slug: pageById.get(n).fields.slug,
+                url: pageById.get(n).fields.slug,
+                title: pageById.get(n).frontmatter.title
+              };
+            })
+        };
+      }
+    });
 
   return {
     chapters: resolvedChapters
-  }
+  };
 };
 
 export const DocumentationPage = ({ pageData, location }) => {
@@ -80,6 +109,7 @@ export const DocumentationPage = ({ pageData, location }) => {
             fields {
               slug
             }
+            tableOfContents
           }
         }
       }

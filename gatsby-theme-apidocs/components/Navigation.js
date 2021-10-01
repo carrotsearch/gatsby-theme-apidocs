@@ -24,7 +24,7 @@ const Chapter = ({ chapter, articleId }) => {
           const active = article.id === articleId;
           return (
             <li key={article.id} className={active ? "active" : null}>
-              <Link to={article.slug}>{article.title}</Link>
+              <Link to={article.url}>{article.title}</Link>
             </li>
           );
         })}

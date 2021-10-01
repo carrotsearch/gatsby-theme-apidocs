@@ -1,12 +1,11 @@
 import React from "react";
 import { Link } from "gatsby";
 
-export const PrevNextArticleBox = ({ which, articleId, articleTitle }) => {
-  if (!articleId) {
+export const PrevNextArticleBox = ({ which, url, title }) => {
+  if (!url) {
     return <div className={which} />;
   }
 
-  const url = `/${articleId}/`;
   const dir =
     which === "prev" ? (
       <span>
@@ -23,7 +22,7 @@ export const PrevNextArticleBox = ({ which, articleId, articleTitle }) => {
       <Link to={url} accessKey={which.substring(0, 1)}>
         <small>{dir} article</small>
         <br />
-        <span className="main">{articleTitle}</span>
+        <span className="main">{title}</span>
       </Link>
     </div>
   );
@@ -49,13 +48,13 @@ export const PrevNextArticle = ({ articleId, navigation }) => {
     <div className="PrevNextArticle">
       <PrevNextArticleBox
         which="prev"
-        articleId={previousArticle?.id}
-        articleTitle={previousArticle?.title}
+        url={previousArticle?.url}
+        title={previousArticle?.title}
       />
       <PrevNextArticleBox
         which="next"
-        articleId={nextArticle?.id}
-        articleTitle={nextArticle?.title}
+        url={nextArticle?.url}
+        title={nextArticle?.title}
       />
     </div>
   );
