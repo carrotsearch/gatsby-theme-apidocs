@@ -72,7 +72,7 @@ const files = {
     fieldName: "navigation",
     contentType: GraphQLJSON,
     mediaType: "text/json",
-    parser: (raw, what) => {
+    parser: (raw, what, reporter) => {
       try {
         return JSON.parse(raw);
       } catch (e) {
@@ -155,7 +155,7 @@ exports.sourceNodes = (
         content: raw,
         contentDigest: createContentDigest(raw)
       },
-      [spec.fieldName]: spec.parser(raw, what)
+      [spec.fieldName]: spec.parser(raw, what, reporter)
     };
 
     createNode(node);

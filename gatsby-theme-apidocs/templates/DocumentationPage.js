@@ -28,20 +28,33 @@ const resolveNavigation = (navigation, pages) => {
     })
     .map(c => {
       if (c.expand) {
+        // Expand top-level anchors from the provided page into one
+        // chapter of navigation.
         const page = pageById.get(c.expand);
 
         return {
           id: c.title,
           title: c.title,
           section: c.section,
-          articles: page.tableOfContents.map(tc => {
-            return {
-              id: c.expand,
-              slug: page.fields.slug,
-              url: page.fields.slug + "#" + tc.anchor,
-              title: tc.heading
-            }
-          })
+          articles:
+            [
+              // Link to the article
+              {
+                id: c.expand,
+                slug: page.fields.slug,
+                url: page.fields.slug,
+                title: page.frontmatter.title
+              },
+              // Links to top-level sections of the article
+              ...page.tableOfContents.map(tc => {
+                return {
+                  id: c.expand,
+                  slug: page.fields.slug,
+                  url: page.fields.slug + "#" + tc.anchor,
+                  title: tc.heading
+                };
+              })
+            ]
         };
       } else {
         return {
