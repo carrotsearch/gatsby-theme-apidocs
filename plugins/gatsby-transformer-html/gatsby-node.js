@@ -11,7 +11,7 @@ const {
 const { rewriteInternalLinks } = require("./src/rewrite-internal-links.js");
 const { generateElementId } = require("./src/generate-element-id.js");
 const extractFragment = require("./src/extract-fragment.js");
-const { CodeHighlighter, highlightCode } = require("./src/transformers/code-highlighter");
+const { CodeHighlighter } = require("./src/transformers/code-highlighter");
 const { loadHtml, renderHtml } = require("./src/html-transformer");
 const { encode } = require("html-entities");
 const { notInPre } = require("./src/cheerio-utils");
@@ -357,31 +357,35 @@ const tryCache = async (cache, key, produceEntry) => {
   }
 };
 
-const setFieldsOnGraphQLNodeType = (
-  { type, getNodesByType, reporter, cache, pathPrefix, createContentDigest },
-  { variables, transformers, imageQuality = 90 }
-) => {
-  if (type.name === "Html") {
-    const runTransformers = ($, dir) => {
-      if (transformers) {
-        for (let i = 0; i < transformers.length; i++) {
-          $ = transformers[i]($, {
-            dir,
-            variables,
-            reporter,
-            loadEmbeddedContent
-          });
-        }
+const createResolvers = ({
+                           createResolvers,
+                           getNodesByType,
+                           reporter,
+                           cache,
+                           pathPrefix
+                         },
+                         { variables, transformers, imageQuality = 90 }) => {
+  const runTransformers = ($, dir) => {
+    if (transformers) {
+      for (let i = 0; i < transformers.length; i++) {
+        $ = transformers[i]($, {
+          dir,
+          variables,
+          reporter,
+          loadEmbeddedContent
+        });
       }
-      return $;
-    };
+    }
+    return $;
+  };
 
-    const codeHighlighter = new CodeHighlighter();
-    const imageProcessor = new ImageProcessor({
-      getNodesByType, pathPrefix, imageQuality, reporter, cache
-    });
+  const codeHighlighter = new CodeHighlighter();
+  const imageProcessor = new ImageProcessor({
+    getNodesByType, pathPrefix, imageQuality, reporter, cache
+  });
 
-    return {
+  createResolvers({
+    "Html": {
       html: {
         type: "String",
         resolve: async node => {
@@ -419,8 +423,8 @@ const setFieldsOnGraphQLNodeType = (
           });
         }
       }
-    };
-  }
+    }
+  });
 };
 
 const onPreBootstrap = ({ reporter }, { variables }) => {
@@ -433,4 +437,4 @@ const onPreBootstrap = ({ reporter }, { variables }) => {
 
 exports.onPreBootstrap = onPreBootstrap;
 exports.onCreateNode = onCreateNode;
-exports.setFieldsOnGraphQLNodeType = setFieldsOnGraphQLNodeType;
+exports.createResolvers = createResolvers;
