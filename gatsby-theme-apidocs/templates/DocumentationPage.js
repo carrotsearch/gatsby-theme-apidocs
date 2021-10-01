@@ -31,12 +31,12 @@ const resolveNavigation = (navigation, pages) => {
         const page = pageById.get(c.expand);
 
         return {
-          id: page.frontmatter.title,
-          title: page.frontmatter.title,
+          id: c.title,
+          title: c.title,
           section: c.section,
           articles: page.tableOfContents.map(tc => {
             return {
-              id: tc.anchor,
+              id: c.expand,
               slug: page.fields.slug,
               url: page.fields.slug + "#" + tc.anchor,
               title: tc.heading
@@ -117,6 +117,7 @@ export const DocumentationPage = ({ pageData, location }) => {
   `;
   const data = useStaticQuery(q);
 
+  const url = `${location.pathname}${location.hash}`;
   const article = pageData.html;
   const articleId = article.frontmatter.id;
   const site = data.site;
@@ -173,10 +174,11 @@ export const DocumentationPage = ({ pageData, location }) => {
 
   return (
     <Layout
-      articleId={articleId}
+      url={url}
       location={location}
       searchIndex={data.contentSearchHeadings}
       navigation={navigation}
+      navigationRaw={data.navigation.navigation}
       footer={footerElement}
       logo={logoElement}
     >

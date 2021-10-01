@@ -37,12 +37,22 @@ export const PrevNextArticle = ({ articleId, navigation }) => {
   if (articleIndex < 0) {
     return null;
   }
-  const previousArticle =
-    articleIndex > 0 ? flattenedArticles[articleIndex - 1] : null;
+
+  let prevIndex = articleIndex;
+  do {
+    prevIndex--;
+  } while (prevIndex >= 0 && flattenedArticles[prevIndex].id === articleId);
+  const previousArticle = prevIndex >= 0 ? flattenedArticles[prevIndex] : null;
+
+  let nextIndex = articleIndex;
+  do {
+    nextIndex++;
+  } while (
+    nextIndex < flattenedArticles.length &&
+    flattenedArticles[nextIndex].id === articleId
+  );
   const nextArticle =
-    articleIndex < flattenedArticles.length - 1
-      ? flattenedArticles[articleIndex + 1]
-      : null;
+    nextIndex < flattenedArticles.length ? flattenedArticles[nextIndex] : null;
 
   return (
     <div className="PrevNextArticle">

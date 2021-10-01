@@ -15,7 +15,7 @@ export const MenuButton = ({ icon, onClick, className }) => {
 };
 
 export const Layout = ({
-  articleId,
+  url,
   children,
   location,
   searchIndex,
@@ -27,10 +27,7 @@ export const Layout = ({
     <div className="layout">
       <div className="logo">{logo}</div>
       <div className="search">
-        <Search
-          headings={searchIndex}
-          navigation={navigation}
-        />
+        <Search headings={searchIndex} navigation={navigation} />
       </div>
       <div className="theme-switch" title="Switch dark mode">
         <ThemeSwitch />
@@ -53,7 +50,7 @@ export const Layout = ({
       <nav className="main">
         <Navigation
           navigation={navigation}
-          articleId={articleId}
+          url={url}
         />
       </nav>
       <SearchResultList location={location} />

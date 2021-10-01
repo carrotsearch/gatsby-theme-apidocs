@@ -20,11 +20,9 @@
     {
       "title": "Advanced topics",
       "articles": [
-        "configuration-reference"
+        "configuration-reference",
+        "under-the-hood"
       ]
-    },
-    {
-      "expand": "under-the-hood"
     }
   ]
 }

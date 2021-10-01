@@ -232,9 +232,10 @@ export const runFuzzySort = (
   // between calls to this method.
   results.forEach(r => {
     if (!r.obj.updated) {
-      r.obj.parents.unshift(
-        articleToChapter.get(navigationPageFromUrl(r.obj.url))
-      );
+      const c = articleToChapter.get(r.obj.url);
+      if (c) {
+        r.obj.parents.unshift(c);
+      }
       r.obj.updated = true;
     }
   });
@@ -342,17 +343,11 @@ export const resultsByPage = (results, reorderByHeading) => {
   return [byPage, byPageFlattened];
 };
 
-const navigationPageFromUrl = url => {
-  const u = url.substring(1);
-  const index = u.indexOf("/");
-  return index >= 0 ? u.substring(0, index) : u;
-};
-
 export const navigationArticleToChapter = navigation => {
   const pageToChapter = new Map();
   navigation.chapters.forEach(c => {
     c.articles.forEach(p => {
-      pageToChapter.set(p, c.title);
+      pageToChapter.set(p.url, c.title);
     });
   });
   return pageToChapter;

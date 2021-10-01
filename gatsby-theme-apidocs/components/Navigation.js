@@ -14,16 +14,16 @@ const Section = ({ section }) => {
   );
 };
 
-const Chapter = ({ chapter, articleId }) => {
+const Chapter = ({ chapter, url }) => {
   return (
     <li>
       <Section section={chapter.section} />
       {chapter.title}
       <ul>
         {chapter.articles.map(article => {
-          const active = article.id === articleId;
+          const active = url.startsWith(article.url);
           return (
-            <li key={article.id} className={active ? "active" : null}>
+            <li key={article.url} className={active ? "active" : null}>
               <Link to={article.url}>{article.title}</Link>
             </li>
           );
@@ -33,25 +33,13 @@ const Chapter = ({ chapter, articleId }) => {
   );
 };
 
-export const Navigation = ({ navigation, articleId }) => {
+export const Navigation = ({ navigation, url }) => {
   const chapters = navigation.chapters;
-  let initialActiveChapterId;
-  for (let chapter of chapters) {
-    if (chapter.articles.map(a => a.id).includes(articleId)) {
-      initialActiveChapterId = chapter.id;
-      break;
-    }
-  }
-  const [activeChapterId, setActiveChapterId] = useState(
-    initialActiveChapterId
-  );
 
   const listItems = chapters.map(chapter => (
     <Chapter
       chapter={chapter}
-      active={chapter.id === activeChapterId}
-      activate={chapter => setActiveChapterId(chapter.id)}
-      articleId={articleId}
+      url={url}
       key={chapter.title}
     />
   ));

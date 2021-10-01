@@ -558,7 +558,7 @@ const SearchResultListSection = ({
                 <ul>
                   {page.results.map(r => (
                     <SearchResult
-                      key={r.url}
+                      key={`${page.title}-${r.url}`}
                       result={r}
                       location={location}
                       active={r === activeResult}
