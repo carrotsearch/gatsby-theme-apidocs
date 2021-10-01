@@ -240,7 +240,7 @@ nav.main > ul {
 
   article {
     padding-left: 0;
-    max-width: 40em;
+    max-width: 720px;
   }
 
   .Search {
@@ -259,11 +259,16 @@ nav.main > ul {
 
 @media (min-width: 1280px) {
   .layout {
-    grid-template-columns: 256px auto 1fr;
+    grid-template-columns: 280px auto 1fr;
     grid-template-areas:
       "logo   search theme"
       "nav    main   toc"
       "footer footer footer";
+  }
+
+  nav.main > ul {
+    margin-right: 1.5rem;
+    padding-right: 0.75rem;
   }
 }
 
