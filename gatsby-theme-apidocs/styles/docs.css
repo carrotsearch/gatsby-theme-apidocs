@@ -330,7 +330,11 @@ article section.api {
   border-top: 1px solid var(--hr-color);
 }
 
-article section.api > h3 {
+article section.api > h2,
+article section.api > h3,
+article section.api > h4,
+article section.api > h5,
+article section.api > h6 {
   font-family: var(--monospace-font-family);
 }
 
@@ -381,6 +385,7 @@ dd > p:first-child {
 
   dt {
     float: left;
+    clear: left;
     width: var(--dl-indent);
     word-wrap: break-word;
     text-align: right;
