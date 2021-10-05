@@ -11,6 +11,10 @@ article > p:first-of-type {
   margin-bottom: var(--hr-margin);
 }
 
+h1, h2, h3, h4, h5, h6 {
+  overflow-wrap: break-word;
+}
+
 figure {
   width: 100%;
   margin: calc(var(--leading)) 0;
@@ -74,7 +78,7 @@ figcaption p {
   --margin-scale: -0.85;
   --padding-scale: 0.1;
   opacity: 0;
-  position: relative;
+  position: absolute;
   z-index: 1;
 }
 
