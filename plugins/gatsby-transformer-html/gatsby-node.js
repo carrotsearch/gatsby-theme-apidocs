@@ -344,78 +344,79 @@ const onCreateNode = async ({
   createParentChildLink({ parent: node, child: htmlNode });
 };
 
-const tryCache = async (cache, key, produceEntry) => {
-  const cached = await cache.get(key);
+const tryCache = async (cache, prefix, key, produceEntry) => {
+  const k = `${prefix}:${key}`;
+  const cached = await cache.get(k);
   if (cached) {
     return cached;
   } else {
-    const entry = produceEntry();
+    const entry = await produceEntry();
 
     // Let's be optimistic and not wait for writing to the cache?
-    cache.set(key, entry);
+    cache.set(k, entry);
     return entry;
   }
 };
 
-const createResolvers = ({
-                           createResolvers,
-                           getNodesByType,
-                           reporter,
-                           cache,
-                           pathPrefix
-                         },
-                         { variables, transformers, imageQuality = 90 }) => {
-  const runTransformers = ($, dir) => {
-    if (transformers) {
-      for (let i = 0; i < transformers.length; i++) {
-        $ = transformers[i]($, {
-          dir,
-          variables,
-          reporter,
-          loadEmbeddedContent
-        });
+const setFieldsOnGraphQLNodeType = (
+  { type, getNodesByType, reporter, cache, pathPrefix, createContentDigest },
+  { variables, transformers, imageQuality = 90 }
+) => {
+  if (type.name === "Html") {
+    const runTransformers = ($, dir) => {
+      if (transformers) {
+        for (let i = 0; i < transformers.length; i++) {
+          $ = transformers[i]($, {
+            dir,
+            variables,
+            reporter,
+            loadEmbeddedContent
+          });
+        }
       }
-    }
-    return $;
-  };
+      return $;
+    };
 
-  const codeHighlighter = new CodeHighlighter();
-  const imageProcessor = new ImageProcessor({
-    getNodesByType, pathPrefix, imageQuality, reporter, cache
-  });
+    const codeHighlighter = new CodeHighlighter();
+    const imageProcessor = new ImageProcessor({
+      getNodesByType, pathPrefix, imageQuality, reporter, cache
+    });
 
-  createResolvers({
-    "Html": {
+    return {
       html: {
         type: "String",
         resolve: async node => {
-          // For correct highlighting of HTML code, we need to disable
-          // entity resolution in cheerio and then patch this in the
-          // serialized HTML, see fixClosingTagsInHighlightedCode() below.
-          let $ = loadHtml(node.rawHtml);
-          $ = runTransformers($, node.dir);
-          $ = await imageProcessor.transform($);
-          $ = rewriteInternalLinks($);
-          $ = addSectionAnchors($);
-          $ = embedCode($, node.dir, variables, reporter);
-          $ = codeHighlighter.transform($);
-          $ = addIdsForIndexableFragments($);
+          return tryCache(cache, "html", node.internal.contentDigest, async () => {
+            // For correct highlighting of HTML code, we need to disable
+            // entity resolution in cheerio and then patch this in the
+            // serialized HTML, see fixClosingTagsInHighlightedCode() below.
+            let $ = loadHtml(node.rawHtml);
+            $ = runTransformers($, node.dir);
+            $ = await imageProcessor.transform($);
+            $ = rewriteInternalLinks($);
+            $ = addSectionAnchors($);
+            $ = embedCode($, node.dir, variables, reporter);
+            $ = codeHighlighter.transform($);
+            $ = addIdsForIndexableFragments($);
 
-          let rendered = renderHtml($);
-          rendered = replaceVariables(rendered, createMapReplacer(variables));
-          return rendered;
+            let rendered = renderHtml($);
+            rendered = replaceVariables(rendered, createMapReplacer(variables));
+            return rendered;
+          });
         }
       },
       tableOfContents: {
         type: GraphQLJSON,
-        resolve: node => {
-          return createToc(loadHtml(node.rawHtml));
+        resolve: async node => {
+          return tryCache(cache, "toc", node.internal.contentDigest, () => {
+            return createToc(loadHtml(node.rawHtml));
+          });
         }
       },
       indexableFragments: {
         type: GraphQLJSON,
         resolve: async node => {
-          return tryCache(cache, node.internal.contentDigest, () => {
+          return tryCache(cache, "indexableFragments", node.internal.contentDigest, () => {
             let $ = loadHtml(node.rawHtml);
             $ = runTransformers($, node.dir);
             $ = addIdsForIndexableFragments($);
@@ -423,8 +424,8 @@ const createResolvers = ({
           });
         }
       }
-    }
-  });
+    };
+  }
 };
 
 const onPreBootstrap = ({ reporter }, { variables }) => {
@@ -437,4 +438,4 @@ const onPreBootstrap = ({ reporter }, { variables }) => {
 
 exports.onPreBootstrap = onPreBootstrap;
 exports.onCreateNode = onCreateNode;
-exports.createResolvers = createResolvers;
+exports.setFieldsOnGraphQLNodeType = setFieldsOnGraphQLNodeType;
