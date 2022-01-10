@@ -1,7 +1,7 @@
 {
   "name": "@carrotsearch/gatsby-theme-apidocs",
   "description": "A Gatsby theme for creating functional and responsive API documentation websites.",
-  "version": "3.0.12",
+  "version": "3.0.13",
   "main": "index.js",
   "license": "MIT",
   "repository": {
@@ -12,9 +12,9 @@
     "url": "https://github.com/carrotsearch/gatsby-theme-apidocs/issues"
   },
   "dependencies": {
-    "@carrotsearch/gatsby-plugin-content-search": "*",
-    "@carrotsearch/gatsby-plugin-relativize": "*",
-    "@carrotsearch/gatsby-transformer-html": "*",
+    "@carrotsearch/gatsby-plugin-content-search": "3.0.0",
+    "@carrotsearch/gatsby-plugin-relativize": "3.0.0",
+    "@carrotsearch/gatsby-transformer-html": "3.0.13",
     "@fortawesome/fontawesome-svg-core": "1.2.36",
     "@fortawesome/free-regular-svg-icons": "5.15.4",
     "@fortawesome/free-solid-svg-icons": "5.15.4",
