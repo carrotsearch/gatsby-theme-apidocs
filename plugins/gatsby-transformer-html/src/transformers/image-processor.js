@@ -14,6 +14,9 @@ exports.ImageProcessor = function ({
 }) {
   this.transform = async $ => {
     const $img = $("img").filter(notInPre($));
+    if ($img.length === 0) {
+      return $;
+    }
 
     // Collect nodes for all files we process.
     const fileNodesByPath = getNodesByType("File").reduce((map, n) => {
