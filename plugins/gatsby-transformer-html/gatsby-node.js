@@ -1,5 +1,4 @@
 const path = require("path");
-const fs = require("fs");
 
 const { GraphQLJSON } = require(`gatsby/graphql`);
 
@@ -8,6 +7,7 @@ const {
   validateVariables,
   createMapReplacer
 } = require("./src/replace-variables.js");
+const { loadEmbeddedContent } = require("./src/embed-utils");
 const { rewriteInternalLinks } = require("./src/rewrite-internal-links.js");
 const { generateElementId } = require("./src/generate-element-id.js");
 const extractFragment = require("./src/extract-fragment.js");
@@ -16,45 +16,13 @@ const { loadHtml, renderHtml } = require("./src/html-transformer");
 const { encode } = require("html-entities");
 const { notInPre } = require("./src/cheerio-utils");
 const { ImageProcessor } = require("./src/transformers/image-processor");
+const { SvgInliner } = require("./src/transformers/svg-inliner");
+const { error } = require("./src/reporter-utils");
 
 // The transformation functions should be converted to plugins, but
 // for now we keep them integrated to avoid proliferation of boilerplate.
 
 const indexingAllowed = $ => (i, el) => $(el).data("indexing") !== "disabled";
-
-const error = (message, reporter) => {
-  const dot = message.endsWith("." ? "" : ".");
-  reporter.error(`Failed to embed content: ${message}${dot}`);
-};
-
-const loadEmbeddedContent = (declaredEmbed, dir, variables, reporter) => {
-  // Replace variables in the path. We don't care about the semantics
-  // here, it's up to the caller to ensure the path makes sense and is safe.
-  const embed = replaceVariables(declaredEmbed, name => {
-    let value = variables[name] || "";
-    if (value.endsWith("/" || value.endsWith("\\"))) {
-      return value.substring(0, value.length - 1);
-    } else {
-      return value;
-    }
-  });
-
-  const embedAbsolute = path.resolve(dir, embed);
-  if (!fs.existsSync(embedAbsolute)) {
-    error(
-      `relative path ${embed}, resolved to ${embedAbsolute} does not exist.`,
-      reporter
-    );
-    return undefined;
-  }
-
-  if (!fs.statSync(embedAbsolute).isFile()) {
-    error(`path ${embed} must point to a file.`, reporter);
-    return undefined;
-  }
-
-  return fs.readFileSync(embedAbsolute, "utf8");
-};
 
 /**
  * Embeds code from a separate file. Relative file path provided in the
@@ -89,7 +57,7 @@ const embedCode = ($, dir, variables, reporter) => {
         try {
           content = extractFragment(rawContent, fragment);
         } catch (e) {
-          error(e, reporter);
+          error(`Failed do embed content: ${e}`, reporter);
           content = "";
         }
       } else {
@@ -381,6 +349,7 @@ const setFieldsOnGraphQLNodeType = (
     const imageProcessor = new ImageProcessor({
       getNodesByType, pathPrefix, imageQuality, reporter, cache
     });
+    const svgInliner = new SvgInliner({ getNodesByType, variables, reporter});
 
     return {
       html: {
@@ -392,7 +361,8 @@ const setFieldsOnGraphQLNodeType = (
             // serialized HTML, see fixClosingTagsInHighlightedCode() below.
             let $ = loadHtml(node.rawHtml);
             $ = runTransformers($, node.dir);
-            $ = await imageProcessor.transform($);
+            $ = await svgInliner.transform($, node.dir);
+            $ = await imageProcessor.transform($, node.dir);
             $ = rewriteInternalLinks($);
             $ = addSectionAnchors($);
             $ = embedCode($, node.dir, variables, reporter);
