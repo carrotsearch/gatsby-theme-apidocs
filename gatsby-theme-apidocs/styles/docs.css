@@ -11,10 +11,6 @@ article > p:first-of-type {
   margin-bottom: var(--hr-margin);
 }
 
-h1, h2, h3, h4, h5, h6 {
-  overflow-wrap: break-word;
-}
-
 figure {
   width: 100%;
   margin: calc(var(--leading)) 0;
@@ -78,7 +74,7 @@ figcaption p {
   --margin-scale: -0.85;
   --padding-scale: 0.1;
   opacity: 0;
-  position: absolute;
+  position: relative;
   z-index: 1;
 }
 
@@ -291,6 +287,40 @@ pre > code mark {
   margin-left: calc(-1 * var(--leading));
   padding-left: calc(0.75 * var(--leading));
   border-left: calc(0.25 * var(--leading)) solid #0da6ff;
+}
+
+pre {
+  max-height: 65vh;
+}
+
+pre::-webkit-scrollbar {
+  width: 0.8em;
+  height: 0.8em;
+}
+
+pre::-webkit-scrollbar-track,
+pre::-webkit-scrollbar-thumb {
+  border-radius: var(--code-block-border-radius);
+}
+
+pre::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.6);
+}
+
+pre::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.3);
+}
+
+pre::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.45);
+}
+
+.dark pre::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.dark pre::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.3);
 }
 
 /** Warning box */
