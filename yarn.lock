@@ -1447,7 +1447,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@carrotsearch/gatsby-plugin-content-search@*, @carrotsearch/gatsby-plugin-content-search@workspace:plugins/gatsby-plugin-content-search":
+"@carrotsearch/gatsby-plugin-content-search@3.0.0, @carrotsearch/gatsby-plugin-content-search@workspace:plugins/gatsby-plugin-content-search":
   version: 0.0.0-use.local
   resolution: "@carrotsearch/gatsby-plugin-content-search@workspace:plugins/gatsby-plugin-content-search"
   dependencies:
@@ -1459,7 +1459,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@carrotsearch/gatsby-plugin-relativize@*, @carrotsearch/gatsby-plugin-relativize@workspace:plugins/gatsby-plugin-relativize":
+"@carrotsearch/gatsby-plugin-relativize@3.0.0, @carrotsearch/gatsby-plugin-relativize@workspace:plugins/gatsby-plugin-relativize":
   version: 0.0.0-use.local
   resolution: "@carrotsearch/gatsby-plugin-relativize@workspace:plugins/gatsby-plugin-relativize"
   dependencies:
@@ -1475,9 +1475,9 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@carrotsearch/gatsby-theme-apidocs@workspace:gatsby-theme-apidocs"
   dependencies:
-    "@carrotsearch/gatsby-plugin-content-search": "*"
-    "@carrotsearch/gatsby-plugin-relativize": "*"
-    "@carrotsearch/gatsby-transformer-html": "*"
+    "@carrotsearch/gatsby-plugin-content-search": 3.0.0
+    "@carrotsearch/gatsby-plugin-relativize": 3.0.0
+    "@carrotsearch/gatsby-transformer-html": 3.0.13
     "@fortawesome/fontawesome-svg-core": 1.2.36
     "@fortawesome/free-regular-svg-icons": 5.15.4
     "@fortawesome/free-solid-svg-icons": 5.15.4
@@ -1505,7 +1505,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@carrotsearch/gatsby-transformer-html@*, @carrotsearch/gatsby-transformer-html@workspace:plugins/gatsby-transformer-html":
+"@carrotsearch/gatsby-transformer-html@3.0.13, @carrotsearch/gatsby-transformer-html@workspace:plugins/gatsby-transformer-html":
   version: 0.0.0-use.local
   resolution: "@carrotsearch/gatsby-transformer-html@workspace:plugins/gatsby-transformer-html"
   dependencies:
