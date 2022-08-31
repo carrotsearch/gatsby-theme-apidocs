@@ -11,6 +11,10 @@
   "bugs": {
     "url": "https://github.com/carrotsearch/gatsby-theme-apidocs/issues"
   },
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
+  },
   "dependencies": {
     "@carrotsearch/gatsby-plugin-content-search": "3.0.0",
     "@carrotsearch/gatsby-plugin-relativize": "3.0.0",
