@@ -1,7 +1,7 @@
 {
   "name": "@carrotsearch/gatsby-plugin-content-search",
   "description": "A Gatsby plugin for building Sublime-like client-side content search. Based on the fuzzysort library, ideal for searching API elements.",
-  "version": "3.0.0",
+  "version": "4.0.0",
   "main": "./index.js",
   "keywords": [
     "gatsby",
@@ -21,7 +21,7 @@
     "registry": "https://registry.npmjs.org/"
   },
   "peerDependencies": {
-    "gatsby": "^3.0.0"
+    "gatsby": "^4.22.0"
   },
   "dependencies": {
     "fuzzysort": "1.1.4",

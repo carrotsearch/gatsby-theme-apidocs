@@ -1,7 +1,7 @@
 {
   "name": "@carrotsearch/gatsby-transformer-html",
   "description": "A Gatsby transformer plugin for authoring content in HTML. Supports ToC generation, responsive images, section anchors and HighlightJS code highlighting.",
-  "version": "3.0.13",
+  "version": "4.0.0",
   "main": "index.js",
   "keywords": [
     "gatsby",
@@ -27,7 +27,7 @@
     "test-watch": "mocha --recursive 'src/**/*.test.js' -w"
   },
   "peerDependencies": {
-    "gatsby": "^3.0.0"
+    "gatsby": "^4.0.0"
   },
   "dependencies": {
     "cheerio": "1.0.0-rc.10",
