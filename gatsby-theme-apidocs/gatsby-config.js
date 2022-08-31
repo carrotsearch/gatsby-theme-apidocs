@@ -28,6 +28,7 @@ module.exports = options => ({
     "@carrotsearch/gatsby-plugin-content-search",
     "gatsby-plugin-offline",
     "gatsby-plugin-catch-links",
+    "gatsby-plugin-meta-redirect",
     "@carrotsearch/gatsby-plugin-relativize"
   ]
 });
