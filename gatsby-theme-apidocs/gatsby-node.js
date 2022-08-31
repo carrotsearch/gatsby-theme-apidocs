@@ -22,7 +22,8 @@ exports.onCreateNode = ({ node, getNode, actions }, { basePath }) => {
 };
 
 exports.createPages = ({ graphql, actions }) => {
-  const { createPage } = actions;
+  const { createPage, createRedirect } = actions;
+
   return graphql(`
     {
       allHtml {
@@ -59,7 +60,12 @@ exports.createPages = ({ graphql, actions }) => {
 
       const indexAlias = result.data.site.siteMetadata.indexAlias;
       if (indexAlias && indexAlias === slug) {
-        create("/", slug);
+        createRedirect({
+          fromPath: '/',
+          toPath: slug,
+          force: true,
+          redirectInBrowser: true
+        });
       }
     });
   });
