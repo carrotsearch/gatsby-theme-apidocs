@@ -31,13 +31,11 @@
     "gatsby-plugin-meta-redirect": "1.1.1",
     "gatsby-plugin-nprogress": "4.22.0",
     "gatsby-plugin-offline": "5.22.0",
-    "gatsby-plugin-react-helmet": "5.22.0",
     "gatsby-plugin-sharp": "4.22.0",
     "gatsby-source-filesystem": "4.22.0",
     "highlight.js": "11.2.0",
     "html-react-parser": "1.3.0",
     "normalize.css": "8.0.1",
-    "react-helmet": "6.1.0",
     "typeface-lato": "0.0.75",
     "typeface-raleway": "0.0.75"
   },

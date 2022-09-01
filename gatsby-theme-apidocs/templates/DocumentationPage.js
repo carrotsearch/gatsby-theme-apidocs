@@ -6,7 +6,6 @@ import { graphql, useStaticQuery } from "gatsby";
 import { Layout } from "../components/Layout.js";
 import { ToC } from "../components/ToC.js";
 import { PrevNextArticle } from "../components/PrevNextArticle.js";
-import { Helmet } from "react-helmet";
 
 import parse, { domToReact } from "html-react-parser";
 
@@ -92,12 +91,6 @@ export const DocumentationPage = ({ pageData, location }) => {
     query {
       site {
         buildTime
-        siteMetadata {
-          title
-          description
-          lang
-          indexAlias
-        }
       }
       contentSearchHeadings {
         index
@@ -134,15 +127,9 @@ export const DocumentationPage = ({ pageData, location }) => {
   const article = pageData.html;
   const articleId = article.frontmatter.id;
   const site = data.site;
-  const metadata = site.siteMetadata;
   const navigation = resolveNavigation(data.navigation.navigation, data.allHtml.edges);
   const footer = data.footer.footer;
   const logo = data.logo.logo;
-
-  let canonical;
-  if (location.pathname === "/") {
-    canonical = <link rel="canonical" href={metadata.indexAlias} />;
-  }
 
   const parserOptions = {
     replace: ({ name, attribs, children }) => {
@@ -195,16 +182,6 @@ export const DocumentationPage = ({ pageData, location }) => {
       footer={footerElement}
       logo={logoElement}
     >
-      <Helmet>
-        <title>
-          {article.frontmatter.title} - {metadata.title}
-        </title>
-        <meta name="description" content={metadata.description} />
-        <html lang={metadata.lang} />
-        <meta name="theme-color" content="#fff" />
-        {canonical}
-      </Helmet>
-
       <nav className="toc">
         <ToC toc={article.tableOfContents} />
       </nav>

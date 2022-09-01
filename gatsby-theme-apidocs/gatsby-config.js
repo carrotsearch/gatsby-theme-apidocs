@@ -16,7 +16,6 @@ module.exports = options => ({
       }
     },
     "gatsby-plugin-sharp",
-    "gatsby-plugin-react-helmet",
     "gatsby-plugin-dark-mode",
     {
       resolve: "@carrotsearch/gatsby-transformer-html",
