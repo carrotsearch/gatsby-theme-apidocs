@@ -2047,7 +2047,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@carrotsearch/gatsby-plugin-content-search@3.0.0, @carrotsearch/gatsby-plugin-content-search@workspace:plugins/gatsby-plugin-content-search":
+"@carrotsearch/gatsby-plugin-content-search@4.0.0, @carrotsearch/gatsby-plugin-content-search@workspace:plugins/gatsby-plugin-content-search":
   version: 0.0.0-use.local
   resolution: "@carrotsearch/gatsby-plugin-content-search@workspace:plugins/gatsby-plugin-content-search"
   dependencies:
@@ -2055,11 +2055,11 @@ __metadata:
     lodash.camelcase: 4.3.0
     lodash.lowerfirst: 4.3.1
   peerDependencies:
-    gatsby: ^3.0.0
+    gatsby: ^4.22.0
   languageName: unknown
   linkType: soft
 
-"@carrotsearch/gatsby-plugin-relativize@3.0.0, @carrotsearch/gatsby-plugin-relativize@workspace:plugins/gatsby-plugin-relativize":
+"@carrotsearch/gatsby-plugin-relativize@4.0.0, @carrotsearch/gatsby-plugin-relativize@workspace:plugins/gatsby-plugin-relativize":
   version: 0.0.0-use.local
   resolution: "@carrotsearch/gatsby-plugin-relativize@workspace:plugins/gatsby-plugin-relativize"
   dependencies:
@@ -2067,7 +2067,7 @@ __metadata:
     is-text-path: 2.0.0
     p-map: 4.0.0
   peerDependencies:
-    gatsby: ^3.0.0
+    gatsby: ^4.0.0
   languageName: unknown
   linkType: soft
 
@@ -2075,14 +2075,14 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@carrotsearch/gatsby-theme-apidocs@workspace:gatsby-theme-apidocs"
   dependencies:
-    "@carrotsearch/gatsby-plugin-content-search": 3.0.0
-    "@carrotsearch/gatsby-plugin-relativize": 3.0.0
-    "@carrotsearch/gatsby-transformer-html": 3.0.13
+    "@carrotsearch/gatsby-plugin-content-search": 4.0.0
+    "@carrotsearch/gatsby-plugin-relativize": 4.0.0
+    "@carrotsearch/gatsby-transformer-html": 4.0.0
     "@fortawesome/fontawesome-svg-core": 1.2.36
     "@fortawesome/free-regular-svg-icons": 5.15.4
     "@fortawesome/free-solid-svg-icons": 5.15.4
     "@fortawesome/react-fontawesome": 0.1.15
-    "@gatsbyjs/reach-router": 1.3.10-no-navigate.4
+    "@gatsbyjs/reach-router": 1.3.9
     chokidar: 3.5.2
     gatsby-link: 4.22.0
     gatsby-plugin-catch-links: 4.22.0
@@ -2106,7 +2106,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@carrotsearch/gatsby-transformer-html@3.0.13, @carrotsearch/gatsby-transformer-html@workspace:plugins/gatsby-transformer-html":
+"@carrotsearch/gatsby-transformer-html@4.0.0, @carrotsearch/gatsby-transformer-html@workspace:plugins/gatsby-transformer-html":
   version: 0.0.0-use.local
   resolution: "@carrotsearch/gatsby-transformer-html@workspace:plugins/gatsby-transformer-html"
   dependencies:
@@ -2117,7 +2117,7 @@ __metadata:
     mocha: 8.1.3
     must: 0.13.4
   peerDependencies:
-    gatsby: ^3.0.0
+    gatsby: ^4.0.0
   languageName: unknown
   linkType: soft
 
@@ -2212,20 +2212,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@gatsbyjs/reach-router@npm:1.3.10-no-navigate.4":
-  version: 1.3.10-no-navigate.4
-  resolution: "@gatsbyjs/reach-router@npm:1.3.10-no-navigate.4"
-  dependencies:
-    invariant: ^2.2.4
-    prop-types: ^15.8.1
-  peerDependencies:
-    react: 18.x
-    react-dom: 18.x
-  checksum: 555207f229d95a72f6b7678688a079ff64f00242af45101ec7bc65af89f4edfe62139bb9120a69a68172374c7ef05eae185dcdbaab1dc259207c0fc4b22d521c
-  languageName: node
-  linkType: hard
-
-"@gatsbyjs/reach-router@npm:^1.3.9":
+"@gatsbyjs/reach-router@npm:1.3.9, @gatsbyjs/reach-router@npm:^1.3.9":
   version: 1.3.9
   resolution: "@gatsbyjs/reach-router@npm:1.3.9"
   dependencies:
