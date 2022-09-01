@@ -69,6 +69,15 @@ const relativizeJsFiles = async () => {
         return;
       }
 
+      // Redirect plugin references the __RELATIVIZE_PREFIX__ token inside JSON string
+      // passed with JSON.parse('...'). We need to make a special substitution for
+      // this case.
+      contents = contents.replace(
+        /(JSON\.parse\('[^']*)\/__RELATIVIZE_PREFIX__([^']*'\))/,
+        (matches, p, s) => {
+          return `${p}' + "/__RELATIVIZE_PREFIX__" + '${s}`;
+        });
+
       // DO NOT remove the extra spaces, otherwise the code will be invalid when minified,
       // e.g.: return"__RELATIVIZE_PREFIX__/static/..." -> return __GATSBY_IPFS_PATH_PREFIX + "/static/..."
       let replacer = (matches, q, p, s, q2) => {
