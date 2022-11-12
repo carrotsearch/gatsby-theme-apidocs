@@ -33,7 +33,7 @@ describe("rewriteInternalLinks", function () {
     let $ = cheerio.load("<a href='relative/page.html' data-external>test</a>");
     $ = rewriteInternalLinks($);
     $.html().must.contain(
-      `<a href="relative/page.html" data-external>test</a>`
+      `<a href="relative/page.html" data-external="">test</a>`
     );
   });
 });
