@@ -19,6 +19,17 @@
   </figure>
 
   <figure>
+    <p>Single node:</p>
+    <pre data-embed="./examples/json.json" data-jsonpath="$..labelFilter"></pre>
+    <p>Multiple nodes:</p>
+    <pre data-embed="./examples/json.json" data-jsonpath='$..type'></pre>
+    <p>Complex expression:</p>
+    <pre data-embed="./examples/json.json" data-jsonpath='$..labels.fetcher'></pre>
+
+    <figcaption>Fragments of JSON file selected via jsonpaths.</figcaption>
+  </figure>
+
+  <figure>
     <pre data-embed="./examples/html.html"></pre>
     <figcaption>HTML</figcaption>
   </figure>

@@ -213,6 +213,41 @@ api.schedule(function(done) {
       </ul>
     </section>
 
+    <section id="code-blocks:embedding:jsonpaths">
+      <h3>Embedding JSON fragments via JSON paths</h3>
+
+      <p>
+        Embedding JSON files is a bit more problematic because the syntax
+        used to provide fragments (C-style comments) violates JSON specification.
+        To embed a subset of a JSON file, use <a href="https://github.com/dchester/jsonpath">jsonpath</a>
+        to point at the nodes that should be included:
+      </p>
+
+      <pre data-language="markup">
+        <pre data-embed="input-file.json" data-jsonpath="$.foo.bar"></pre>
+      </pre>
+
+      <p>Please note the following:</p>
+
+      <ul>
+        <li>
+          <p>
+            An array of nodes returned for the provided json path is converted into
+            a sequence of <code>pre</code> blocks - each json path node corresponding to one
+            <code>pre</code> block.
+          </p>
+        </li>
+
+        <li>
+          <p>
+            The JSON file is reformatted using the default
+            <code>JSON.stringify(..., null, "  ")</code> function. There is no way to
+            insert the file in its original formatting.
+          </p>
+        </li>
+      </ul>
+    </section>
+
     <section id="code-blocks:embedding:variables">
       <h3>Variables in file paths</h3>
 

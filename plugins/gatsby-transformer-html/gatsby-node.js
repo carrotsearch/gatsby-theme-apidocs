@@ -11,6 +11,7 @@ const { loadEmbeddedContent } = require("./src/embed-utils");
 const { rewriteInternalLinks } = require("./src/rewrite-internal-links.js");
 const { generateElementId } = require("./src/generate-element-id.js");
 const extractFragment = require("./src/extract-fragment.js");
+const extractJsonpath = require("./src/extract-jsonpath.js");
 const { CodeHighlighter } = require("./src/transformers/code-highlighter");
 const { loadHtml, renderHtml } = require("./src/html-transformer");
 const { encode } = require("html-entities");
@@ -36,6 +37,7 @@ const embedCode = ($, dir, variables, reporter) => {
       const $el = $(el);
       const declaredEmbed = $el.data("embed");
       const fragment = $el.data("fragment");
+      const jsonpath = $el.data("jsonpath");
       const declaredLanguage = $el.data("language");
 
       const rawContent = loadEmbeddedContent(
@@ -52,8 +54,22 @@ const embedCode = ($, dir, variables, reporter) => {
       const ext = path.extname(declaredEmbed).substring(1).toLowerCase();
       const language = declaredLanguage || ext;
 
+      if (jsonpath && fragment) {
+        throw `jsonpath and fragment are mutually exclusive.`;
+      }
+
       let content;
-      if (fragment) {
+      if (jsonpath) {
+        try {
+          const fragments = extractJsonpath(rawContent, jsonpath);
+          // there can be more than one matching path... should we bail out if this is the case?
+          // for now, let's just emit a pre for each path output.
+          return fragments.map(ob => `<pre data-language=${language}>${encode(JSON.stringify(ob, null, "  "))}</pre>`).join("\n");
+        } catch (e) {
+          error(`Failed do embed jsonpath: ${e}`, reporter);
+          content = "";
+        }
+      } else if (fragment) {
         try {
           content = extractFragment(rawContent, fragment);
         } catch (e) {
