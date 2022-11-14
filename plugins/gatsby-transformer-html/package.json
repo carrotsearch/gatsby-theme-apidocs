@@ -1,7 +1,7 @@
 {
   "name": "@carrotsearch/gatsby-transformer-html",
   "description": "A Gatsby transformer plugin for authoring content in HTML. Supports ToC generation, responsive images, section anchors and HighlightJS code highlighting.",
-  "version": "4.0.0",
+  "version": "4.0.1",
   "main": "index.js",
   "keywords": [
     "gatsby",
