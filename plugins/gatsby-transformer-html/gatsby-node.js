@@ -62,6 +62,7 @@ const embedCode = ($, dir, variables, reporter) => {
       if (jsonpath) {
         try {
           const fragments = extractJsonpath(rawContent, jsonpath);
+
           // there can be more than one matching path... should we bail out if this is the case?
           // for now, let's just emit a pre for each path output.
           return fragments.map(ob => `<pre data-language=${language}>${encode(JSON.stringify(ob, null, "  "))}</pre>`).join("\n");

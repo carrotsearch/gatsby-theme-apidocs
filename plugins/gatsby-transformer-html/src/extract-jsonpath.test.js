@@ -6,7 +6,12 @@ describe("extractJsonpath", function () {
       "baz": "string node",
       "bar": [
         "array node"
-      ]
+      ],
+      "ban": {
+        "bar": [
+          "foo"
+        ]
+      }
     }
   };
 
@@ -20,5 +25,29 @@ describe("extractJsonpath", function () {
     extractJsonpath(JSON.stringify(sampleInput), "$.foo.baz").must.eql([
       "string node"
     ]);
+  });
+
+  it("should support key selector in curly brackets (fixed strings)", function () {
+    // one property selector
+    extractJsonpath(JSON.stringify(sampleInput), "$.foo{ 'baz' }").must.eql([{
+      "baz": "string node"
+    }]);
+    // two fixed properties
+    extractJsonpath(JSON.stringify(sampleInput), "$.foo{'baz', \"bar\"}").must.eql([{
+      "baz": "string node",
+      "bar": [
+        "array node"
+      ]
+    }]);
+  });
+
+  it("should support key selector in curly brackets (regexp)", function () {
+    // a regexp
+    extractJsonpath(JSON.stringify(sampleInput), "$.foo{/^ba[zr]/}").must.eql([{
+      "baz": "string node",
+      "bar": [
+        "array node"
+      ]
+    }]);
   });
 });
