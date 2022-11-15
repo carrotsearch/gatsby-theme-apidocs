@@ -227,6 +227,19 @@ api.schedule(function(done) {
         <pre data-embed="input-file.json" data-jsonpath="$.foo.bar"></pre>
       </pre>
 
+      <p>
+        When a subset of keys of an object pointed to by json path is needed,
+        use the non-standard syntax extension to enumerate those keys after the path: trailing
+        curly braces with a comma-delimited strings or regular expressions which enumerate
+        allowed keys. For example this block would include the object at <code>$.foo.bar</code>
+        but limit it to only the <code>baz</code>, <code>bar</code> or anything that
+        is prefixed with <code>prop</code> keys.
+      </p>
+
+      <pre data-language="markup">
+        <pre data-embed="input-file.json" data-jsonpath="$.foo.bar{'baz', 'bar', /^prop.+/}"></pre>
+      </pre>
+
       <p>Please note the following:</p>
 
       <ul>
