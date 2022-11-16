@@ -1,10 +1,13 @@
+
 const extractJsonpath = require("./extract-jsonpath.js");
+const commentJson = require("comment-json")
 
 describe("extractJsonpath", function () {
-  const sampleInput = {
+  const sampleInput = `{
     "foo": {
       "baz": "string node",
       "bar": [
+        // comment.
         "array node"
       ],
       "ban": {
@@ -13,41 +16,118 @@ describe("extractJsonpath", function () {
         ]
       }
     }
-  };
+  }`;
+
+  const assertReturnsExpected = function(input, path, expected) {
+    const actual = extractJsonpath(input, path);
+    actual.must.eql(expected);
+  }
 
   it("should work on basic paths", function () {
-    extractJsonpath(JSON.stringify(sampleInput), "$.foo.bar").must.eql([
-      [
-        "array node"
-      ]
+    assertReturnsExpected(sampleInput, "$.foo.bar", [
+`[
+  // comment.
+  "array node"
+]`
     ]);
 
-    extractJsonpath(JSON.stringify(sampleInput), "$.foo.baz").must.eql([
+    assertReturnsExpected(sampleInput, "$.foo.baz", [
       "string node"
     ]);
   });
 
   it("should support key selector in curly brackets (fixed strings)", function () {
     // one property selector
-    extractJsonpath(JSON.stringify(sampleInput), "$.foo{ 'baz' }").must.eql([{
-      "baz": "string node"
-    }]);
+    assertReturnsExpected(sampleInput, "$.foo{ 'baz' }", [
+      `{
+  "baz": "string node"
+}`
+    ]);
+
     // two fixed properties
-    extractJsonpath(JSON.stringify(sampleInput), "$.foo{'baz', \"bar\"}").must.eql([{
-      "baz": "string node",
-      "bar": [
-        "array node"
-      ]
-    }]);
+    assertReturnsExpected(sampleInput, "$.foo{'baz', \"bar\"}", [
+`{
+  "baz": "string node",
+  "bar": [
+    // comment.
+    "array node"
+  ]
+}`
+    ]);
   });
 
   it("should support key selector in curly brackets (regexp)", function () {
     // a regexp
-    extractJsonpath(JSON.stringify(sampleInput), "$.foo{/^ba[zr]/}").must.eql([{
-      "baz": "string node",
-      "bar": [
-        "array node"
-      ]
-    }]);
+    assertReturnsExpected(sampleInput, "$.foo{/^ba[zr]/}", [
+      `{
+  "baz": "string node",
+  "bar": [
+    // comment.
+    "array node"
+  ]
+}`
+    ]);
+  });
+
+  it("should support json with comments", function() {
+    const input = `{
+      // json with comments.
+      "foo": {
+        // baz node
+        "baz": "this is baz",
+        // bar node
+        "bar": "this is bar"
+      }
+    }`;
+
+    // extract with a regexp
+    assertReturnsExpected(input, "$.foo", [
+`{
+  // baz node
+  "baz": "this is baz",
+  // bar node
+  "bar": "this is bar"
+}`
+    ]);
+  });
+
+  it("should support bracket trimming", function() {
+    const input = `{
+      "foo": {
+        // baz node
+        "baz": "this is baz",
+        // bar node
+        "bar": "this is bar",
+        // ban node
+        "ban": "this is ban"
+      }
+    }`;
+
+    assertReturnsExpected(input, "$.foo{'baz','bar', trim-brackets}", [
+`  // baz node
+  "baz": "this is baz",
+  // bar node
+  "bar": "this is bar"
+`
+    ]);
+  });
+
+  it("should support comment removal", function() {
+    const input = `{
+      "foo": {
+        // baz node
+        "baz": "this is baz",
+        // bar node
+        "bar": "this is bar",
+        // ban node
+        "ban": "this is ban"
+      }
+    }`;
+
+    assertReturnsExpected(input, "$.foo{'baz','bar', trim-brackets, remove-comments}", [
+`  "baz": "this is baz",
+  "bar": "this is bar"
+`
+    ]);
   });
 });

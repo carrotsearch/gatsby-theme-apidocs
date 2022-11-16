@@ -1,5 +1,6 @@
 
 const jsonPath = require("jsonpath");
+const commentJson = require("comment-json")
 
 module.exports = (content, path) => {
   if (!content) {
@@ -7,31 +8,40 @@ module.exports = (content, path) => {
   }
 
   let output;
+  let keySelector = undefined;
+  let trimCurlyBrackets = false;
   try {
-    const parsed = JSON.parse(content);
+    let removeComments = false;
 
     path = path.trim()
     if (path.endsWith('}')) {
       // assume key selector is present.
       const lastBracket = path.lastIndexOf('{')
-      let selectors = path.substring(lastBracket + 1, path.length - 1).trim()
+      let options = path.substring(lastBracket + 1, path.length - 1).trim().split(/\s*,\s*/)
       path = path.substring(0, lastBracket)
 
       // collect selector expressions
-      selectors = selectors.split(/\s*,\s*/).map(selector => {
-        // 'propertyName' or "propertyName".
-        if (selector.match(/'.+'/) || selector.match(/".+"/)) {
-          return (v => v === selector.substring(1, selector.length - 1));
-        }
-        // /regexp/
-        if (selector.match(/\/.+\//)) {
-          const re = new RegExp(selector.substring(1, selector.length - 1));
-          return (v => v.match(re))
-        }
-        throw "Unknown selector type: " + selector;
-      })
+      let selectors = []
 
-      const keySelector = (selectors.length === 0)
+      options.forEach(opt => {
+        if (opt.match(/'.+'/) || opt.match(/".+"/)) {
+          // 'propertyName' or "propertyName".
+          const keyName = opt.substring(1, opt.length - 1);
+          selectors.push((v => v === keyName));
+        } else if (opt.match(/\/.+\//)) {
+          // /regexp/
+          const re = new RegExp(opt.substring(1, opt.length - 1));
+          selectors.push((v => v.match(re)));
+        } else if (opt.toLowerCase() === "trim-brackets") {
+          trimCurlyBrackets = true;
+        } else if (opt.toLowerCase() === "remove-comments") {
+          removeComments = true;
+        } else {
+          throw "Unknown option or selector type: " + opt;
+        }
+      });
+
+      keySelector = (selectors.length === 0)
         ? (() => true)
         : (key => {
         for (const fn of selectors) {
@@ -41,25 +51,40 @@ module.exports = (content, path) => {
         }
         return false;
       });
-
-      return jsonPath.query(parsed, path)
-        .map(ob => {
-          return Object.keys(ob)
-            .filter((key) => {
-              return keySelector(key);
-            })
-            .reduce((cur, key) => { return Object.assign(cur, { [key]: ob[key] })}, {});
-        });
-    } else {
-      output = jsonPath.query(parsed, path);
     }
+
+    const parsed = commentJson.parse(content, null, removeComments);
+    output = jsonPath.query(parsed, path);
   } catch (ex) {
     throw `Can't apply json path expression ${path} because: ${ex}`
   }
 
-  if (output.length !== 0) {
-    return output;
-  } else {
-    throw "No matching paths.";
+  if (output.length === 0) {
+    throw "Can't apply json path expression ${path} because: no paths are matching";
   }
+
+  if (keySelector) {
+    output = output.map(ob => {
+      const allowedKeys = Object.keys(ob)
+        .filter((key) => {
+          return keySelector(key);
+        });
+      return commentJson.assign({}, ob, allowedKeys);
+    });
+  }
+
+  // stringify with comments.
+  output = output.map(ob => {
+    if (typeof ob == 'number' || typeof ob == 'string') {
+      return ob;
+    }
+
+    ob = commentJson.stringify(ob, null, "  ");
+    if (trimCurlyBrackets) {
+      ob = ob.replaceAll(/(^\s*\{([ \t]*[\r\n]?))|([ \t]*\}\s*$)/g, "")
+    }
+    return ob;
+  });
+
+  return output;
 };

@@ -1,0 +1,46 @@
+{
+  "stages": {
+    "documents": {
+      "type": "documents:byQuery",
+      "query": {
+        "type": "query:string",
+        "query": ""
+      },
+      "limit": 1000
+    },
+    "labels": {
+      "type": "labels:fromDocuments",
+      "fetcher": {
+        "type": "labelFetcher:fromDocumentFeatureFields",
+        "minAbsoluteDf": 5,
+        "maxRelativeDf": 0.3,
+        "labelFilter": {
+          "type": "labelFilter:composite",
+          // highlight-next-line
+          "filters": {
+            "dictionary": {
+              "type": "labelFilter:dictionary",
+              "exclude": [
+                {
+                  "type": "simple",
+                  "entries": [
+                    "* project *"
+                  ]
+                }
+              ]
+            },
+            "default": {
+              "type": "labelFilter:reference",
+              "use": "labelFilter"
+            }
+          }
+        }
+      }
+    }
+  },
+  "output": {
+    "stages": [
+      "labels"
+    ]
+  }
+}

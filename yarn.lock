@@ -2077,7 +2077,7 @@ __metadata:
   dependencies:
     "@carrotsearch/gatsby-plugin-content-search": 4.0.0
     "@carrotsearch/gatsby-plugin-relativize": 4.0.1
-    "@carrotsearch/gatsby-transformer-html": 4.0.2
+    "@carrotsearch/gatsby-transformer-html": 4.0.3
     "@fortawesome/fontawesome-svg-core": 1.2.36
     "@fortawesome/free-regular-svg-icons": 5.15.4
     "@fortawesome/free-solid-svg-icons": 5.15.4
@@ -2104,11 +2104,12 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@carrotsearch/gatsby-transformer-html@4.0.2, @carrotsearch/gatsby-transformer-html@workspace:plugins/gatsby-transformer-html":
+"@carrotsearch/gatsby-transformer-html@4.0.3, @carrotsearch/gatsby-transformer-html@workspace:plugins/gatsby-transformer-html":
   version: 0.0.0-use.local
   resolution: "@carrotsearch/gatsby-transformer-html@workspace:plugins/gatsby-transformer-html"
   dependencies:
     cheerio: 1.0.0-rc.12
+    comment-json: 4.2.3
     gatsby-plugin-sharp: 4.22.0
     highlight.js: 11.6.0
     html-entities: 2.3.3
@@ -4315,6 +4316,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"array-timsort@npm:^1.0.3":
+  version: 1.0.3
+  resolution: "array-timsort@npm:1.0.3"
+  checksum: fd4b5b0911214bdc8b5699ed10d309685551b518b3819c611c967cff59b87aee01cf591a10e36a3f14dbff696984bd6682b845f6fdbf1217195e910f241a4f78
+  languageName: node
+  linkType: hard
+
 "array-union@npm:^2.1.0":
   version: 2.1.0
   resolution: "array-union@npm:2.1.0"
@@ -5500,6 +5508,19 @@ __metadata:
   languageName: node
   linkType: hard
 
+"comment-json@npm:4.2.3":
+  version: 4.2.3
+  resolution: "comment-json@npm:4.2.3"
+  dependencies:
+    array-timsort: ^1.0.3
+    core-util-is: ^1.0.3
+    esprima: ^4.0.1
+    has-own-prop: ^2.0.0
+    repeat-string: ^1.6.1
+  checksum: 7f8d26266b0d49de9661f6365cbcc373fee4f4d0f422a203dfb17ad8f3d84c5be5ded444874935a197cd03cff297c53fe48910256cb4171cb2e52a3e6b9d317c
+  languageName: node
+  linkType: hard
+
 "common-path-prefix@npm:^3.0.0":
   version: 3.0.0
   resolution: "common-path-prefix@npm:3.0.0"
@@ -5718,7 +5739,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"core-util-is@npm:~1.0.0":
+"core-util-is@npm:^1.0.3, core-util-is@npm:~1.0.0":
   version: 1.0.3
   resolution: "core-util-is@npm:1.0.3"
   checksum: 9de8597363a8e9b9952491ebe18167e3b36e7707569eed0ebf14f8bba773611376466ae34575bca8cfe3c767890c859c74056084738f09d4e4a6f902b2ad7d99
@@ -8967,6 +8988,13 @@ fsevents@~2.3.2:
   version: 4.0.0
   resolution: "has-flag@npm:4.0.0"
   checksum: 261a1357037ead75e338156b1f9452c016a37dcd3283a972a30d9e4a87441ba372c8b81f818cd0fbcd9c0354b4ae7e18b9e1afa1971164aef6d18c2b6095a8ad
+  languageName: node
+  linkType: hard
+
+"has-own-prop@npm:^2.0.0":
+  version: 2.0.0
+  resolution: "has-own-prop@npm:2.0.0"
+  checksum: ca6336e85ead2295c9603880cbc199e2d3ff7eaea0e9035d68fbc79892e9cf681abc62c0909520f112c671dad9961be2173b21dff951358cc98425c560e789e0
   languageName: node
   linkType: hard
 
@@ -13394,6 +13422,13 @@ fsevents@~2.3.2:
     lodash: ^4.17.21
     strip-ansi: ^3.0.1
   checksum: d3d7562531fb8104154d4aa6aa977707783616318014088378a6c5bbc36318ada9289543d380ede707e531b7f5b96229e87d1b8944f675e5ec3686e62692c7c7
+  languageName: node
+  linkType: hard
+
+"repeat-string@npm:^1.6.1":
+  version: 1.6.1
+  resolution: "repeat-string@npm:1.6.1"
+  checksum: 1b809fc6db97decdc68f5b12c4d1a671c8e3f65ec4a40c238bc5200e44e85bcc52a54f78268ab9c29fcf5fe4f1343e805420056d1f30fa9a9ee4c2d93e3cc6c0
   languageName: node
   linkType: hard
 
