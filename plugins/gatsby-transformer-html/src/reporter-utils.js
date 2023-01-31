@@ -1,4 +1,4 @@
 exports.error = (message, reporter) => {
   const dot = message.endsWith("." ? "" : ".");
-  reporter.error(`${message}${dot}`);
+  reporter.panicOnBuild(`${message}${dot}`);
 };
