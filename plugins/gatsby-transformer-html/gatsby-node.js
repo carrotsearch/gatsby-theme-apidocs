@@ -344,13 +344,13 @@ const tryCache = async (cache, prefix, key, produceEntry) => {
 
 const setFieldsOnGraphQLNodeType = (
   { type, getNodesByType, reporter, cache, pathPrefix, createContentDigest },
-  { variables, transformers, imageQuality = 90 }
+  { variables, transformers, finalizers, imageQuality = 90 }
 ) => {
   if (type.name === "Html") {
-    const runTransformers = ($, dir) => {
+    const runTransformers = (fns, $, dir) => {
       if (transformers) {
         for (let i = 0; i < transformers.length; i++) {
-          $ = transformers[i]($, {
+          $ = fns[i]($, {
             dir,
             variables,
             reporter,
@@ -376,7 +376,7 @@ const setFieldsOnGraphQLNodeType = (
             // entity resolution in cheerio and then patch this in the
             // serialized HTML, see fixClosingTagsInHighlightedCode() below.
             let $ = loadHtml(node.rawHtml);
-            $ = runTransformers($, node.dir);
+            $ = runTransformers(transformers, $, node.dir);
             $ = await svgInliner.transform($, node.dir);
             $ = await imageProcessor.transform($, node.dir);
             $ = rewriteInternalLinks($);
@@ -384,6 +384,7 @@ const setFieldsOnGraphQLNodeType = (
             $ = embedCode($, node.dir, variables, reporter);
             $ = codeHighlighter.transform($);
             $ = addIdsForIndexableFragments($);
+            $ = runTransformers(finalizers, $, node.dir);
 
             let rendered = renderHtml($);
             rendered = replaceVariables(rendered, createMapReplacer(variables));
