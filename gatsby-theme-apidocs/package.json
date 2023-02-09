@@ -18,7 +18,7 @@
   "dependencies": {
     "@carrotsearch/gatsby-plugin-content-search": "4.0.0",
     "@carrotsearch/gatsby-plugin-relativize": "4.0.1",
-    "@carrotsearch/gatsby-transformer-html": "4.0.5",
+    "@carrotsearch/gatsby-transformer-html": "4.0.6",
     "@fortawesome/fontawesome-svg-core": "1.2.36",
     "@fortawesome/free-regular-svg-icons": "5.15.4",
     "@fortawesome/free-solid-svg-icons": "5.15.4",
