@@ -348,8 +348,8 @@ const setFieldsOnGraphQLNodeType = (
 ) => {
   if (type.name === "Html") {
     const runTransformers = (fns, $, dir) => {
-      if (transformers) {
-        for (let i = 0; i < transformers.length; i++) {
+      if (fns) {
+        for (let i = 0; i < fns.length; i++) {
           $ = fns[i]($, {
             dir,
             variables,
