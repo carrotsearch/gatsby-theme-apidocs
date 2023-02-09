@@ -405,7 +405,7 @@ const setFieldsOnGraphQLNodeType = (
         resolve: async node => {
           return tryCache(cache, "indexableFragments", node.internal.contentDigest, () => {
             let $ = loadHtml(node.rawHtml);
-            $ = runTransformers($, node.dir);
+            $ = runTransformers(transformers, $, node.dir);
             $ = addIdsForIndexableFragments($);
             return collectIndexableFragments($);
           });
