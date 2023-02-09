@@ -2,7 +2,7 @@
 # Manual changes might be lost - proceed with caution!
 
 __metadata:
-  version: 4
+  version: 6
   cacheKey: 8
 
 "@ampproject/remapping@npm:^2.1.0":
@@ -85,30 +85,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@babel/core@npm:7.15.5, @babel/core@npm:^7.15.5":
-  version: 7.15.5
-  resolution: "@babel/core@npm:7.15.5"
-  dependencies:
-    "@babel/code-frame": ^7.14.5
-    "@babel/generator": ^7.15.4
-    "@babel/helper-compilation-targets": ^7.15.4
-    "@babel/helper-module-transforms": ^7.15.4
-    "@babel/helpers": ^7.15.4
-    "@babel/parser": ^7.15.5
-    "@babel/template": ^7.15.4
-    "@babel/traverse": ^7.15.4
-    "@babel/types": ^7.15.4
-    convert-source-map: ^1.7.0
-    debug: ^4.1.0
-    gensync: ^1.0.0-beta.2
-    json5: ^2.1.2
-    semver: ^6.3.0
-    source-map: ^0.5.0
-  checksum: 8121bf74040d98562b773c1e92a174cd53c99a5158ae5a9ef25645ed35d6f821c64155e394cdb04e7dc77a0871ba42a638f6703b2c44a75bc04564b21cad9e1b
-  languageName: node
-  linkType: hard
-
-"@babel/core@npm:7.18.13, @babel/core@npm:^7.14.0":
+"@babel/core@npm:^7.14.0":
   version: 7.18.13
   resolution: "@babel/core@npm:7.18.13"
   dependencies:
@@ -128,6 +105,29 @@ __metadata:
     json5: ^2.2.1
     semver: ^6.3.0
   checksum: c7ee5b2c10bc5b0325e31fb5da4cb4bc03f9d5f5c00ec3481a018917bcc6b7b040de0690c606a424f57e5fc26d218d64e7718d0e5d7d8614d39c8cd898fab9b3
+  languageName: node
+  linkType: hard
+
+"@babel/core@npm:^7.15.5":
+  version: 7.15.5
+  resolution: "@babel/core@npm:7.15.5"
+  dependencies:
+    "@babel/code-frame": ^7.14.5
+    "@babel/generator": ^7.15.4
+    "@babel/helper-compilation-targets": ^7.15.4
+    "@babel/helper-module-transforms": ^7.15.4
+    "@babel/helpers": ^7.15.4
+    "@babel/parser": ^7.15.5
+    "@babel/template": ^7.15.4
+    "@babel/traverse": ^7.15.4
+    "@babel/types": ^7.15.4
+    convert-source-map: ^1.7.0
+    debug: ^4.1.0
+    gensync: ^1.0.0-beta.2
+    json5: ^2.1.2
+    semver: ^6.3.0
+    source-map: ^0.5.0
+  checksum: 8121bf74040d98562b773c1e92a174cd53c99a5158ae5a9ef25645ed35d6f821c64155e394cdb04e7dc77a0871ba42a638f6703b2c44a75bc04564b21cad9e1b
   languageName: node
   linkType: hard
 
@@ -2077,7 +2077,7 @@ __metadata:
   dependencies:
     "@carrotsearch/gatsby-plugin-content-search": 4.0.0
     "@carrotsearch/gatsby-plugin-relativize": 4.0.1
-    "@carrotsearch/gatsby-transformer-html": 4.0.3
+    "@carrotsearch/gatsby-transformer-html": 4.0.4
     "@fortawesome/fontawesome-svg-core": 1.2.36
     "@fortawesome/free-regular-svg-icons": 5.15.4
     "@fortawesome/free-solid-svg-icons": 5.15.4
@@ -2104,7 +2104,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@carrotsearch/gatsby-transformer-html@4.0.3, @carrotsearch/gatsby-transformer-html@workspace:plugins/gatsby-transformer-html":
+"@carrotsearch/gatsby-transformer-html@4.0.4, @carrotsearch/gatsby-transformer-html@workspace:plugins/gatsby-transformer-html":
   version: 0.0.0-use.local
   resolution: "@carrotsearch/gatsby-transformer-html@workspace:plugins/gatsby-transformer-html"
   dependencies:
@@ -2605,84 +2605,84 @@ __metadata:
 "@lmdb/lmdb-darwin-arm64@npm:2.5.2":
   version: 2.5.2
   resolution: "@lmdb/lmdb-darwin-arm64@npm:2.5.2"
-  checksum: 2e4f3041bdaf61b77ea8a29738dcee44bbbaef92ab9dbedf6377f6e74c85ff197e163886fbb0a6d30114beb469475ca5896a41bc41553bcc95cb995d8f246886
+  conditions: os=darwin & cpu=arm64
   languageName: node
   linkType: hard
 
 "@lmdb/lmdb-darwin-arm64@npm:2.5.3":
   version: 2.5.3
   resolution: "@lmdb/lmdb-darwin-arm64@npm:2.5.3"
-  checksum: eb5964d33531aa61f25105686844ac71769a35fbabb951c22ca335bc14356ec455521c4c574a37d11d7cd2679f3a6042821c3206937d64285e0f14d0b15fb2b8
+  conditions: os=darwin & cpu=arm64
   languageName: node
   linkType: hard
 
 "@lmdb/lmdb-darwin-x64@npm:2.5.2":
   version: 2.5.2
   resolution: "@lmdb/lmdb-darwin-x64@npm:2.5.2"
-  checksum: 3ae36e31831e556c803ec03fc477cdb4b6771b5b12b26dcb5f799ce1c5f0521864925cddd82c5eb809b70619a1340a7349773b3295c91d350ddfcf3fd3b11c76
+  conditions: os=darwin & cpu=x64
   languageName: node
   linkType: hard
 
 "@lmdb/lmdb-darwin-x64@npm:2.5.3":
   version: 2.5.3
   resolution: "@lmdb/lmdb-darwin-x64@npm:2.5.3"
-  checksum: 6a952fc7f8dccedf94ce72765a421784ec0adb09869f5ec792c3bebaa0a452c6cb4ec4a31ba77834d019c4bbb54cc978c96e5925e368e2baa42b6b5d5534a5b4
+  conditions: os=darwin & cpu=x64
   languageName: node
   linkType: hard
 
 "@lmdb/lmdb-linux-arm64@npm:2.5.2":
   version: 2.5.2
   resolution: "@lmdb/lmdb-linux-arm64@npm:2.5.2"
-  checksum: b2c0bb9ada7ace0df2eff67d48b516f378f3b0e280e3ab78761d450b9b357380c649523801c7dbc9c98cb08fe6e6d62a1a74864ce19e3ce1d5dc35e580eab369
+  conditions: os=linux & cpu=arm64
   languageName: node
   linkType: hard
 
 "@lmdb/lmdb-linux-arm64@npm:2.5.3":
   version: 2.5.3
   resolution: "@lmdb/lmdb-linux-arm64@npm:2.5.3"
-  checksum: fd4674d1ff23e3d51a48a3f539dcbb8943337cef1405716503803d1b0d091cf446b957f291b882abdd5da1eece20918bdd6a32ed85dec5a0247387d075100201
+  conditions: os=linux & cpu=arm64
   languageName: node
   linkType: hard
 
 "@lmdb/lmdb-linux-arm@npm:2.5.2":
   version: 2.5.2
   resolution: "@lmdb/lmdb-linux-arm@npm:2.5.2"
-  checksum: 6718a32ff3ff6b2aaa2b49d0d0675291848e0d168a5cb8e89ed143095437c224fc325121dad48e0eea60dbfb90b108fa84a57c97984ece0c2c12bd4ba1a5d60e
+  conditions: os=linux & cpu=arm
   languageName: node
   linkType: hard
 
 "@lmdb/lmdb-linux-arm@npm:2.5.3":
   version: 2.5.3
   resolution: "@lmdb/lmdb-linux-arm@npm:2.5.3"
-  checksum: b6ce04ade7aed52c2d1c7ea6ac5cb1d972b98ffcec2a651b8367f60eb032106033a95a4f1d7773abcedaf718a44ba7c988590df4e0838640315ba6a3d4ea3bf8
+  conditions: os=linux & cpu=arm
   languageName: node
   linkType: hard
 
 "@lmdb/lmdb-linux-x64@npm:2.5.2":
   version: 2.5.2
   resolution: "@lmdb/lmdb-linux-x64@npm:2.5.2"
-  checksum: 17bf7cbad27de4a44260ad435f6554707ca34319797f30782c601112ed1627f385e766ddb0ac8e671af56e253e738ff037005281ec10fb2bfa725042961464a0
+  conditions: os=linux & cpu=x64
   languageName: node
   linkType: hard
 
 "@lmdb/lmdb-linux-x64@npm:2.5.3":
   version: 2.5.3
   resolution: "@lmdb/lmdb-linux-x64@npm:2.5.3"
-  checksum: 0121474c582c7575c83e57f65fdef3de1204b0f6212a023a37724a41f1af7c2d9866c0c01f1967ff05c9bb373a132de261dfd3433282819e7029207674570586
+  conditions: os=linux & cpu=x64
   languageName: node
   linkType: hard
 
 "@lmdb/lmdb-win32-x64@npm:2.5.2":
   version: 2.5.2
   resolution: "@lmdb/lmdb-win32-x64@npm:2.5.2"
-  checksum: e8c515cf1d9bdcb3519bc8494585b076dc802e9805171f609e004d8b6db11af91f03ce3afc821fc9b5476c14e2e0d168ff18f53e40f829b6612a010424c40a86
+  conditions: os=win32 & cpu=x64
   languageName: node
   linkType: hard
 
 "@lmdb/lmdb-win32-x64@npm:2.5.3":
   version: 2.5.3
   resolution: "@lmdb/lmdb-win32-x64@npm:2.5.3"
-  checksum: 5132938d02f5ecb08efa75ad711ba868c9d81a99c7e1d231b0650c0f2409d61685933bbfd35ae7048d618a49967922d92c0e8047387fa88fdf4366be94648738
+  conditions: os=win32 & cpu=x64
   languageName: node
   linkType: hard
 
@@ -2700,42 +2700,42 @@ __metadata:
 "@msgpackr-extract/msgpackr-extract-darwin-arm64@npm:2.1.2":
   version: 2.1.2
   resolution: "@msgpackr-extract/msgpackr-extract-darwin-arm64@npm:2.1.2"
-  checksum: 604092f5624a94e2cf0cc462e38aef0f3807d09ea04ec598190b47f1d0548e5476ae691803bc29c76cc57ffa7a4c1b87b677e4e27da023a2304ac290af2fee7a
+  conditions: os=darwin & cpu=arm64
   languageName: node
   linkType: hard
 
 "@msgpackr-extract/msgpackr-extract-darwin-x64@npm:2.1.2":
   version: 2.1.2
   resolution: "@msgpackr-extract/msgpackr-extract-darwin-x64@npm:2.1.2"
-  checksum: d233b6f576b5abd5e6b1f483eae15b97fc8c758c8bec67a70a4300fa61084d5742632da5038f593f7b0e2bf5b0dc834fc15940f77e800789388e13ed6d38cdfc
+  conditions: os=darwin & cpu=x64
   languageName: node
   linkType: hard
 
 "@msgpackr-extract/msgpackr-extract-linux-arm64@npm:2.1.2":
   version: 2.1.2
   resolution: "@msgpackr-extract/msgpackr-extract-linux-arm64@npm:2.1.2"
-  checksum: 0cc042ab81cb1ec5157e8560def5f026e54dd122dfd38e00050a09269db7ee61225dc427d69476abc1489b4ee5fc8a919d8b89c23a632c0f4f7a8176b8ed8321
+  conditions: os=linux & cpu=arm64
   languageName: node
   linkType: hard
 
 "@msgpackr-extract/msgpackr-extract-linux-arm@npm:2.1.2":
   version: 2.1.2
   resolution: "@msgpackr-extract/msgpackr-extract-linux-arm@npm:2.1.2"
-  checksum: c8ad313604f65713f10730571d3aa62ddf45f0468e084f84dc27b85bc1bb7874f1d239252f5ca0baea1926d3915b9c94d82a9c386b012ecb605da437d9c4c4d0
+  conditions: os=linux & cpu=arm
   languageName: node
   linkType: hard
 
 "@msgpackr-extract/msgpackr-extract-linux-x64@npm:2.1.2":
   version: 2.1.2
   resolution: "@msgpackr-extract/msgpackr-extract-linux-x64@npm:2.1.2"
-  checksum: 959be2036848869310a395a62fe62a3dbccc9ef482b3375010ce1881cec8a3d47e74572da57eeae0ab273f7e325473164403a6f6b522f90b5c521a5af8d03ede
+  conditions: os=linux & cpu=x64
   languageName: node
   linkType: hard
 
 "@msgpackr-extract/msgpackr-extract-win32-x64@npm:2.1.2":
   version: 2.1.2
   resolution: "@msgpackr-extract/msgpackr-extract-win32-x64@npm:2.1.2"
-  checksum: 29cc6482dfa0fa90178b98535d0be6687737c950e484edde7d6e9f8d93b974099dae583700506bcc176e67f2a11118f17573eab156984e62dcbe7b69dd539cac
+  conditions: os=win32 & cpu=x64
   languageName: node
   linkType: hard
 
@@ -4875,20 +4875,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"browserslist@npm:4.21.3, browserslist@npm:^4.17.5, browserslist@npm:^4.18.1, browserslist@npm:^4.20.2, browserslist@npm:^4.21.3, browserslist@npm:^4.6.6":
-  version: 4.21.3
-  resolution: "browserslist@npm:4.21.3"
-  dependencies:
-    caniuse-lite: ^1.0.30001370
-    electron-to-chromium: ^1.4.202
-    node-releases: ^2.0.6
-    update-browserslist-db: ^1.0.5
-  bin:
-    browserslist: cli.js
-  checksum: ff512a7bcca1c530e2854bbdfc7be2791d0fb524097a6340e56e1d5924164c7e4e0a9b070de04cdc4c149d15cb4d4275cb7c626ebbce954278a2823aaad2452a
-  languageName: node
-  linkType: hard
-
 "browserslist@npm:^4.0.0, browserslist@npm:^4.14.5, browserslist@npm:^4.16.0, browserslist@npm:^4.16.3, browserslist@npm:^4.16.6, browserslist@npm:^4.17.0":
   version: 4.17.0
   resolution: "browserslist@npm:4.17.0"
@@ -4901,6 +4887,20 @@ __metadata:
   bin:
     browserslist: cli.js
   checksum: 9b45ec283d7ba1513bd8be6143dadb34a65e8be7f7210b3a2bce947e019184408df6126238e54f8061e9be74362b19d04eaba739b3ee0d5d41d57ac0ae5fe4cd
+  languageName: node
+  linkType: hard
+
+"browserslist@npm:^4.17.5, browserslist@npm:^4.18.1, browserslist@npm:^4.20.2, browserslist@npm:^4.21.3, browserslist@npm:^4.6.6":
+  version: 4.21.3
+  resolution: "browserslist@npm:4.21.3"
+  dependencies:
+    caniuse-lite: ^1.0.30001370
+    electron-to-chromium: ^1.4.202
+    node-releases: ^2.0.6
+    update-browserslist-db: ^1.0.5
+  bin:
+    browserslist: cli.js
+  checksum: ff512a7bcca1c530e2854bbdfc7be2791d0fb524097a6340e56e1d5924164c7e4e0a9b070de04cdc4c149d15cb4d4275cb7c626ebbce954278a2823aaad2452a
   languageName: node
   linkType: hard
 
@@ -7944,19 +7944,19 @@ __metadata:
 
 "fsevents@patch:fsevents@~2.1.2#~builtin<compat/fsevents>":
   version: 2.1.3
-  resolution: "fsevents@patch:fsevents@npm%3A2.1.3#~builtin<compat/fsevents>::version=2.1.3&hash=1cc4b2"
+  resolution: "fsevents@patch:fsevents@npm%3A2.1.3#~builtin<compat/fsevents>::version=2.1.3&hash=31d12a"
   dependencies:
     node-gyp: latest
-  checksum: 37502954e1b2cf7d1f555561e45956521afa12e12cbfe05445ffa1f2852a3d8932980cacb808d504b1def84b12b3b7b41c26673180691295001fa7740cc63fba
+  conditions: os=darwin
   languageName: node
   linkType: hard
 
 "fsevents@patch:fsevents@~2.3.2#~builtin<compat/fsevents>":
   version: 2.3.2
-  resolution: "fsevents@patch:fsevents@npm%3A2.3.2#~builtin<compat/fsevents>::version=2.3.2&hash=1cc4b2"
+  resolution: "fsevents@patch:fsevents@npm%3A2.3.2#~builtin<compat/fsevents>::version=2.3.2&hash=df0bf1"
   dependencies:
     node-gyp: latest
-  checksum: 78db9daf1f6526a49cefee3917cc988f62dc7f25b5dd80ad6de4ffc4af7f0cab7491ac737626ff53e482a111bc53aac9e411fe3602458eca36f6a003ecf69c16
+  conditions: os=darwin
   languageName: node
   linkType: hard
 
@@ -7966,6 +7966,7 @@ fsevents@~2.1.2:
   dependencies:
     node-gyp: latest
   checksum: b5ec0516b44d75b60af5c01ff80a80cd995d175e4640d2a92fbabd02991dd664d76b241b65feef0775c23d531c3c74742c0fbacd6205af812a9c3cef59f04292
+  conditions: os=darwin
   languageName: node
   linkType: hard
 
@@ -7975,6 +7976,7 @@ fsevents@~2.3.2:
   dependencies:
     node-gyp: latest
   checksum: 97ade64e75091afee5265e6956cb72ba34db7819b4c3e94c431d4be2b19b8bb7a2d4116da417950c3425f17c8fe693d25e20212cac583ac1521ad066b77ae31f
+  conditions: os=darwin
   languageName: node
   linkType: hard
 
@@ -13525,34 +13527,34 @@ resolve@^2.0.0-next.3:
 
 "resolve@patch:resolve@^1.10.0#~builtin<compat/resolve>, resolve@patch:resolve@^1.14.2#~builtin<compat/resolve>, resolve@patch:resolve@^1.20.0#~builtin<compat/resolve>":
   version: 1.20.0
-  resolution: "resolve@patch:resolve@npm%3A1.20.0#~builtin<compat/resolve>::version=1.20.0&hash=00b1ff"
+  resolution: "resolve@patch:resolve@npm%3A1.20.0#~builtin<compat/resolve>::version=1.20.0&hash=c3c19d"
   dependencies:
     is-core-module: ^2.2.0
     path-parse: ^1.0.6
-  checksum: bed00be983cd20a8af0e7840664f655c4b269786dbd9595c5f156cd9d8a0050e65cdbbbdafc30ee9b6245b230c78a2c8ab6447a52545b582f476c29adb188cc5
+  checksum: a0dd7d16a8e47af23afa9386df2dff10e3e0debb2c7299a42e581d9d9b04d7ad5d2c53f24f1e043f7b3c250cbdc71150063e53d0b6559683d37f790b7c8c3cd5
   languageName: node
   linkType: hard
 
 "resolve@patch:resolve@^1.19.0#~builtin<compat/resolve>, resolve@patch:resolve@^1.22.0#~builtin<compat/resolve>":
   version: 1.22.1
-  resolution: "resolve@patch:resolve@npm%3A1.22.1#~builtin<compat/resolve>::version=1.22.1&hash=00b1ff"
+  resolution: "resolve@patch:resolve@npm%3A1.22.1#~builtin<compat/resolve>::version=1.22.1&hash=c3c19d"
   dependencies:
     is-core-module: ^2.9.0
     path-parse: ^1.0.7
     supports-preserve-symlinks-flag: ^1.0.0
   bin:
     resolve: bin/resolve
-  checksum: d45553550a85af4c6c310a4d9790b60f1fcbdbb1b7ca93f1ad8e06424d69aa6782d59bd93a4c085777baf6159ecc1dbe432299a6027c4837de4db5851a5d3435
+  checksum: 5656f4d0bedcf8eb52685c1abdf8fbe73a1603bb1160a24d716e27a57f6cecbe2432ff9c89c2bd57542c3a7b9d14b1882b73bfe2e9d7849c9a4c0b8b39f02b8b
   languageName: node
   linkType: hard
 
 "resolve@patch:resolve@^2.0.0-next.3#~builtin<compat/resolve>":
   version: 2.0.0-next.3
-  resolution: "resolve@patch:resolve@npm%3A2.0.0-next.3#~builtin<compat/resolve>::version=2.0.0-next.3&hash=00b1ff"
+  resolution: "resolve@patch:resolve@npm%3A2.0.0-next.3#~builtin<compat/resolve>::version=2.0.0-next.3&hash=c3c19d"
   dependencies:
     is-core-module: ^2.2.0
     path-parse: ^1.0.6
-  checksum: eb88c5e53843bc022215744307a5f5664446c0fdb8f43c33456dce98d5ee6b3162d0cd0a177bb6f1c3d5c8bf01391ac7ab2de0e936e35318725fb40ba7efdaf6
+  checksum: 21684b4d99a4877337cdbd5484311c811b3e8910edb5d868eec85c6e6550b0f570d911f9a384f9e176172d6713f2715bd0b0887fa512cb8c6aeece018de6a9f8
   languageName: node
   linkType: hard
 
