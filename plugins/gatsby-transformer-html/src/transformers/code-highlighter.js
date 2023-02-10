@@ -191,9 +191,14 @@ const highlightCode = (html, preserveIndent, preserveNewlines, language) => {
       }
     })
     .join("\n");
-  return `<pre><code data-language="${hl.language}">${highlighted}</code></pre>`;
+  return `<code data-language="${hl.language}">${highlighted}</code>`;
 };
-exports.highlightCode = highlightCode;
+
+const ignoredPreData = new Set([
+  "preserve-common-indent",
+  "preserve-leading-and-trailing-newlines",
+  "language"
+]);
 
 exports.CodeHighlighter = function () {
   this.transform = $ => {
@@ -220,7 +225,24 @@ exports.CodeHighlighter = function () {
       // of pre before highlighting.
       //
       const html = decode($el.html());
-      return highlightCode(html, preserveIndent, preserveNewlines, language);
+      const code = highlightCode(html, preserveIndent, preserveNewlines, language);
+
+      // Copy selected <pre> attributes to the output
+      const preAttrs = [];
+
+      // Copy class
+      const clazz = $el.attr("class");
+      if (clazz) {
+        preAttrs.push(`class="${clazz}"`)
+      }
+
+      // Copy data
+      const allData = $el.data();
+      Object.keys(allData)
+          .filter(k => !ignoredPreData.has(k))
+          .forEach(k => preAttrs.push(`data-${k}="${allData[k]}"`));
+
+      return `<pre ${preAttrs.join(" ")}>${code}</pre>`;
     });
     return $;
   };
