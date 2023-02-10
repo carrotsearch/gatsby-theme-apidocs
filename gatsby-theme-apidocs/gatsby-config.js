@@ -21,7 +21,8 @@ module.exports = options => ({
       resolve: "@carrotsearch/gatsby-transformer-html",
       options: {
         variables: options.variables,
-        transformers: options.transformers
+        transformers: options.transformers,
+        finalizers: options.finalizers
       }
     },
     "@carrotsearch/gatsby-plugin-content-search",
