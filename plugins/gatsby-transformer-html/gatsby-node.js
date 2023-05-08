@@ -142,7 +142,7 @@ const removeEmpty = a => {
 };
 
 const forEachFullTextFragment = ($, cb) => {
-  const elements = ["p", "li"];
+  const elements = ["p", "li", "dt"];
   const isIndexed = indexingAllowed($);
 
   elements.forEach(tag => {
