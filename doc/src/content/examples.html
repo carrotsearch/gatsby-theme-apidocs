@@ -4,22 +4,22 @@
   <h2>Code highlights in different languages.</h2>
 
   <figure>
-    <pre data-embed="./examples/code.java"></pre>
+    <embed src="./examples/code.java"></embed>
     <figcaption>Java</figcaption>
   </figure>
 
   <figure>
-    <pre data-embed="./examples/javascript.js"></pre>
+    <embed src="./examples/javascript.js"></embed>
     <figcaption>JavaScript</figcaption>
   </figure>
 
   <figure>
-    <pre data-embed="./examples/json.json"></pre>
+    <embed src="./examples/json.json"></embed>
     <figcaption>JSON</figcaption>
   </figure>
 
   <figure>
-    <pre data-embed="./examples/html.html"></pre>
+    <embed src="./examples/html.html"></embed>
     <figcaption>HTML</figcaption>
   </figure>
 
@@ -28,37 +28,37 @@
   <ul>
     <li>
       <p>Single node:</p>
-      <pre data-embed="./examples/json.json" data-jsonpath="$..labelFilter"></pre>
+      <embed src="./examples/json.json" data-jsonpath="$..labelFilter"></embed>
     </li>
 
     <li>
       <p>Multiple nodes:</p>
-      <pre data-embed="./examples/json.json" data-jsonpath='$..type'></pre>
+      <embed src="./examples/json.json" data-jsonpath='$..type'></embed>
     </li>
 
     <li>
-      <p>Complex expression:</p>
-      <pre data-embed="./examples/json.json" data-jsonpath='$..labels.fetcher'></pre>
+      <p>Complex exembedssion:</p>
+      <embed src="./examples/json.json" data-jsonpath='$..labels.fetcher'></embed>
     </li>
 
     <li>
-      <p>Key filtering expression:</p>
-      <pre data-embed="./examples/json.json" data-jsonpath="$..labels.fetcher{'type', 'labelFilter', /min.*/}"></pre>
+      <p>Key filtering exembedssion:</p>
+      <embed src="./examples/json.json" data-jsonpath="$..labels.fetcher{'type', 'labelFilter', /min.*/}"></embed>
     </li>
 
     <li>
       <p>Key filtering and outer bracket removal:</p>
-      <pre data-embed="./examples/json.json" data-jsonpath="$..labels.fetcher{'type', 'labelFilter', trim-brackets}"></pre>
+      <embed src="./examples/json.json" data-jsonpath="$..labels.fetcher{'type', 'labelFilter', trim-brackets}"></embed>
     </li>
 
     <li>
       <p>JSON comments in json path-selected section:</p>
-      <pre data-embed="./examples/json-with-comments.json" data-jsonpath="$..labels.fetcher{'type', 'labelFilter', trim-brackets}"></pre>
+      <embed src="./examples/json-with-comments.json" data-jsonpath="$..labels.fetcher{'type', 'labelFilter', trim-brackets}"></embed>
     </li>
 
     <li>
       <p>JSON comment removal:</p>
-      <pre data-embed="./examples/json-with-comments.json" data-jsonpath="$..labels.fetcher{'type', 'labelFilter', trim-brackets, remove-comments}"></pre>
+      <embed src="./examples/json-with-comments.json" data-jsonpath="$..labels.fetcher{'type', 'labelFilter', trim-brackets, remove-comments}"></embed>
     </li>
   </ul>
 

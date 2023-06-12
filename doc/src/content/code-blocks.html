@@ -22,7 +22,7 @@
     </p>
 
     <pre
-      data-language="markup"
+        data-language="markup"
     ><pre data-language="js">api.schedule(function(done) {
   performCalculations();
   done();
@@ -85,17 +85,17 @@ api.schedule(function(done) {
     <h2>Embedding external files</h2>
 
     <p>
-      Use the <code>data-embed</code> attribute of the <code>pre</code> tag to
-      embed code from an external file:
+      Use the <code>embed</code> tag with the <code>src</code> attribute to
+      embed text from an external file:
     </p>
 
     <pre
-      data-language="markup"
-    ><pre data-embed="../examples/hello-world.html"></pre></pre>
+        data-language="markup"
+    ><embed src="./examples/code.java"></embed></pre>
 
     <p>
-      The path to the embedded file is resolved relatively to the HTML file it
-      appears in.
+      API docs resolves the path to the embedded file relatively to the HTML file the
+      <code>embed</code> tag appears in.
     </p>
 
     <p>
@@ -111,7 +111,7 @@ api.schedule(function(done) {
         In some cases you may want to embed only a fragment of an external file.
         To do so, add special fragment start and end markers to the external
         file along with a fragment identifier that you will later provide to the
-        <code>pre</code> tag.
+        <code>embed</code> tag.
       </p>
 
       <p>Fragment markers have the following syntax:</p>
@@ -181,7 +181,7 @@ api.schedule(function(done) {
       </p>
 
       <pre data-language="markup">
-        <pre data-embed="variables.js" data-fragment="validate"></pre>
+        <embed src="variables.js" data-fragment="validate"></embed>
       </pre>
 
       <p>Please note the following issues when embedding fragments:</p>
@@ -224,7 +224,7 @@ api.schedule(function(done) {
       </p>
 
       <pre data-language="markup">
-        <pre data-embed="input-file.json" data-jsonpath="$.foo.bar"></pre>
+        <embed src="input-file.json" data-jsonpath="$.foo.bar"></embed>
       </pre>
 
       <p>
@@ -237,7 +237,7 @@ api.schedule(function(done) {
       </p>
 
       <pre data-language="markup">
-        <pre data-embed="input-file.json" data-jsonpath="$.foo.bar{'baz', 'bar', /^prop.+/}"></pre>
+        <embed src="input-file.json" data-jsonpath="$.foo.bar{'baz', 'bar', /^prop.+/}"></embed>
       </pre>
 
       <p>Please note the following:</p>
@@ -254,7 +254,7 @@ api.schedule(function(done) {
         <li>
           <p>
             The JSON file is reformatted using the default
-            <code>JSON.stringify(..., null, "  ")</code> function. There is no way to
+            <code>JSON.stringify(..., null, " ")</code> function. There is no way to
             insert the file in its original formatting.
           </p>
         </li>
@@ -266,8 +266,8 @@ api.schedule(function(done) {
 
       <p>
         You can use <a href="variable-substitution.html">variables</a> inside
-        the file paths you specify in the <code>data-embed</code> attribute of
-        the <code>pre</code> tag. This may help to externalize paths of the
+        the file paths you specify in the <code>src</code> attribute of
+        the <code>embed</code> tag. This may help to externalize paths of the
         folders containing files to embed.
       </p>
 
@@ -278,15 +278,15 @@ api.schedule(function(done) {
       </p>
 
       <pre data-language="markup">
-        <pre data-embed="%&#8203;CODE_EXAMPLES%/api.js"></pre>
+        <embed src="%&#8203;CODE_EXAMPLES%/api.js"></embed>
       </pre>
 
       <div class="warning">
         <strong>Sanitize your variables.</strong>
 
         <p>
-          APIdocs does not verify the file paths provided in the
-          <code>data-embed</code>
+          APIdocs does not verify the file paths you provide in the
+          <code>src</code>
           attribute. Make sure they don't and can't reference any sensitive data
           in your system.
         </p>
@@ -343,7 +343,7 @@ api.schedule(function(done) {
     </p>
 
     <pre
-      data-language="markup"
+        data-language="markup"
     ><pre data-language="css">/** highlight&#8203;-range{5-7} */
 p {
   margin-top: 1rem; /** highlight&#8203;-line */
@@ -411,7 +411,7 @@ article {
     </p>
 
     <pre data-language="markup">
-      <pre data-embed="example.js" data-preserve-common-indent="true"></pre>
+      <embed src="example.js" data-preserve-common-indent="true"></embed>
     </pre>
   </section>
 
@@ -421,7 +421,7 @@ article {
     <p>
       APIdocs by default removes leading and trailing new lines of the code
       block you embed. This strips unnecessary margins from the
-      <code>pre</code> blocks.
+      <code>embed</code> blocks.
     </p>
 
     <p>
@@ -431,8 +431,8 @@ article {
     </p>
 
     <pre data-language="markup">
-      <pre data-embed="example.js"
-           data-preserve-leading-and-trailing-newlines="true"></pre>
+      <embed src="example.js"
+             data-preserve-leading-and-trailing-newlines="true"></embed>
     </pre>
   </section>
 </article>

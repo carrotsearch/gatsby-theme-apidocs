@@ -31,11 +31,11 @@ const indexingAllowed = $ => (i, el) => $(el).data("indexing") !== "disabled";
  * the embed tag appears.
  */
 const embedCode = ($, dir, variables, reporter) => {
-  $("pre[data-embed]")
+  $("pre[data-embed], embed[src]")
     .filter(notInPre($))
     .replaceWith((i, el) => {
       const $el = $(el);
-      const declaredEmbed = $el.data("embed");
+      const declaredEmbed = $el.data("embed") || $el.attr("src");
       const fragment = $el.data("fragment");
       const jsonpath = $el.data("jsonpath");
       const declaredLanguage = $el.data("language");
