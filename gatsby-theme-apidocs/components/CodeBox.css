@@ -1,0 +1,63 @@
+.CodeBox {
+  position: relative;
+}
+
+.CodeBox > .CopyToClipboard {
+  position: absolute;
+  width: 1.5em;
+  height: 1.5em;
+  top: calc(0.28 * var(--leading));
+  right: calc(0.28 * var(--leading));
+
+  background: url(copy-to-clipboard.svg) no-repeat center 40%;
+  background-size: 1.5em;
+
+  border: 1.5px solid rgba(255, 255, 255, 0.3);
+  border-radius: 0.25em;
+  padding: 1em;
+
+  cursor: pointer;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.CodeBox:hover > .CopyToClipboard {
+  opacity: 1.0;
+}
+
+.CodeBox > .CopyToClipboard:hover {
+  border-color: rgba(255, 255, 255, 0.6);
+  background-color: rgba(255, 255, 255, 0.10);
+}
+
+.CodeBox > .CopyToClipboard.ok:after,
+.CodeBox > .CopyToClipboard.failed:after {
+  position: absolute;
+  height: 1.5rem;
+  top: 0;
+  left: 0;
+  right: 0;
+  text-align: center;
+  font-size: 1.0rem;
+  line-height: 1.8rem;
+}
+
+.CodeBox > .CopyToClipboard.ok {
+  border-color: hsla(90, 100%, 60%, 0.4);
+  background: hsla(90, 100%, 60%, 0.2) none;
+}
+
+.CodeBox > .CopyToClipboard.ok:after {
+  content: "✓";
+  color: hsla(90, 80%, 60%, 1.0);
+}
+
+.CodeBox > .CopyToClipboard.failed {
+  border-color: hsla(0, 100%, 60%, 0.4);
+  background: hsla(0, 100%, 60%, 0.2) none;
+}
+
+.CodeBox > .CopyToClipboard.failed:after {
+  content: "✕";
+  color: hsla(0, 80%, 60%, 1.0);
+}

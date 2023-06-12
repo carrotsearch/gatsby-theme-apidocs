@@ -19,7 +19,7 @@ const dirCommentRegs = [
 
 // Directives in comments as one regexp.
 const dirCommentRe = new RegExp(
-  dirCommentRegs.map(r => `(\\s*${r.source})`).join("|")
+    dirCommentRegs.map(r => `(\\s*${r.source})`).join("|")
 );
 
 /**
@@ -110,12 +110,12 @@ const applyLineRemoval = content => {
     const line = input[i];
 
     if (
-      collectAffectedLineNumbers(
-        line,
-        () => i,
-        dir => dir.action === "hide",
-        toRemove
-      ) === null
+        collectAffectedLineNumbers(
+            line,
+            () => i,
+            dir => dir.action === "hide",
+            toRemove
+        ) === null
     ) {
       // Keep line if not matched
       output.push(line);
@@ -142,13 +142,13 @@ const collectHighlightedLineNumbers = content => {
     const line = input[i];
 
     const dir = collectAffectedLineNumbers(
-      line,
-      // The -next-line and -range directives remove the line containing
-      // the directive, so we need to correct the highlighted line number
-      // by -1 and offset to account for this.
-      dir => (dir.type === "line" ? i - offset : i - 1 - offset),
-      dir => dir.action === "highlight",
-      linesToHighlight
+        line,
+        // The -next-line and -range directives remove the line containing
+        // the directive, so we need to correct the highlighted line number
+        // by -1 and offset to account for this.
+        dir => (dir.type === "line" ? i - offset : i - 1 - offset),
+        dir => dir.action === "highlight",
+        linesToHighlight
     );
     if (dir !== null && dir.type !== "line") {
       // We remove the line with the directive, offset line numbers.
@@ -166,7 +166,7 @@ const collectHighlightedLineNumbers = content => {
 };
 exports.collectHighlightedLineNumbers = collectHighlightedLineNumbers;
 
-const highlightCode = (html, preserveIndent, preserveNewlines, language) => {
+const applyPreprocessing = (html, preserveIndent, preserveNewlines) => {
   if (!preserveIndent) {
     html = removeCommonIndent(html);
   }
@@ -175,22 +175,24 @@ const highlightCode = (html, preserveIndent, preserveNewlines, language) => {
   }
   html = applyLineRemoval(html);
 
-  const { content, linesToHighlight } = collectHighlightedLineNumbers(html);
+  return collectHighlightedLineNumbers(html);
+};
 
+const highlightCode = (content, linesToHighlight, language) => {
   const hl = hljs.highlight(content, {
     language: mapLanguage(language)
   });
 
   const highlighted = hl.value
-    .split("\n")
-    .map((l, i) => {
-      if (linesToHighlight.has(i)) {
-        return `<mark>${l}</mark>`;
-      } else {
-        return l;
-      }
-    })
-    .join("\n");
+      .split("\n")
+      .map((l, i) => {
+        if (linesToHighlight.has(i)) {
+          return `<mark>${l}</mark>`;
+        } else {
+          return l;
+        }
+      })
+      .join("\n");
   return `<code data-language="${hl.language}">${highlighted}</code>`;
 };
 
@@ -208,7 +210,7 @@ exports.CodeHighlighter = function () {
       // refactor this into common-indent=preserve
       const preserveIndent = $el.data("preserve-common-indent");
       const preserveNewlines = $el.data(
-        "preserve-leading-and-trailing-newlines"
+          "preserve-leading-and-trailing-newlines"
       );
       const language = $el.data("language");
 
@@ -225,7 +227,9 @@ exports.CodeHighlighter = function () {
       // of pre before highlighting.
       //
       const html = decode($el.html());
-      const code = highlightCode(html, preserveIndent, preserveNewlines, language);
+      const { content, linesToHighlight } =
+          applyPreprocessing(html, preserveIndent, preserveNewlines);
+      const code = highlightCode(content, linesToHighlight, language);
 
       // Copy selected <pre> attributes to the output
       const preAttrs = [];
@@ -242,7 +246,14 @@ exports.CodeHighlighter = function () {
           .filter(k => !ignoredPreData.has(k))
           .forEach(k => preAttrs.push(`data-${k}="${allData[k]}"`));
 
-      return `<pre ${preAttrs.join(" ")}>${code}</pre>`;
+      const contentForAttribute = content
+          .replace(/&/g, '&amp;')
+          .replace(/'/g, '&apos;')
+          .replace(/"/g, '&quot;')
+          .replace(/</g, '&lt;')
+          .replace(/>/g, '&gt;')
+
+      return `<pre ${preAttrs.join(" ")} data-plain-text="${contentForAttribute}">${code}</pre>`;
     });
     return $;
   };

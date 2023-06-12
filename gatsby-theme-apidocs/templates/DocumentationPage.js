@@ -8,6 +8,7 @@ import { ToC } from "../components/ToC.js";
 import { PrevNextArticle } from "../components/PrevNextArticle.js";
 
 import parse, { domToReact } from "html-react-parser";
+import { CodeBox } from "../components/CodeBox.js";
 
 const resolveNavigation = (navigation, pages) => {
   const pageById = pages.reduce((map, node) => {
@@ -150,6 +151,14 @@ export const DocumentationPage = ({ pageData, location }) => {
         attribs.class.includes("current-year")
       ) {
         return <span>{site.buildTime.substring(0, 4)}</span>;
+      }
+
+      // Code samples
+      if (
+        name === "pre" &&
+        attribs["data-plain-text"]
+      ) {
+        return <CodeBox plainText={attribs["data-plain-text"]}>{domToReact(children)}</CodeBox>;
       }
 
       // Add previous/next article navigation at the bottom of the article.
