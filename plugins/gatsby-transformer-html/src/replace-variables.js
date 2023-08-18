@@ -1,4 +1,4 @@
-const VARIABLE_WITH_DELIMITER_REGEX = /%(\w+)%/g;
+const VARIABLE_WITH_DELIMITER_REGEX = /\$(\w+)\$/g;
 exports.replaceVariables = (html, replacer) => {
   return html.replace(VARIABLE_WITH_DELIMITER_REGEX, (match, name, offset) =>
     replacer(name, offset)

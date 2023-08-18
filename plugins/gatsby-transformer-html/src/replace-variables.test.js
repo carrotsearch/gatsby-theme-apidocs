@@ -11,7 +11,7 @@ describe("validateVariables", function () {
     try {
       validateVariables({
         NAME_OK: "",
-        "%NOT_OK%": "",
+        "$NOT_OK$": "",
         SPECIAL$: ""
       });
     } catch (e) {
@@ -19,7 +19,7 @@ describe("validateVariables", function () {
     }
 
     exception.must.not.be.undefined();
-    exception.must.contain("%NOT_OK%");
+    exception.must.contain("$NOT_OK$");
     exception.must.contain("SPECIAL");
     exception.must.not.contain("NAME_OK");
   });
@@ -27,7 +27,7 @@ describe("validateVariables", function () {
 
 describe("replaceVariables", function () {
   it("must make individual replacements", function () {
-    const input = "Something %to_replace%";
+    const input = "Something $to_replace$";
     const replaced = replaceVariables(
       input,
       createMapReplacer({
@@ -39,7 +39,7 @@ describe("replaceVariables", function () {
   });
 
   it("must make multiple replacements", function () {
-    const input = "%sth% %to_replace%%00%with%00%%sth%";
+    const input = "$sth$ $to_replace$$00$with$00$$sth$";
     const replaced = replaceVariables(
       input,
       createMapReplacer({
