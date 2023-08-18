@@ -29,7 +29,7 @@ exports.ImageProcessor = function ({
     // Collect images whose relative paths point at existing files.
     const imageNodesToProcess = [];
     $img.each((i, img) => {
-      const src = path.normalize(img.attribs.src);
+      const src = path.posix.normalize(img.attribs.src);
       if (fileNodesByPath.has(src)) {
         imageNodesToProcess.push(fileNodesByPath.get(src));
       } else {
@@ -55,9 +55,9 @@ exports.ImageProcessor = function ({
 
     // Replace the images in the HTML.
     $img
-      .filter((i, img) => processedByRelativePath.has(path.normalize(img.attribs.src)))
+      .filter((i, img) => processedByRelativePath.has(path.posix.normalize(img.attribs.src)))
       .replaceWith((i, img) => {
-        const fluid = processedByRelativePath.get(path.normalize(img.attribs.src));
+        const fluid = processedByRelativePath.get(path.posix.normalize(img.attribs.src));
         const className = [img.attribs.class].filter(e => !!e).join(" ");
         const ratio = `${(1 / fluid.aspectRatio) * 100}%`;
 
