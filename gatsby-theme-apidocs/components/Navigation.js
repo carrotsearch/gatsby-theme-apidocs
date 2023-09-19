@@ -14,9 +14,13 @@ const Section = ({ section }) => {
 };
 
 const Chapter = ({ chapter, url }) => {
+  // Drop the prefix up to the page name and optional anchor hash.
+  // The structure of articles is flat, so this simple approach works.
+  const pageUrl = url.replace(/.*(\/[^/]+\/[^/]*)/g, "$1");
+
   const activeArticle =
-    chapter.articles.find(a => a.url === url) ||
-    chapter.articles.find(a => url.startsWith(a.url));
+    chapter.articles.find(a => a.url === pageUrl) ||
+    chapter.articles.find(a => pageUrl.startsWith(a.url));
 
   return (
     <li>
