@@ -93,10 +93,6 @@ export const DocumentationPage = ({ pageData, location }) => {
       site {
         buildTime
       }
-      contentSearchHeadings {
-        index
-        searchableFields
-      }
       navigation {
         navigation
       }
@@ -185,7 +181,7 @@ export const DocumentationPage = ({ pageData, location }) => {
     <Layout
       url={url}
       location={location}
-      searchIndex={data.contentSearchHeadings}
+      searchIndex={null}
       navigation={navigation}
       navigationRaw={data.navigation.navigation}
       footer={footerElement}
