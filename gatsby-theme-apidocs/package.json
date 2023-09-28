@@ -16,7 +16,7 @@
     "registry": "https://registry.npmjs.org/"
   },
   "dependencies": {
-    "@carrotsearch/gatsby-plugin-content-search": "4.0.0",
+    "@carrotsearch/gatsby-plugin-content-search": "4.0.1",
     "@carrotsearch/gatsby-plugin-relativize": "4.0.1",
     "@carrotsearch/gatsby-transformer-html": "4.0.13",
     "@fortawesome/fontawesome-svg-core": "1.2.36",
