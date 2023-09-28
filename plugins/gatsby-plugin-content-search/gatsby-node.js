@@ -19,7 +19,7 @@ const generateTypeName = type => camelCase(`${TYPE_PREFIX} ${type}`);
 const buildFuzzySortIndex = (documents, fields) => {
   documents.forEach(d => {
     fields.forEach(f => {
-      d[f + "Prepared"] = fuzzysort.prepareSlow(d[f]);
+      d[f + "Prepared"] = fuzzysort.prepare(d[f]);
     });
   });
   return documents;
