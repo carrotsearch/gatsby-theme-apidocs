@@ -577,16 +577,7 @@ const SearchResultListSection = ({
 export const Search = ({ navigation }) => {
   const articleToChapter = navigationArticleToChapter(navigation);
 
-  const [ visible, setVisible ] = useState(false);
-
-  useEffect(() => {
-    setTimeout(() => {
-      setVisible(true);
-    }, 2000);
-  }, [ ]);
-
-  if (visible) {
-    const q = graphql`
+  const q = graphql`
     query {
       contentSearchHeadings {
         index
@@ -594,19 +585,16 @@ export const Search = ({ navigation }) => {
       }
     }
   `;
-    const data = useStaticQuery(q);
-    const headings = data.contentSearchHeadings;
+  const data = useStaticQuery(q);
+  const headings = data.contentSearchHeadings;
 
-    return (
-        <div className="Search">
-          <SearchInput
-              onQueryChange={query =>
-                  searcher.search(query, headings, articleToChapter)
-              }
-          />
-        </div>
-    );
-  } else {
-    return null;
-  }
+  return (
+      <div className="Search">
+        <SearchInput
+            onQueryChange={query =>
+                searcher.search(query, headings, articleToChapter)
+            }
+        />
+      </div>
+  );
 };
