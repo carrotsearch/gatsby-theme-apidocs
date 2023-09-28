@@ -1,5 +1,4 @@
-import React from "react";
-import { useEffect, useRef, useState, useMemo } from "react";
+import React, { useEffect, useRef, useState, useMemo } from "react";
 
 import { faSearch } from "@fortawesome/free-solid-svg-icons/faSearch.js";
 import { faCode } from "@fortawesome/free-solid-svg-icons/faCode.js";
@@ -8,7 +7,7 @@ import { faInfoCircle } from "@fortawesome/free-solid-svg-icons/faInfoCircle.js"
 import { faImage } from "@fortawesome/free-regular-svg-icons/faImage.js";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-import { graphql, Link, navigate, useStaticQuery, withPrefix } from "gatsby";
+import { Link, navigate, withPrefix } from "gatsby";
 import ReactDOM from "react-dom";
 import { useDebounce } from "./useDebounce.js";
 import {
@@ -73,7 +72,7 @@ const visibility = new Visibility();
 /**
  * Query box.
  */
-const SearchInput = ({ onQueryChange }) => {
+const SearchInput = ({ onQueryChange, indexReady }) => {
   const inputRef = useRef(null);
   const [ query, setQuery ] = useState("");
   useDebounce(
@@ -136,13 +135,14 @@ const SearchInput = ({ onQueryChange }) => {
         <input
             type="text"
             className="SearchInputInput"
-            placeholder="Option, method, keyword"
+            placeholder={indexReady ? "Option, method, keyword" : "Initializing..."}
             value={query}
             onChange={e => setQuery(e.target.value)}
             onKeyDown={handleKeyDown}
             onFocus={() => visibility.setVisible(true)}
             ref={inputRef}
             aria-label="Search this site"
+            disabled={!indexReady}
         />
         <kbd title="Press / to focus" onClick={focusSearch}>
           /
@@ -577,22 +577,24 @@ const SearchResultListSection = ({
 export const Search = ({ navigation }) => {
   const articleToChapter = navigationArticleToChapter(navigation);
 
-  const q = graphql`
-    query {
-      contentSearchHeadings {
-        index
-        searchableFields
-      }
-    }
-  `;
-  const data = useStaticQuery(q);
-  const headings = data.contentSearchHeadings;
+  const [ searchIndex, setSearchIndex ] = useState(null);
+
+  // Lazy-load the search index.
+  useEffect(() => {
+    fetch(withPrefix("/page-data/search-index.json"))
+        .then(response => response.json())
+        .then(
+            index => {
+              setSearchIndex(index);
+            })
+  }, []);
 
   return (
       <div className="Search">
         <SearchInput
+            indexReady={!!searchIndex}
             onQueryChange={query =>
-                searcher.search(query, headings, articleToChapter)
+                searcher.search(query, searchIndex, articleToChapter)
             }
         />
       </div>
