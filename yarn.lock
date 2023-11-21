@@ -2047,7 +2047,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@carrotsearch/gatsby-plugin-content-search@4.0.0, @carrotsearch/gatsby-plugin-content-search@workspace:plugins/gatsby-plugin-content-search":
+"@carrotsearch/gatsby-plugin-content-search@4.0.1, @carrotsearch/gatsby-plugin-content-search@workspace:plugins/gatsby-plugin-content-search":
   version: 0.0.0-use.local
   resolution: "@carrotsearch/gatsby-plugin-content-search@workspace:plugins/gatsby-plugin-content-search"
   dependencies:
@@ -2059,7 +2059,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@carrotsearch/gatsby-plugin-relativize@4.0.1, @carrotsearch/gatsby-plugin-relativize@workspace:plugins/gatsby-plugin-relativize":
+"@carrotsearch/gatsby-plugin-relativize@4.0.2, @carrotsearch/gatsby-plugin-relativize@workspace:plugins/gatsby-plugin-relativize":
   version: 0.0.0-use.local
   resolution: "@carrotsearch/gatsby-plugin-relativize@workspace:plugins/gatsby-plugin-relativize"
   dependencies:
@@ -2075,8 +2075,8 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@carrotsearch/gatsby-theme-apidocs@workspace:gatsby-theme-apidocs"
   dependencies:
-    "@carrotsearch/gatsby-plugin-content-search": 4.0.0
-    "@carrotsearch/gatsby-plugin-relativize": 4.0.1
+    "@carrotsearch/gatsby-plugin-content-search": 4.0.1
+    "@carrotsearch/gatsby-plugin-relativize": 4.0.2
     "@carrotsearch/gatsby-transformer-html": 4.0.13
     "@fortawesome/fontawesome-svg-core": 1.2.36
     "@fortawesome/free-regular-svg-icons": 5.15.4
