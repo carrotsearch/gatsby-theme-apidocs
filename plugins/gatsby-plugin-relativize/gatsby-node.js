@@ -80,17 +80,17 @@ const relativizeJsFiles = async () => {
 
       // DO NOT remove the extra spaces, otherwise the code will be invalid when minified,
       // e.g.: return"__RELATIVIZE_PREFIX__/static/..." -> return __GATSBY_IPFS_PATH_PREFIX + "/static/..."
-      let replacer = (matches, q, p, s, q2) => {
-        return `${q}${p}${q} + __RELATIVIZE_PREFIX__ + ${q2}/${s}${q2}`;
+      let replacer = (matches, s, q2) => {
+        return ` __RELATIVIZE_PREFIX__+${q2}/${s}${q2}`;
       };
       contents = contents
         .replace(
           /["'`]\/__RELATIVIZE_PREFIX__["'`]/g,
           () => " __RELATIVIZE_PREFIX__ "
         )
-        .replace(/(")([^"]*)\/__RELATIVIZE_PREFIX__\/([^"]*?)(["])/g, replacer)
-        .replace(/(')([^']*)\/__RELATIVIZE_PREFIX__\/([^']*?)(['])/g, replacer)
-        .replace(/(`)([^`]*)\/__RELATIVIZE_PREFIX__\/([^`]*?)([`])/g, replacer);
+        .replace(/"\/__RELATIVIZE_PREFIX__\/([^"]*?)(")/g, replacer)
+        .replace(/'\/__RELATIVIZE_PREFIX__\/([^']*?)(')/g, replacer)
+        .replace(/`\/__RELATIVIZE_PREFIX__\/([^`]*?)(`)/g, replacer);
 
       contents = `if(typeof __RELATIVIZE_PREFIX__ === 'undefined'){__RELATIVIZE_PREFIX__=''}${contents}`;
 
